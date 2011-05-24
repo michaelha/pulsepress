@@ -198,6 +198,12 @@ form#new_post {
 .inlineediting input.tags {
 	width: 60%;
 }
+#postbox #post-count{
+	float:right;
+	margin-right: 10px;
+	font-size: 20px;
+	color:#AAA;
+}
 #postbox #anonymous {
 	font-size:12px;
 	padding: 5px 10px 0;

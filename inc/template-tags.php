@@ -188,7 +188,7 @@ function pulse_press_media_buttons() {
 }
 
 function pulse_press_get_hide_sidebar() {
-	return ( '' != get_option( 'pulse_press_hide_sidebar' ) ) ? true : false;
+	return ( get_option( 'pulse_press_hide_sidebar' ) ) ? true : false;
 }
 
 function pulse_press_author_id() {

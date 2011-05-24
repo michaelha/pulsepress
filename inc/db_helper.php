@@ -55,7 +55,6 @@ function pulse_press_delete_tables_and_options($name)
    	$wpdb->query("DROP TABLE IF EXISTS $pulse_press_db_table");
 	// delete the different option
 	
-	
 
 }
 
@@ -176,7 +175,6 @@ function pulse_press_add_user_post_meta($post_id,$type) {
 			'user_id'	=> $current_user->ID,
 			'date_gmt'  => $date,
 			 );
-			 
 			 
 	$result = $wpdb->insert( PulsePress_DB_TABLE,$data , array( '%d', '%s', '%d', '%s') );
 	

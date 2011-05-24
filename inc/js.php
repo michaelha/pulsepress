@@ -21,12 +21,15 @@ class PulsePressJS {
 		global $wp_locale;
 
 		wp_enqueue_script( 'utils' );
-		wp_enqueue_script( 'jquery-color' );
+		
 		wp_enqueue_script( 'comment-reply' );
 
 		if ( is_user_logged_in() ) {
 			wp_enqueue_script( 'suggest' );
 			wp_enqueue_script( 'jeditable', PulsePress_JS_URL . '/jquery.jeditable.js', array( 'jquery' )  );
+			
+			if(get_option( 'pulse_press_show_twitter' ))
+			wp_enqueue_script( 'counter',PulsePress_JS_URL . '/counter.js', array( 'jquery' ) );
 
 			// media upload
 			if ( is_home() ) {

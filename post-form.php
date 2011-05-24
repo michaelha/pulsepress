@@ -27,17 +27,22 @@ $post_type = pulse_press_get_posting_type();
 				<textarea class="expand70-200" name="posttext" id="posttext" tabindex="1" rows="4" cols="60"></textarea>
 				
 				<label class="post-error" for="posttext" id="posttext_error"></label>
+				
 				<div class="postrow">
+					<?php if(!get_option('pulse_press_show_tagging')): ?>
 					<input id="tags" name="tags" type="text" tabindex="2" autocomplete="off"
 						value="<?php esc_attr_e( 'Tag it', 'pulse_press' ); ?>"
 						onfocus="this.value=(this.value=='<?php echo esc_js( __( 'Tag it', 'pulse_press' ) ); ?>') ? '' : this.value;"
 						onblur="this.value=(this.value=='') ? '<?php echo esc_js( __( 'Tag it', 'pulse_press' ) ); ?>' : this.value;" /> 
+					<?php endif; ?>
 						<?php 
 						// anonomouse is commneted out for now
 						//<label id="anonymous"><input type="checkbox" checked="checked" value="1" /> anonymous</label> 
 						
 						?>
+						
 					<input id="submit" type="submit" tabindex="3" value="<?php esc_attr_e( 'Post it', 'pulse_press' ); ?>" />
+					<span id="post-count">count</span>
 				</div>
 				<!-- <input type="hidden" name="post_cat" id="post_cat" value="<?php echo esc_attr( $post_type ); ?>" /> -->
 				<span class="progress" id="ajaxActivity">

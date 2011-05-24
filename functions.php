@@ -599,20 +599,32 @@ function pulse_press_background_image() {
 <?php
 }
 add_action( 'wp_head', 'pulse_press_background_image' );
+add_action( 'wp_head', 'pulse_press_show_twitter');
 
 function pulse_press_hidden_sidebar_css() {
 	$hide_sidebar = get_option( 'pulse_press_hide_sidebar' );
-		$sleeve_margin = ( is_rtl() ) ? 'margin-left: 0;' : 'margin-right: 0;';
-	if ( '' != $hide_sidebar ) :
+	
+	$sleeve_margin = ( is_rtl() ) ? 'margin-left: 0;' : 'margin-right: 0;';
+	if ( $hide_sidebar ) :
 	?>
 	<style type="text/css">
 		.sleeve_main { <?php echo $sleeve_margin;?> }
 		#wrapper { background: transparent; }
 		#header, #footer, #wrapper { width: 760px; }
-	</style>
+	
 	<?php endif;
+	
+	
 }
 add_action( 'wp_head', 'pulse_press_hidden_sidebar_css' );
+
+
+function pulse_press_show_twitter()
+{
+	$show_twitter = get_option( 'pulse_press_show_twitter' );
+	
+
+}
 
 // Network signup form
 function pulse_press_before_signup_form() {
