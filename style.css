@@ -113,7 +113,7 @@ body{
 	position: relative;
 	overflow: hidden;
 }
-#wrapper button, #wrapper input[type="submit"] {
+#wrapper button, #submit {
 	border: solid;
 	border-width: 1px;
 	border-radius: 5px;
@@ -133,6 +133,9 @@ display: inline-block;
 	position: relative;
 	cursor: pointer;
 
+}
+#submit.disabled{
+	
 }
 #main button {
 	margin: 10px 10px 0 0;

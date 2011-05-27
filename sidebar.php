@@ -10,7 +10,7 @@
 			<li>
 				<ul>
 					<li><a href="?popular">Popular</a></li>
-					<?php if(current_user_can( 'read' )): ?>
+					<?php if(current_user_can( 'read' ) && get_option( 'pulse_press_show_fav' )): ?>
 					<li><a href="?starred" id="starred">Starred </a></li>
 					<?php endif; ?>
 				</ul>

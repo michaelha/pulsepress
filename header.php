@@ -37,6 +37,11 @@
 </title>
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <link rel="stylesheet" href="<?php bloginfo( 'stylesheet_url' ); ?>" type="text/css" media="screen" />
+
+
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <?php 
 /* Archives uncommented
  <link rel="stylesheet" href="<?php bloginfo( 'stylesheet_directory' ); ?>/css/redmond/jquery-ui-1.7.1.custom.css" type="text/css" media="screen" />

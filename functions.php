@@ -611,7 +611,7 @@ function pulse_press_hidden_sidebar_css() {
 		.sleeve_main { <?php echo $sleeve_margin;?> }
 		#wrapper { background: transparent; }
 		#header, #footer, #wrapper { width: 760px; }
-	
+	</style>
 	<?php endif;
 	
 	
@@ -639,6 +639,7 @@ add_action( 'after_signup_form', 'pulse_press_after_signup_form' );
 
 // Enable background
 add_custom_background();
+
 
 // Feed me
 add_theme_support( 'automatic-feed-links' );

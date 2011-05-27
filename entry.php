@@ -31,17 +31,20 @@
 				<?php if ( !is_page() ) : ?>
 					<?php echo pulse_press_date_time_with_microformat(); ?>
 				<?php endif; ?>
+				
 				<span class="actions">
 					<?php if ( ! is_single() ) : 
 						 pulse_press_vote_on_post();
-						 if ( ! post_password_required() ) : ?>
+						 if ( ! post_password_required() && !get_option( 'pulse_press_show_twitter' )) : ?>
 							<?php echo post_reply_link( array( 'before' => '', 'after' => ' | ',  'reply_text' => __( 'Reply', 'pulse_press' ), 'add_below' => 'prologue' ), get_the_id() ); ?>
 						<?php endif; ?>
 						<a href="<?php the_permalink(); ?>" class="thepermalink"><?php _e( 'Permalink', 'pulse_press' ); ?></a> 
 					<?php else : 
 						pulse_press_vote_on_post(); 
+						
 					?>
-						<?php if ( comments_open() && ! post_password_required() ) :
+						
+						<?php if ( comments_open() && ! post_password_required() && !get_option( 'pulse_press_show_twitter' ) ) :
 							echo post_reply_link( array( 'before' => '', 'after' => '',  'reply_text' => __( 'Reply', 'pulse_press' ), 'add_below' => 'prologue' ), get_the_id() ); ?>
 						<?php endif; ?>
 					<?php endif;?>
@@ -50,6 +53,7 @@
 					<?php endif; ?> 
 					<?php pulse_press_star_a_post(); ?>
 				</span>
+				
 			<?php if ( !is_page() ) : ?>
 				<span class="tags">
 					<?php tags_with_count( '', __( '<br />Tags:' , 'pulse_press' ) .' ', ', ', ' &nbsp;' ); ?>&nbsp;

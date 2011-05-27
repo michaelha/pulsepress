@@ -10,10 +10,13 @@ class PulsePressOptions {
 		add_theme_page( __( 'Theme Options', 'pulse_press' ), __( 'Theme Options', 'pulse_press' ), 'edit_theme_options', 'pulse_press-options-page', array( 'PulsePressOptions', 'page' ) );
 
 		if ( 'pulse_press-options-page' == $plugin_page ) {
+			/* 
 			wp_enqueue_script( 'farbtastic' );
 			wp_enqueue_style( 'farbtastic' );
 			wp_enqueue_script( 'colorpicker' );
 			wp_enqueue_style( 'colorpicker' );
+			
+			*/
 		}
 	}
 
@@ -81,10 +84,19 @@ class PulsePressOptions {
 					</tr>
 					
 					<tr>
-						<th><?php _e( 'Disable Taging:', 'pulse_press' )?></th>
+						<th><?php _e( 'Enable Taging:', 'pulse_press' )?></th>
 						<td>
 							<input id="pulse_press_show_tagging" type="checkbox" name="pulse_press_show_tagging" <?php  checked($set_option['show_tagging']); ?> value="1" />
-							<label for="pulse_press_show_tagging"><?php _e( 'Removes Tagging Interface', 'pulse_press' ); ?></label>
+							<label for="pulse_press_show_tagging"><?php _e( 'Add Tagging Interface', 'pulse_press' ); ?></label>
+							
+						</td>
+					</tr>
+					
+					<tr>
+						<th><?php _e( 'Enable Favoriting:', 'pulse_press' )?></th>
+						<td>
+							<input id="pulse_press_show_fav" type="checkbox" name="pulse_press_show_fav" <?php  checked($set_option['show_fav']); ?> value="1" />
+							<label for="pulse_press_show_fav"><?php _e( 'Enable Favoriting Interface', 'pulse_press' ); ?></label>
 							
 						</td>
 					</tr>
@@ -96,7 +108,13 @@ class PulsePressOptions {
 							<label for="pulse_press_show_twitter"><?php _e( 'Twitter Style Interface', 'pulse_press' ); ?></label>
 							<ul>
 								<li><?php _e( 'Post will be limited to 140 Characters', 'pulse_press' ); ?></li>
+								<?php if(get_option('embed_autourls')): ?>
+								<li><?php _e( 'Currently some url will be converted into embeddable content, disable Auto-embeds under <a href="'.admin_url('options-media.php').'">Media Settings</a> to disable that feature. ', 'pulse_press' ); ?></li>
+								<?php else: ?>
+								<?php endif; ?>
+								
 							</ul>
+							
 						</td>
 					</tr>
 				</tbody>
@@ -121,8 +139,8 @@ class PulsePressOptions {
 					<tr valign="top">
 						<th scope="row"><?php _e( 'Post prompt:', 'pulse_press' ); ?></th>
 						<td>
-							<input id="pulse_press_prompt_text" type="input" name="pulse_press_prompt_text" value="<?php echo ($set_option['prompt_text'] == __("Have your say!") ) ? __("Have your say!") : esc_attr( $set_option['prompt_text'] ); ?>" />
-				 			(<?php _e( 'if empty, defaults to <strong>Have your say!</strong>', 'pulse_press' ); ?>)
+							<input id="pulse_press_prompt_text" type="input" name="pulse_press_prompt_text" value="<?php echo ($set_option['prompt_text'] == __("What&rsquo;s happening?") ) ? __("What&rsquo;s happening?") : esc_attr( $set_option['prompt_text'] ); ?>" />
+				 			(<?php _e( 'if empty, defaults to <strong>What&rsquo;s happening?</strong>', 'pulse_press' ); ?>)
 						</td>
 					</tr>
 
@@ -133,12 +151,12 @@ class PulsePressOptions {
 			</p>
 
 			<p class="submit">
-				<input type="submit" name="Submit" value="<?php esc_attr_e( 'Update Options', 'pulse_press' ); ?>" />
+				<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'pulse_press' ); ?>" />
 			</p>
 
 		</form>
 		</div>
-
+<?php /*
 <script type="text/javascript">
 	var farbtastic;
 
@@ -197,7 +215,7 @@ class PulsePressOptions {
 		}
 	}
 </script>
-
+*/ ?>
 <?php
 	}
 }
@@ -207,6 +225,7 @@ function pulse_press_options() {
 			'hide_threads',
 			'show_titles',
 			'show_tagging',
+			'show_fav',
 			'show_twitter',
 			'hide_sidebar',
 			'prompt_text'

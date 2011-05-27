@@ -172,7 +172,7 @@ function pulse_press_user_prompt() {
 	function pulse_press_get_user_prompt() {
 		$prompt = get_option( 'pulse_press_prompt_text' );
 
-		return apply_filters( 'pulse_press_get_user_prompt', sprintf ( __( 'Hi, %s. %s', 'pulse_press' ), esc_html( pulse_press_get_user_display_name() ), ( $prompt != '' ) ? stripslashes( $prompt ) : __( 'Have your say!', 'pulse_press' ) ) );
+		return apply_filters( 'pulse_press_get_user_prompt', sprintf ( __( 'Hi, %s. %s', 'pulse_press' ), esc_html( pulse_press_get_user_display_name() ), ( $prompt != '' ) ? stripslashes( $prompt ) : __( 'What&rsquo;s happening?', 'pulse_press' ) ) );
 	}
 
 function pulse_press_page_number() {

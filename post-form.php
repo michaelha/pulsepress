@@ -29,7 +29,7 @@ $post_type = pulse_press_get_posting_type();
 				<label class="post-error" for="posttext" id="posttext_error"></label>
 				
 				<div class="postrow">
-					<?php if(!get_option('pulse_press_show_tagging')): ?>
+					<?php if(get_option('pulse_press_show_tagging')): ?>
 					<input id="tags" name="tags" type="text" tabindex="2" autocomplete="off"
 						value="<?php esc_attr_e( 'Tag it', 'pulse_press' ); ?>"
 						onfocus="this.value=(this.value=='<?php echo esc_js( __( 'Tag it', 'pulse_press' ) ); ?>') ? '' : this.value;"
@@ -42,7 +42,9 @@ $post_type = pulse_press_get_posting_type();
 						?>
 						
 					<input id="submit" type="submit" tabindex="3" value="<?php esc_attr_e( 'Post it', 'pulse_press' ); ?>" />
+					<?php if(get_option( 'pulse_press_show_twitter' )): ?>
 					<span id="post-count">count</span>
+					<?php endif; ?>
 				</div>
 				<!-- <input type="hidden" name="post_cat" id="post_cat" value="<?php echo esc_attr( $post_type ); ?>" /> -->
 				<span class="progress" id="ajaxActivity">
