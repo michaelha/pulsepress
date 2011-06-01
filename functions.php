@@ -591,7 +591,9 @@ function pulse_press_background_image() {
 		return false;
 
 ?>
+	<!-- enej --> 
 	<style type="text/css">
+
 		body {
 			background-image: url( <?php echo get_template_directory_uri() . '/i/backgrounds/pattern-' . $pulse_press_background_image . '.png' ?> );
 		}
@@ -643,5 +645,3 @@ add_custom_background();
 
 // Feed me
 add_theme_support( 'automatic-feed-links' );
-
-

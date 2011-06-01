@@ -11,7 +11,6 @@
 $post_type = pulse_press_get_posting_type();
 ?>
 <div id="postbox">
-	
 		<div class="avatar">
 			<?php pulse_press_user_avatar( 'size=48' ); ?>
 		</div>
@@ -33,7 +32,8 @@ $post_type = pulse_press_get_posting_type();
 					<input id="tags" name="tags" type="text" tabindex="2" autocomplete="off"
 						value="<?php esc_attr_e( 'Tag it', 'pulse_press' ); ?>"
 						onfocus="this.value=(this.value=='<?php echo esc_js( __( 'Tag it', 'pulse_press' ) ); ?>') ? '' : this.value;"
-						onblur="this.value=(this.value=='') ? '<?php echo esc_js( __( 'Tag it', 'pulse_press' ) ); ?>' : this.value;" /> 
+						onblur="this.value=(this.value=='') ? '<?php echo esc_js( __( 'Tag it', 'pulse_press' ) ); ?>' : this.value;" /> <br />
+						<em><?php _e('Separate tags with commas'); ?></em>
 					<?php endif; ?>
 						<?php 
 						// anonomouse is commneted out for now
@@ -43,6 +43,7 @@ $post_type = pulse_press_get_posting_type();
 						
 					<input id="submit" type="submit" tabindex="3" value="<?php esc_attr_e( 'Post it', 'pulse_press' ); ?>" />
 					<?php if(get_option( 'pulse_press_show_twitter' )): ?>
+					<a href="#" id="shorten-url">shorten url</a>
 					<span id="post-count">count</span>
 					<?php endif; ?>
 				</div>

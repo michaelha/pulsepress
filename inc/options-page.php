@@ -83,20 +83,32 @@ class PulsePressOptions {
 						</td>
 					</tr>
 					
+					
+					
 					<tr>
-						<th><?php _e( 'Enable Taging:', 'pulse_press' )?></th>
+						<th><?php _e( 'Enable Favouriting:', 'pulse_press' )?></th>
 						<td>
-							<input id="pulse_press_show_tagging" type="checkbox" name="pulse_press_show_tagging" <?php  checked($set_option['show_tagging']); ?> value="1" />
-							<label for="pulse_press_show_tagging"><?php _e( 'Add Tagging Interface', 'pulse_press' ); ?></label>
+							<input id="pulse_press_show_fav" type="checkbox" name="pulse_press_show_fav" <?php  checked($set_option['show_fav']); ?> value="1" />
+							<label for="pulse_press_show_fav"><?php _e( 'Enable Favouriting Interface', 'pulse_press' ); ?></label>
 							
 						</td>
 					</tr>
 					
 					<tr>
-						<th><?php _e( 'Enable Favoriting:', 'pulse_press' )?></th>
+						<th><?php _e( 'Enable Voting:', 'pulse_press' )?></th>
 						<td>
-							<input id="pulse_press_show_fav" type="checkbox" name="pulse_press_show_fav" <?php  checked($set_option['show_fav']); ?> value="1" />
-							<label for="pulse_press_show_fav"><?php _e( 'Enable Favoriting Interface', 'pulse_press' ); ?></label>
+							<input id="pulse_press_show_voting" type="checkbox" name="pulse_press_show_voting" <?php  checked($set_option['show_voting']); ?> value="1" />
+							<label for="pulse_press_show_voting"><?php _e( 'Enable Voting Interface', 'pulse_press' ); ?></label>
+							
+							
+						</td>
+					</tr>
+					
+					<tr>
+						<th><?php _e( 'Enable Tagging:', 'pulse_press' )?></th>
+						<td>
+							<input id="pulse_press_show_tagging" type="checkbox" name="pulse_press_show_tagging" <?php  checked($set_option['show_tagging']); ?> value="1" />
+							<label for="pulse_press_show_tagging"><?php _e( 'Add Tagging Interface', 'pulse_press' ); ?></label>
 							
 						</td>
 					</tr>
@@ -117,6 +129,23 @@ class PulsePressOptions {
 							
 						</td>
 					</tr>
+					
+					<tr>
+						<th><?php _e( 'URL Shortener<br /> Bitly API:', 'pulse_press' )?></th>
+						<td>
+							<input id="pulse_press_bitly_user" type="text" class="regular-text" name="pulse_press_bitly_user" value="<?php echo esc_attr($set_option['bitly_user']); ?>" />
+							<label for="pulse_press_bitly_user"><?php _e( 'bitly Username', 'pulse_press' ); ?></label><br />
+							<input id="pulse_press_bitly_api" type="text" class="regular-text" name="pulse_press_bitly_api" value="<?php echo esc_attr($set_option['bitly_api']); ?>" />
+							<label for="pulse_press_bitly_api"><?php _e( 'bitly API Key', 'pulse_press' ); ?></label>
+							<p>to get your <a target="_blank" href="http://bit.ly">bit.ly</a> API key - <a target="_blank" href="http://bit.ly/a/sign_up">sign up</a> and view your <a target="_blank" href="http://bit.ly/a/your_api_key/">API KEY</a></p>
+							
+							
+						</td>
+					</tr>
+				
+					
+					
+					
 				</tbody>
 			</table>
 
@@ -139,7 +168,7 @@ class PulsePressOptions {
 					<tr valign="top">
 						<th scope="row"><?php _e( 'Post prompt:', 'pulse_press' ); ?></th>
 						<td>
-							<input id="pulse_press_prompt_text" type="input" name="pulse_press_prompt_text" value="<?php echo ($set_option['prompt_text'] == __("What&rsquo;s happening?") ) ? __("What&rsquo;s happening?") : esc_attr( $set_option['prompt_text'] ); ?>" />
+							<input id="pulse_press_prompt_text" type="text" name="pulse_press_prompt_text" class="regular-text"  value="<?php echo ($set_option['prompt_text'] == __("What&rsquo;s happening?") ) ? __("What&rsquo;s happening?") : esc_attr( $set_option['prompt_text'] ); ?>" />
 				 			(<?php _e( 'if empty, defaults to <strong>What&rsquo;s happening?</strong>', 'pulse_press' ); ?>)
 						</td>
 					</tr>
@@ -223,14 +252,15 @@ function pulse_press_options() {
 	return array(
 			'allow_users_publish',
 			'hide_threads',
-			'show_titles',
-			'show_tagging',
+			'show_voting',
 			'show_fav',
+			'show_tagging',
 			'show_twitter',
+			'bitly_user',
+			'bitly_api',
 			'hide_sidebar',
 			'prompt_text'
 		);
-
 }
 add_action( 'wp_before_admin_bar_render', 'pulse_press_admin_bar_render' );
 /**
