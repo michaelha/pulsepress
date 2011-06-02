@@ -178,14 +178,12 @@ function pulse_press_user_prompt() {
 function pulse_press_page_number() {
 	echo pulse_press_get_page_number();
 }
-	function pulse_press_get_page_number() {
-		global $paged;
-		return apply_filters( 'pulse_press_get_page_number', $paged );
-	}
 
-function pulse_press_media_buttons() {
-	echo PulsePress::media_buttons();
+function pulse_press_get_page_number() {
+	global $paged;
+	return apply_filters( 'pulse_press_get_page_number', $paged );
 }
+
 
 function pulse_press_get_hide_sidebar() {
 	return ( get_option( 'pulse_press_hide_sidebar' ) ) ? true : false;

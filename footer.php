@@ -11,7 +11,7 @@
 <div id="footer">
 	<p>
 		
-	    <?php printf( __( 'PulsePress developed by <a href="http://ctlt.ubc.ca" title="Center for Teaching, Learning and Technology - University of British Columbia">CTLT</a> inspired by <a href="http://p2theme.com/" title="Go to P2">P2</a>', 'pulse_press' ) ); ?> -  <?php echo prologue_poweredby_link(); ?>
+	    <?php printf( __( 'PulsePress developed by <a href="http://ctlt.ubc.ca" title="Center for Teaching, Learning and Technology - University of British Columbia">CTLT</a> inspired by <a href="http://p2theme.com/" title="Go to P2">P2</a>', 'pulse_press' ) ); ?> -  <?php echo pulse_press_poweredby_link(); ?>
 	</p>
 </div>
 

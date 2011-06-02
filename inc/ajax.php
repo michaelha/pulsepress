@@ -106,7 +106,7 @@ class PulsePressAjax {
 		if ( !empty( $new_post_title ) ) {
 			$post_title = $new_post_title;
 		} else {
-			$post_title = prologue_title_from_content( $new_post_content );
+			$post_title = pulse_press_title_from_content( $new_post_content );
 		}
 
 		$post = wp_update_post( array(
@@ -189,7 +189,7 @@ class PulsePressAjax {
 
 		if ( empty( $title ) || __( 'Post Title', 'pulse_press' ) == $title )
 			// For empty or placeholder text, create a nice title based on content
-	    	$post_title = prologue_title_from_content( $post_content );
+	    	$post_title = pulse_press_title_from_content( $post_content );
 		else
 			$post_title = $title;
 			

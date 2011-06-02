@@ -27,33 +27,9 @@ class PulsePress {
 		}
 
 		if ( function_exists( 'is_site_admin' ) && !is_site_admin() ) return;
-
-		$is_media_upload = isset( $_REQUEST['pulse_press-upload'] );
-
-		// don't redirect to https version when uploading files, since the domain may be different
-		// and we don't have SSL certificates for blog domain, only for admin
-		if ( $is_media_upload && isset( $GLOBALS['pagenow'] ) && 'media-upload.php' == $GLOBALS['pagenow'] ) {
-			force_ssl_admin( is_ssl() );
-			add_filter( 'get_user_option_use_ssl', returner( false ) );
-		}
-
-		if ( $is_media_upload ) {
-			add_filter( 'flash_uploader', returner( false) );
-			add_filter( 'auth_redirect_scheme', returner( 'logged_in' ) );
-			add_filter( 'admin_url', array( 'PulsePress', 'url_filter' ) );
-			add_filter( 'includes_url', array( 'PulsePress', 'url_filter' ) );
-			add_filter( 'script_loader_src', array( 'PulsePress', 'url_filter' ) );
-			add_filter( 'wp_get_attachment_url', lambda( '$url', 'str_replace(get_bloginfo("url")."/", site_url("/"), $url);' ), 11);
-			add_filter( 'media_upload_form_url', lambda( '$url', 'add_query_arg( array( "pulse_press-upload" => "true" ), $url );' ) );
-		}
 	}
 
-	function media_buttons() {
-		include_once ABSPATH . '/wp-admin/includes/media.php';
-		ob_start();
-		do_action( 'media_buttons' );
-		return PulsePress::make_media_urls( ob_get_clean() );
-	}
+
 
 	/**
 	 * Make sure the URL is loaded from the same domain as the frontend

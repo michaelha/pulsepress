@@ -43,6 +43,7 @@ $post_type = pulse_press_get_posting_type();
 						
 					<input id="submit" type="submit" tabindex="3" value="<?php esc_attr_e( 'Post it', 'pulse_press' ); ?>" />
 					<?php if(get_option( 'pulse_press_show_twitter' )): ?>
+					
 					<a href="#" id="shorten-url">shorten url</a>
 					<span id="post-count">count</span>
 					<?php endif; ?>

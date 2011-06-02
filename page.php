@@ -9,9 +9,7 @@
 <div class="sleeve_main">
 
 	<div id="main">
-		
-		
-		<ul id="postlist">
+		<?php pulse_press_breadcrumbs(); ?>
 		<?php if ( have_posts() ) : ?>
 			
 			<?php while ( have_posts() ) : the_post(); ?>
@@ -22,7 +20,7 @@
 			<?php endwhile; ?>
 		
 		<?php endif; ?>
-		</ul>
+		
 		
 	</div> <!-- main -->
 

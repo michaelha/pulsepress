@@ -39,9 +39,15 @@ add_action("switch_theme","pulse_press_delete_tables_and_options");
 function pulse_press_delete_tables_and_options($name)
 {
 	global $wpdb;
+	$options = pulse_press_options();
+	foreach($options as $option):
 	
 	delete_option( 'pulse_press_rewrites_flushed' );
-	delete_option( 'prologue_show_titles' );
+	endforeach;
+	delete_option( 'pulse_press_rewrites_flushed' );
+	delete_option( 'pulse_press_db_version' );
+	
+	delete_option( 'pulse_press_show_titles' );
 	delete_option( 'pulse_press_allow_users_publish' );
 	delete_option( 'pulse_press_prompt_text' );
 	delete_option( 'pulse_press_hide_sidebar' );
@@ -49,7 +55,7 @@ function pulse_press_delete_tables_and_options($name)
 	delete_option( 'pulse_press_background_image' );
 	delete_option( 'pulse_press_hide_threads' );
 	delete_option( 'pulse_press_votes_updated' );
-	delete_option( 'pulse_press_db_version' );
+	
 	
 	$pulse_press_db_table = PulsePress_DB_TABLE;
    	$wpdb->query("DROP TABLE IF EXISTS $pulse_press_db_table");

@@ -298,16 +298,7 @@ jQuery(function($) {
 		toggleUpdates('unewposts');
 	}
 
-	function newNotification(message) {
-		$("#notify").stop(true).prepend(message + '<br/>')
-			.fadeIn()
-			.animate({opacity: 0.7}, 3000)
-			.fadeOut('3000', function() {
-				$("#notify").html('');
-			}).click(function() {
-				$(this).stop(true).fadeOut('fast').html('');
-			});
-	}
+	
 
 	/*
 	* Submits a new comment via ajax
@@ -373,16 +364,6 @@ jQuery(function($) {
 		});
 	}
 
-	function newNotification(message) {
-		$("#notify").stop(true).prepend(message + '<br/>')
-			.fadeIn()
-			.animate({opacity: 0.7}, 2000)
-			.fadeOut('1000', function() {
-				$("#notify").html('');
-			}).click(function() {
-				$(this).stop(true).fadeOut('fast').html('');
-			});
-	}
 	/* 
 	 * Vote for your Post via Ajax 
 	 */ 
@@ -609,7 +590,9 @@ jQuery(function($) {
 
 	function inlineEditPost(postId, element) {
 		// Set up editor
-
+		// if the edit exits don't creatae one again
+		
+		
 		function defaultText(input, text) {
 			function onFocus() {
 				if (this.value == text) {
@@ -1259,3 +1242,14 @@ function send_to_editor( media ) {
 		tb_remove();
 	}
 }
+
+function newNotification(message) {
+		jQuery("#notify").stop(true).prepend(message + '<br/>')
+			.fadeIn()
+			.animate({opacity: 0.7}, 3000)
+			.fadeOut('5000', function() {
+				jQuery("#notify").html('');
+			}).click(function() {
+				jQuery(this).stop(true).fadeOut('fast').html('');
+			});
+	}

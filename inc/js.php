@@ -28,15 +28,17 @@ class PulsePressJS {
 			wp_enqueue_script( 'suggest' );
 			wp_enqueue_script( 'jeditable', PulsePress_JS_URL . '/jquery.jeditable.js', array( 'jquery' )  );
 			
-			if(get_option( 'pulse_press_show_twitter' ))
-			wp_enqueue_script( 'counter',PulsePress_JS_URL . '/counter.js', array( 'jquery' ) );
-
-			// media upload
-			if ( is_home() ) {
-				$media_upload_js = '/wp-admin/js/media-upload.js';
-				wp_enqueue_script( 'media-upload', get_bloginfo( 'wpurl' ) . $media_upload_js, array( 'thickbox' ), filemtime( ABSPATH . $media_upload_js) );
+			if(get_option( 'pulse_press_show_twitter' )) {
+				wp_enqueue_script( 'counter', PulsePress_JS_URL . '/counter.js', array( 'jquery' ) );
+				
+				if(get_option( 'pulse_press_bitly_user') && get_option( 'pulse_press_bitly_api')) {
+					wp_enqueue_script( 'pp_shortner',PulsePress_JS_URL . '/shortner.js', array( 'jquery','pulse_pressjs','counter' ) );
+					wp_localize_script( 'pp_shortner', 'pp_shortner', array(
+	  				'user' => get_option( 'pulse_press_bitly_user'),
+                	'api' => get_option( 'pulse_press_bitly_api')
+					));	
+				}
 			}
-
 		}
 
 		//bust the cache here	
@@ -90,12 +92,12 @@ class PulsePressJS {
 	function print_options() {
 		get_currentuserinfo();
 		$page_options['nonce']= wp_create_nonce( 'ajaxnonce' );
-		$page_options['prologue_updates'] = 1;
-		$page_options['prologue_comments_updates'] = 1;
-		$page_options['prologue_votes_updates'] = 1;
-		$page_options['prologue_tagsuggest'] = 1;
-		$page_options['prologue_inlineedit'] = 1;
-		$page_options['prologue_comments_inlineedit'] = 1;
+		$page_options['pulse_press_updates'] = 1;
+		$page_options['pulse_press_comments_updates'] = 1;
+		$page_options['pulse_press_votes_updates'] = 1;
+		$page_options['pulse_press_tagsuggest'] = 1;
+		$page_options['pulse_press_inlineedit'] = 1;
+		$page_options['pulse_press_comments_inlineedit'] = 1;
 		$page_options['is_single'] = (int)is_single();
 		$page_options['is_page'] = (int)is_page();
 		$page_options['is_front_page'] = (int)is_front_page();
@@ -135,15 +137,15 @@ class PulsePressJS {
 		var isSingle = <?php echo $page_options['is_single'] ?>;
 		var isPage = <?php echo $page_options['is_page'] ?>;
 		var isUserLoggedIn = <?php echo $page_options['is_user_logged_in'] ?>;
-		var prologueTagsuggest = <?php echo $page_options['prologue_tagsuggest'] ?>;
-		var prologuePostsUpdates = <?php echo $page_options['prologue_updates'] ?>;
-		var prologueCommentsUpdates = <?php echo $page_options['prologue_comments_updates']; ?>;
-		var prologueVotesUpdates = <?php echo $page_options['prologue_votes_updates']; ?>;
+		var prologueTagsuggest = <?php echo $page_options['pulse_press_tagsuggest'] ?>;
+		var prologuePostsUpdates = <?php echo $page_options['pulse_press_updates'] ?>;
+		var prologueCommentsUpdates = <?php echo $page_options['pulse_press_comments_updates']; ?>;
+		var prologueVotesUpdates = <?php echo $page_options['pulse_press_votes_updates']; ?>;
 		var getPostsUpdate = 0;
 		var getCommentsUpdate = 0;
 		var getVotesUpdate = 0;
-		var inlineEditPosts =  <?php echo $page_options['prologue_inlineedit'] ?>;
-		var inlineEditComments =  <?php echo $page_options['prologue_comments_inlineedit'] ?>;
+		var inlineEditPosts =  <?php echo $page_options['pulse_press_inlineedit'] ?>;
+		var inlineEditComments =  <?php echo $page_options['pulse_press_comments_inlineedit'] ?>;
 		var wpUrl = "<?php echo esc_js( get_bloginfo( 'wpurl' ) ); ?>";
 		var rssUrl = "<?php esc_js( get_bloginfo( 'rss_url' ) ); ?>";
 		var pageLoadTime = "<?php echo gmdate( 'Y-m-d H:i:s' ); ?>";

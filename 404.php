@@ -10,8 +10,14 @@
 
 	<div id="main">
 
-		<h2><?php _e( 'Not Found', 'pulse_press' ); ?></h2>
-		<p><?php _e( 'Apologies, but the page you requested could not be found. Perhaps searching will help.', 'pulse_press' ); ?></p>
+		<h1 id="page-title">404 - Doh!</h1>
+		<p>Something has gone wrong and the page you're looking for can't be found.</p>
+		<p>Hopefully one of the options below will help you</p>
+
+	<ul>
+		<li>You could visit <a href="<?php echo site_url(); ?>">the homepage</a></li>
+		<li>You can search the site using the search box to the below</li>
+	</ul>
 		<?php get_search_form(); ?>
 
 	</div> <!-- main -->

@@ -13,64 +13,166 @@ This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
 */
 
-/* The Reset ---------------------------------- */
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,
-h6,pre,form,fieldset,input,p,blockquote,table,
-th,td { margin: 0; padding: 0; }
-fieldset,img,abbr { border: 0; }
-address,caption,code,dfn,h1,h2,h3,h4,h5,h6,th,var { font-style: normal; font-weight: normal; }
-caption,th { text-align: left; }
-q:before,q:after { content: ''; }
-a { text-decoration: none; }
-/* -------------------------------------------- */
-
-h2 {
-	position: relative;
-}
-h1 a q
-	border: none;
-}
-a:hover {
-	border-bottom: solid;
-	border-width: 1px;
-}
-acronym {
-	border-bottom-style: dotted;
-	border-bottom-width: 1px;
-	cursor: help;
-}
-dd {
-	margin-left: 2em;
-} 
-pre, code {
-	overflow: auto;
+/* 
+ * The Reset 
+-------------------------------------------------------------- */
+/*
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, 
+em, img, q, dl, dt, dd, ol, ul, li, 
+fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
+*/
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, 
+cite, code,   em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 
+body {line-height:1.5; font-size:80%; color:#4D4D4D; }
+
+caption, th, td { text-align:left; font-weight:normal; }
+table, th { vertical-align:middle; } 
+blockquote:before, blockquote:after, q:before, q:after { content:""; }
+blockquote, q { quotes:"" ""; }
+img.left { float:left; margin:1.5em 1.5em 1.5em 0; padding:0; }
+img.right { float:right; margin:1.5em 0 1.5em 1.5em; }
+a:focus, a:hover { color: #7491a3;  }
+a {text-decoration:underline; color: #002859; }
+a img { border:none; }
+hr {background-color: #eee; border:0;height: 1px;margin-bottom: 1.5em;clear:both;}
+/* = Default Classes 
+-------------------------------------------------------------- */
+.small {font-size:.8em;margin-bottom:1.875em;line-height:1.875em;}
+.large {font-size:1.2em;line-height:2.5em;margin-bottom:1.25em;}
+.hide { display:none; }
+.quiet { color:#666; }
+.loud { color:#000; }
+.highlight { background:#ff0; }
+.added { background:#060;color:#fff; }
+.removed { background:#900;color:#fff;}
+.first { margin-left:0;padding-left:0;}
+.last { margin-right:0;padding-right:0;}
+.top { margin-top:0;padding-top:0;}
+.bottom { margin-bottom:0;padding-bottom:0;}
+hr.space{ background-color: #FFF; color:#FFF; }
+
+/* =WordPress Classes
+-------------------------------------------------------------- */
+.alignright {}
+.alignleft {}
+.alignnone {}
+.aligncenter {}
+.wp-caption {}
+.gallery {}
+.wp-smiley {}
+
+.alignleft,
+img.alignleft {
+	display: inline;
+	float: left;
+	margin-right: 24px;
+	margin-top: 4px;
+}
+.alignright,
+img.alignright {
+	display: inline;
+	float: right;
+	margin-left: 24px;
+	margin-top: 4px;
+}
+.aligncenter,
+img.aligncenter {
+	clear: both;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+img.alignleft, img.alignright, img.aligncenter {
+	margin-bottom: 12px;
+}
+.entry-content img{
+	max-width: 560px;
+}
+h1, h2, h3, h4, h5, h6 { font-weight: normal; }
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight: inherit; }
+h1 { font-size: 3.538em; line-height: 1.087; margin-bottom: 1.077em; }
+h2 { font-size: 2.693em; line-height: 1.143; margin-bottom: 0.769em; }
+h3 { font-size: 2.154em; line-height: 1.214; margin-bottom: 0.615em; }
+h4 { font-size: 1.615em; line-height: 1.428; margin-bottom: 0.308em; }
+h5 { font-size: 1.308em; line-height: 1.412; font-weight: normal; }
+h6 { font-size: 1.077em; line-height: 1.5; }
+big{ font-size: 1.6em; margin-bottom: 12px; }
+h1 a,h2 a, h3 a, h4 a{ text-decoration: none;}
+p {margin:0 0 1.5em; }
 
 blockquote {
-	padding-left: 8px;
-	color: #888;
-	background: #f1f1f1;
-	padding: 2px 12px;
+	font-style:italic;
+    border-left: 1px solid #DDDDDD;
+    color: #666;
+    font-size: 1em;
+    font-style: italic;
+    line-height: 1.4;
+    margin: 0 0 20px;
+    padding: 0 0 0 20px;
 }
-.category-quote blockquote {
-	margin-bottom: 8px;
-	background: transparent;
-	padding: 0;
+
+h5, h6, strong, dfn, dl dt, dt {font-weight:bold; }
+em, dfn {font-style:italic;}
+sup, sub {line-height:0;}
+abbr, acronym {border-bottom:1px dotted #666;}
+address {margin:0 0 1.5em;font-style:italic;}
+del {color:#666;}
+pre { margin:1.5em 0;white-space:pre; }
+pre, code, tt {font:1em 'andale mono', 'lucida console', monospace;line-height:1.5;}
+li ul, li ol {margin:0 1.5em;}
+ul, ol {margin:0 1.5em 1.5em 1.5em; padding: 0;}
+ul {list-style-type:disc;}
+ol {list-style-type:decimal;}
+dl {margin:0 0 1.5em 0;}
+dd {margin-bottom:0.75em;}
+
+
+table {
+	margin-bottom:1.4em;
+	width:100%; 
+	border-left: 1px solid #eee;
+	border-top: 1px solid #eee; 
 }
-.category-quote blockquote p {
-	padding: 10px;
-	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
-	-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
-	-moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
-	border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-khtml-border-radius: 5px;
-	-moz-border-radius: 5px;
+th {font-weight:bold; border-bottom: 1px solid #eee;  }
+tr.even td {background:#EEE;}
+th {
+	border-right: 1px solid #eee; 
+	border-bottom: 1px solid #eee; 
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	text-align: left;
+	padding: 5px 5px 5px 10px;
+	background: #EEE;
 }
+
+td {
+	border-right: 1px solid #eee; 
+	border-bottom: 1px solid #eee; 
+}
+tfoot {font-style:italic;}
+
+/*
+ * =Layout
+ * The CSS for the layout
+-------------------------------------------------------------- */
 body{
  text-align: center;
 }
+
 #shell{
 	background: #FFF;
 	width: 1018px;
@@ -113,7 +215,7 @@ body{
 	position: relative;
 	overflow: hidden;
 }
-#wrapper button, #submit {
+#wrapper button, #submit,#searchsubmit {
 	border: solid;
 	border-width: 1px;
 	border-radius: 5px;
@@ -134,16 +236,11 @@ display: inline-block;
 	cursor: pointer;
 
 }
-#submit.disabled{
-	
-}
-#main button {
-	margin: 10px 10px 0 0;
-}
 
 /*
  * =Postbox 
- ***************************/
+ * form for posting from the front end
+-------------------------------------------------------------- */
 #postbox {
 	position: relative;
 	padding: 0 15px 16px 14px;
@@ -237,14 +334,23 @@ form#new_post {
 }
 
 .disabled, .disabled:hover {
-	border: solid;
-	border-width: 1px;
+	color: #eee !important;
+	background: #ddd !important;
+	border:1px solid  #ccc;
 }
+
 #respond #submit, input#comment-submit {
 	width: auto;
 }
 input#comment-submit {
 	clear: both;
+}
+
+/* 
+ * =MAIN
+-------------------------------------------------------------- */
+#main {
+	padding: 10px 14px;
 }
 #main ul#postlist {
 	list-style: none;
@@ -252,17 +358,6 @@ input#comment-submit {
 	margin-left: 0;
 }
 
-#main, 
-body.page-template-popular-php #main {
-	padding:0 0 10px;
-	position: relative;
-}
-.page #main{
-	padding: 18px 14px;
-}
-.single #main {
-	padding-top: 18px;
-}
 #main .wp-smiley {
 	border: none;
 }
@@ -299,9 +394,8 @@ position: static;
 }
 #main ul#postlist li {
 	overflow: visible;
-	border-top-style: solid;
-	border-top-width: 1px;
 	padding: 14px 14px 0;
+	border-top:1px solid #EEE;
 }
 #main ul#postlist li li{
 	padding: 14px 0 0;
@@ -529,8 +623,15 @@ h2 a.rss:hover {
 	float: left;
 }
 /* 
+ * =Page
+-------------------------------------------------------------- */
+#crumbs{
+	font-size: 11px;
+	padding-bottom: 10px;
+}
+/* 
  * =Sidebar
- **************************/
+-------------------------------------------------------------- */
 #sidebar {
 	margin-left: -1px;
 	float: right;
@@ -868,7 +969,8 @@ li.newupdates, li.newcomment {
 padding-left: 0;
 }
 .page .actions{ margin-top:-10px;}
-#postpage #main ul#postlist, #postpage #main ul#postlist li {
+#postpage #main ul#postlist, 
+#postpage #main ul#postlist li {
 	border-width: 0;
 	margin-top: 0;
 	padding-top: 0;
@@ -1002,9 +1104,6 @@ h3 {
 #main img.avatar {
 	border-color: #ccc;
 }
-#main #postlist li {
-	border-top-color: #bbb;
-}
 #main #postlist .commentlist li {
 	border-top-color: #ddd;
 }
@@ -1054,16 +1153,8 @@ h3 {
 #wrapper button:active, #wrapper input[type="submit"]:active {
 	background: #eee url(./i/white-grad-active.png) repeat-x scroll left top;
 }
-.disabled, .disabled:hover {
-	color: #eee !important;
-	background: #ddd !important;
-	border-color: #ccc;
-}
-.disabled, .disabled:hover {
-	color: #eee !important;
-	background: #ddd !important;
-	border-color: #ccc;
-}
+
+
 #main .actions, #main .actions a, #main .actions a:link, #main .actions a:visited, #main .actions a:hover, #main .actions a:active,
 #main .keyselected .actions, #main .keyselected .actions a, #main .keyselected .actions a:link, #main .keyselected .actions a:visited, #main .keyselected .actions a:hover, #main .keyselected .actions a:active,
 #main .selected ul li .actions, #main .selected ul li .actions a, #main .selected ul li .actions a:link, #main .selected ul li .actions a:visited, #main .selected ul li .actions a:hover, #main .selected ul li .actions a:active {
@@ -1175,10 +1266,10 @@ li.newupdates, li.newcomment, em.newupdates {
 #
 */
 body, form *, #respond #cancel-comment-reply-link, input, textarea {
-	font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 h1, h2, h3, #postbox label, #help dd, .inlineediting input.title {
-	font-family: Calibri,"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: 200;
 }
 code, pre {
@@ -1380,6 +1471,9 @@ form.textedit textarea {
 	font-size: 12px;
 	line-height: 12px;
 }
+/* 
+ * =Notify
+-------------------------------------------------------------- */
 #notify {
 	top: 90%;
 	width: 20%;
@@ -1411,77 +1505,13 @@ form.textedit textarea {
 	top: 0;
 	left: 0;
 }
-
-.postcontent table {
-	border: 1px solid #ccc;
-	border-width: 0 1px 1px 0;
-	border-spacing: 0;
-	margin-bottom: 1.5em;
-}
-.postcontent table td {
-	border: 1px solid #ccc;
-	border-width: 1px 0 0 1px;
-	padding: 3px 5px;
-}
-.postcontent table tr {
-	border: 0;
-	border-width: 0;
-}
-.postcontent table ul,.postcontent table ol,.postcontent table p,.postcontent table blockquote {
-	margin-top: 0 !important;
-	margin-bottom: 1.6em !important;
-}
 .mention-highlight {
 	background-color: #DEEE66;
 }
 
-.wp-caption {
-	border: 1px solid #ddd;
-	text-align: center;
-	background-color: #f3f3f3;
-	padding-top: 4px;
-	margin: 10px;
-	-moz-border-radius: 3px;
-	-khtml-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
-}
-
-.wp-caption img {
-	margin: 0;
-	padding: 0;
-	border: 0 none;
-}
-
-.wp-caption p.wp-caption-text {
-	font-size: 11px;
-	line-height: 17px;
-	padding: 0 4px 5px;
-	margin: 0;
-}
-div.possibly-related {
-	clear:left;
-}
-#main #wpl-likebox {
-	padding-left: 60px !important;
-}
 
 
-/* =Network signup form
--------------------------------------------------------------- */
-#content .mu_register {
-	color: #999;
-	margin: 0;
-}
-#content .mu_register input[type="submit"] {
-	width: 10%;
-}
-#content .mu_register label {
-	color: #111;
-	display: block;
-	font-weight: normal;
-	margin: 15px 0 0;
-}
+
 
 /* Text meant only for screen readers */
 .screen-reader-text {
@@ -1493,15 +1523,11 @@ div.possibly-related {
 -------------------------------------------------------------- */
 
 #access {
-	background: #666;
+	background: #666 url('img/bg-access.jpg') repeat-x bottom;
 	display: block;
 	float: left;
 	margin-left:1px;
 	width: 736px;
-	-moz-border-radius-topright: 5px;
-	border-top-right-radius: 5px;
-	-moz-border-radius-topleft: 5px;
-	border-top-left-radius: 5px;
 	padding-top: 5px;
 }
 #access .menu-header,
@@ -1522,13 +1548,13 @@ div.menu li {
 	position: relative;
 }
 #access a {
-	color: #FFF;
 	display: block;
 	line-height: 25px;
-	padding: 0 14px;
+	padding: 1px 14px;
 	margin-right: 10px;
 	text-decoration: none;
 	border:none;
+	color:#666;
 }
 #access ul ul {
 	box-shadow: 0px 3px 3px rgba(0,0,0,0.2);
@@ -1544,7 +1570,7 @@ div.menu li {
 }
 #access ul ul li {
 	min-width: 180px;
-	background: #FFF;
+	background: red;
 	border-bottom: 1px solid #DDD;
 	border-left: 1px solid #DDD;
 	border-right: 1px solid #DDD;
@@ -1554,7 +1580,6 @@ div.menu li {
 	top: 0;
 }
 #access ul ul a {
-	color:#666;
 	background: #FFF;
 	line-height: 1em;
 	padding: 12px 8px;
@@ -1563,32 +1588,41 @@ div.menu li {
 	height: auto;
 	margin: 0;
 }
-#access li:hover > a,
-#access ul ul :hover > a {
+#access li:hover > a{
+	border:1px solid #CCC;
+	border-bottom:1px solid #FFF;
+	padding: 0 13px;
 	background: #FFF;
 	color:#333;
 	-moz-border-radius-topright: 3px;
 	border-top-right-radius: 3px;
 	-moz-border-radius-topleft: 3px;
 	border-top-left-radius: 3px;
-	
 }
-#access ul  li:hover > li a {
-	background: #333;
-	color: #fff;
-	-moz-border-radius-topright: 0px;
-	border-top-right-radius: 0px;
-	-moz-border-radius-topleft: 0px;
-	border-top-left-radius: 0px;
-	margin:0;
-	padding: 0;
-}
+
+
 #access ul li:hover > ul {
 	display: block;
 	margin: 0;
 	padding: 0;
 	
 }
+#access ul.sub-menu li a:hover,
+#access ul li:hover > li a,
+#access ul li.current_page_item ul li  a,
+#access ul li.current-menu-ancestor ul li a,
+#access ul li.current-menu-item ul li a,
+#access ul li.current-menu-parent ul li a
+#access ul li:hover > li a:hover{
+	padding: 12px 8px;
+	-moz-border-radius-topright: 0px;
+	border-top-right-radius: 0px;
+	-moz-border-radius-topleft: 0px;
+	border-top-left-radius: 0px;
+	border:none;
+	
+}
+/* This part makes ure that the page that is suppoed to be higlited is highlited */
 #access ul li.current_page_item  a,
 #access ul li.current-menu-ancestor  a,
 #access ul li.current-menu-item  a,
@@ -1600,18 +1634,16 @@ div.menu li {
 	border-top-right-radius: 3px;
 	-moz-border-radius-topleft: 3px;
 	border-top-left-radius: 3px;
+	border:1px solid #CCC;
+	border-bottom:1px solid #FFF;
+	padding: 0 13px;
 }
-* html #access ul li.current_page_item a,
-* html #access ul li.current-menu-ancestor a,
-* html #access ul li.current-menu-item a,
-* html #access ul li.current-menu-parent a,
-* html #access ul li a:hover {
-	background: #FFF;
-	color: #333;
-}
+
+
 /* =Page
 -------------------------------------------------------------- */
 #page-title{
+	color:#333;
 	font-size: 1.5em;
 }
 
@@ -1678,11 +1710,15 @@ div.menu li {
 	background: url('i/star.gif') no-repeat 100% -87px;  
 	
 }
-/* Widgets Calendar 
+/* 
 */
+/* =Widgets Calendar and widget table
+-------------------------------------------------------------- */
+#sidebar table,#sidebar tr, #sidebar td, #sidebar th{
+	border:0;
+}
 #wp-calendar {
 	width: 100%;
-	
 }
 #wp-calendar caption {
 	font-size: 14px;
@@ -1707,7 +1743,7 @@ div.menu li {
 	display: block;
 	color:#FFF;
 	background: #EF4832;
-	padding: 2px 0 2px;
+	padding: 3px 0 2px;
 	-moz-border-radius: 2px; /* FF1+ */
   -webkit-border-radius: 2px; /* Saf3-4 */
           border-radius: 2px; /* Opera 10.5, IE 9, Saf5, Chrome */
@@ -1745,8 +1781,7 @@ div.menu li {
           font-size: 14px;
           padding:5px 10px;
           left: 0;
-          margin-top:1px;
-          
+          margin-top:1px;  
 	}
 	#main ul#postlist li{
 		padding: 10px 5px 0;

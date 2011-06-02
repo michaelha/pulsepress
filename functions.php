@@ -142,19 +142,19 @@ add_filter( 'the_content', 'pulse_press_at_name_highlight' );
 add_filter( 'comment_text', 'pulse_press_at_name_highlight' );
 
 // Widgets
-function prologue_flush_tag_cache() {
-	wp_cache_delete( 'prologue_theme_tag_list' );
+function pulse_press_flush_tag_cache() {
+	wp_cache_delete( 'pulse_press_theme_tag_list' );
 }
-add_action( 'save_post', 'prologue_flush_tag_cache' );
+add_action( 'save_post', 'pulse_press_flush_tag_cache' );
 
-function prologue_get_avatar( $user_id, $email, $size ) {
+function pulse_press_get_avatar( $user_id, $email, $size ) {
 	if ( $user_id )
 		return get_avatar( $user_id, $size );
 	else
 		return get_avatar( $email, $size );
 }
 
-function prologue_comment( $comment, $args, $depth ) {
+function pulse_press_comment( $comment, $args, $depth ) {
 	$GLOBALS['comment'] = $comment;
 ?>
 <li <?php comment_class(); ?> id="comment-<?php comment_ID( ); ?>">
@@ -252,18 +252,18 @@ function pulse_press_the_title( $before = '<h2>', $after = '</h2>', $returner = 
 	}
 }
 
-function prologue_loop() {
+function pulse_press_loop() {
 	global $looping;
 	$looping = ($looping === 1 ) ? 0 : 1;
 }
-add_action( 'loop_start', 'prologue_loop' );
-add_action( 'loop_end', 'prologue_loop' );
+add_action( 'loop_start', 'pulse_press_loop' );
+add_action( 'loop_end', 'pulse_press_loop' );
 
 
 function pulse_press_comments( $comment, $args, $echo = true ) {
 	$GLOBALS['comment'] = $comment;
 
-	$depth = prologue_get_comment_depth( get_comment_ID() );
+	$depth = pulse_press_get_comment_depth( get_comment_ID() );
 	$comment_text =  apply_filters( 'comment_text', $comment->comment_content );
 	$comment_class = comment_class( '', null, null, false );
 	$comment_time = get_comment_time();
@@ -271,7 +271,7 @@ function pulse_press_comments( $comment, $args, $echo = true ) {
 	$id = get_comment_ID();
 	$avatar = get_avatar( $comment, 32 );
 	$author_link = get_comment_author_link();
-	$reply_link = prologue_get_comment_reply_link(
+	$reply_link = pulse_press_get_comment_reply_link(
 				array( 'depth' => $depth, 'max_depth' => $args['max_depth'], 'before' => ' | ', 'reply_text' => __( 'Reply', 'pulse_press' ) ),
 				$comment->comment_ID, $comment->comment_post_ID );
 	$can_edit = current_user_can( 'edit_post', $comment->comment_post_ID );
@@ -341,7 +341,7 @@ function latest_post_permalink() {
 	return $permalink;
 }
 
-function prologue_title_from_content( $content ) {
+function pulse_press_title_from_content( $content ) {
 
 		static $strlen =  null;
 		if ( !$strlen ) {
@@ -361,14 +361,14 @@ function prologue_title_from_content( $content ) {
 	}
 		return $title;
 }
-if ( is_admin() && ( false === get_option( 'prologue_show_titles' ) ) ) {
-	add_option( 'prologue_show_titles', 1);
+if ( is_admin() && ( false === get_option( 'pulse_press_show_titles' ) ) ) {
+	add_option( 'pulse_press_show_titles', 1);
 }
 
 function pulse_press_fix_empty_titles( $post_ID, $post ) {
 	
 	if ( is_object($post) && $post->post_title == '' && $post->type == "post" ) {
-		$post->post_title = prologue_title_from_content( $post->post_content );
+		$post->post_title = pulse_press_title_from_content( $post->post_content );
 		$post->post_modified = current_time( 'mysql' );
 		$post->post_modified_gmt = current_time( 'mysql', 1);
 		return wp_update_post( $post );
@@ -393,7 +393,7 @@ function pulse_press_add_head_content() {
 }
 add_action( 'wp_head', 'pulse_press_add_head_content' );
 
-function prologue_new_post_noajax() {
+function pulse_press_new_post_noajax() {
 	if ( 'POST' != $_SERVER['REQUEST_METHOD'] || empty( $_POST['action'] ) || $_POST['action'] != 'post' )
 	    return;
 
@@ -413,7 +413,7 @@ function prologue_new_post_noajax() {
 	$post_content	= $_POST['posttext'];
 	$tags			= $_POST['tags'];
 
-	$post_title = prologue_title_from_content( $post_content );
+	$post_title = pulse_press_title_from_content( $post_content );
 
 	$post_id = wp_insert_post( array(
 		'post_author'	=> $user_id,
@@ -427,7 +427,7 @@ function prologue_new_post_noajax() {
 
 	exit;
 }
-add_filter( 'template_redirect', 'prologue_new_post_noajax' );
+add_filter( 'template_redirect', 'pulse_press_new_post_noajax' );
 
 //Search related Functions
 
@@ -511,7 +511,7 @@ add_action( 'wp_head', 'iphone_css' );
 /*
 	Modified to replace query string with blog url in output string
 */
-function prologue_get_comment_reply_link( $args = array(), $comment = null, $post = null ) {
+function pulse_press_get_comment_reply_link( $args = array(), $comment = null, $post = null ) {
 	global $user_ID;
 
 	if ( post_password_required() )
@@ -543,29 +543,29 @@ function prologue_get_comment_reply_link( $args = array(), $comment = null, $pos
 	return apply_filters( 'comment_reply_link', $before . $link . $after, $args, $comment, $post);
 }
 
-function prologue_comment_depth_loop( $comment_id, $depth )  {
+function pulse_press_comment_depth_loop( $comment_id, $depth )  {
 	$comment = get_comment( $comment_id );
 
 	if ( isset( $comment->comment_parent ) && 0 != $comment->comment_parent ) {
-		return prologue_comment_depth_loop( $comment->comment_parent, $depth + 1 );
+		return pulse_press_comment_depth_loop( $comment->comment_parent, $depth + 1 );
 	}
 	return $depth;
 }
 
-function prologue_get_comment_depth( $comment_id ) {
-	return prologue_comment_depth_loop( $comment_id, 1 );
+function pulse_press_get_comment_depth( $comment_id ) {
+	return pulse_press_comment_depth_loop( $comment_id, 1 );
 }
 
-function prologue_comment_depth( $comment_id ) {
-	echo prologue_get_comment_depth( $comment_id );
+function pulse_press_comment_depth( $comment_id ) {
+	echo pulse_press_get_comment_depth( $comment_id );
 }
 
-function prologue_poweredby_link() {
-	return apply_filters( 'prologue_poweredby_link', sprintf( __( '<strong>%1$s</strong> is proudly powered by %2$s.', 'pulse_press' ), get_bloginfo( 'name' ), '<a href="http://wordpress.org/" rel="generator">WordPress</a>' )	);
+function pulse_press_poweredby_link() {
+	return apply_filters( 'pulse_press_poweredby_link', sprintf( __( '<strong>%1$s</strong> is proudly powered by %2$s.', 'pulse_press' ), get_bloginfo( 'name' ), '<a href="http://wordpress.org/" rel="generator">WordPress</a>' )	);
 }
 
 if ( defined( 'IS_WPCOM' ) && IS_WPCOM ) {
-	add_filter( 'prologue_poweredby_link', returner( '<a href="http://wordpress.com/" rel="generator">Get a free blog at WordPress.com</a>' ) );
+	add_filter( 'pulse_press_poweredby_link', returner( '<a href="http://wordpress.com/" rel="generator">Get a free blog at WordPress.com</a>' ) );
 }
 
 
@@ -584,23 +584,7 @@ function pulse_press_background_color() {
 }
 add_action( 'wp_head', 'pulse_press_background_color' );
 
-function pulse_press_background_image() {
-	$pulse_press_background_image = get_option( 'pulse_press_background_image' );
 
-	if ( 'none' == $pulse_press_background_image || '' == $pulse_press_background_image )
-		return false;
-
-?>
-	<!-- enej --> 
-	<style type="text/css">
-
-		body {
-			background-image: url( <?php echo get_template_directory_uri() . '/i/backgrounds/pattern-' . $pulse_press_background_image . '.png' ?> );
-		}
-	</style>
-<?php
-}
-add_action( 'wp_head', 'pulse_press_background_image' );
 add_action( 'wp_head', 'pulse_press_show_twitter');
 
 function pulse_press_hidden_sidebar_css() {
@@ -619,13 +603,115 @@ function pulse_press_hidden_sidebar_css() {
 	
 }
 add_action( 'wp_head', 'pulse_press_hidden_sidebar_css' );
-
+/**
+ * pulse_press_breadcrumbs function.
+ * Based on http://dimox.net/wordpress-breadcrumbs-without-a-plugin/
+ * @access public
+ * @return void
+ */
+function pulse_press_breadcrumbs() {
+ 
+  $delimiter = '&raquo;';
+  $home = 'Home'; // text for the 'Home' link
+  $before = '<span class="current">'; // tag before the current crumb
+  $after = '</span>'; // tag after the current crumb
+ 
+  if ( !is_home() && !is_front_page() || is_paged() ) {
+ 
+    echo '<div id="crumbs">';
+ 
+    global $post;
+    $homeLink = get_bloginfo('url');
+    echo '<a href="' . $homeLink . '">' . $home . '</a> ' . $delimiter . ' ';
+ 
+    if ( is_category() ) {
+      global $wp_query;
+      $cat_obj = $wp_query->get_queried_object();
+      $thisCat = $cat_obj->term_id;
+      $thisCat = get_category($thisCat);
+      $parentCat = get_category($thisCat->parent);
+      if ($thisCat->parent != 0) echo(get_category_parents($parentCat, TRUE, ' ' . $delimiter . ' '));
+      echo $before . 'Archive by category "' . single_cat_title('', false) . '"' . $after;
+ 
+    } elseif ( is_day() ) {
+      echo '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a> ' . $delimiter . ' ';
+      echo '<a href="' . get_month_link(get_the_time('Y'),get_the_time('m')) . '">' . get_the_time('F') . '</a> ' . $delimiter . ' ';
+      echo $before . get_the_time('d') . $after;
+ 
+    } elseif ( is_month() ) {
+      echo '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a> ' . $delimiter . ' ';
+      echo $before . get_the_time('F') . $after;
+ 
+    } elseif ( is_year() ) {
+      echo $before . get_the_time('Y') . $after;
+ 
+    } elseif ( is_single() && !is_attachment() ) {
+      if ( get_post_type() != 'post' ) {
+        $post_type = get_post_type_object(get_post_type());
+        $slug = $post_type->rewrite;
+        echo '<a href="' . $homeLink . '/' . $slug['slug'] . '/">' . $post_type->labels->singular_name . '</a> ' . $delimiter . ' ';
+        echo $before . get_the_title() . $after;
+      } else {
+        $cat = get_the_category(); $cat = $cat[0];
+        echo get_category_parents($cat, TRUE, ' ' . $delimiter . ' ');
+        echo $before . get_the_title() . $after;
+      }
+ 
+    } elseif ( !is_single() && !is_page() && get_post_type() != 'post' ) {
+      $post_type = get_post_type_object(get_post_type());
+      echo $before . $post_type->labels->singular_name . $after;
+ 
+    } elseif ( is_attachment() ) {
+      $parent = get_post($post->post_parent);
+      $cat = get_the_category($parent->ID); $cat = $cat[0];
+      echo get_category_parents($cat, TRUE, ' ' . $delimiter . ' ');
+      echo '<a href="' . get_permalink($parent) . '">' . $parent->post_title . '</a> ' . $delimiter . ' ';
+      echo $before . get_the_title() . $after;
+ 
+    } elseif ( is_page() && !$post->post_parent ) {
+      echo $before . get_the_title() . $after;
+ 
+    } elseif ( is_page() && $post->post_parent ) {
+      $parent_id  = $post->post_parent;
+      $breadcrumbs = array();
+      while ($parent_id) {
+        $page = get_page($parent_id);
+        $breadcrumbs[] = '<a href="' . get_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a>';
+        $parent_id  = $page->post_parent;
+      }
+      $breadcrumbs = array_reverse($breadcrumbs);
+      foreach ($breadcrumbs as $crumb) echo $crumb . ' ' . $delimiter . ' ';
+      echo $before . get_the_title() . $after;
+ 
+    } elseif ( is_search() ) {
+      echo $before . 'Search results for "' . get_search_query() . '"' . $after;
+ 
+    } elseif ( is_tag() ) {
+      echo $before . 'Posts tagged "' . single_tag_title('', false) . '"' . $after;
+ 
+    } elseif ( is_author() ) {
+       global $author;
+      $userdata = get_userdata($author);
+      echo $before . 'Articles posted by ' . $userdata->display_name . $after;
+ 
+    } elseif ( is_404() ) {
+      echo $before . 'Error 404' . $after;
+    }
+ 
+    if ( get_query_var('paged') ) {
+      if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ' (';
+      echo __('Page') . ' ' . get_query_var('paged');
+      if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ')';
+    }
+ 
+    echo '</div>';
+ 
+  }
+} // end dimox_breadcrumbs()
 
 function pulse_press_show_twitter()
 {
 	$show_twitter = get_option( 'pulse_press_show_twitter' );
-	
-
 }
 
 // Network signup form
