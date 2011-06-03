@@ -9,7 +9,7 @@
 		<ul>
 			<li>
 				<ul>
-					<?php if(get_option( 'pulse_press_show_popular' )): ?>
+					<?php if(get_option( 'pulse_press_show_voting' )): ?>
 					<li><a href="?popular">Popular</a></li>
 					<?php 
 					endif;
