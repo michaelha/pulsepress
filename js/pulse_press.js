@@ -367,7 +367,7 @@ jQuery(function($) {
 	/* 
 	 * Vote for your Post via Ajax 
 	 */ 
-	function newVote(trigger,id) {
+	function newVoteUp(trigger,id) {
 	
 		var queryString = ajaxUrl +'&'+id.attr('href').substring(1);
 		var p_id = id.attr('id').substring(7);
@@ -382,28 +382,26 @@ jQuery(function($) {
 				if ("voted" == result) {
 					
 					// update the UI 
-					if(id.hasClass('vote-up')){
-						id.html("<span>Vote Down</span>");
-						id.addClass( "vote-down");
-						id.removeClass("vote-up");
-						id.attr('title',"Vote Down");
+					if(id.hasClass('vote-up-set')){
+						id.html("<span>Vote Up</span>");
+						id.removeClass("vote-up-set");
+						id.attr('title',"Vote Up");
 						
 						// remove the 
-						$("#votes-"+p_id).html(votes+1);
+						$("#votes-"+p_id).html(votes-1);
 					
 					}else{
-						id.html( "<span>Vote Up</span>" );
-						id.addClass( "vote-up" );
-						id.removeClass( "vote-down" );
-						id.attr( 'title',"Vote Down" );
-						$("#votes-"+p_id).html(votes-1);
+						id.html( "<span>Unvote</span>" );
+						id.addClass( "vote-up-set" );
+						id.attr( 'title',"Unvote" );
+						$("#votes-"+p_id).html(votes+1);
 						
 					}
 				}
 				
 			  },
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				
+				// if something goes wrong
 			},
 			timeout: 60000
 		});
@@ -1193,9 +1191,15 @@ jQuery(function($) {
 	});
 	
 	
-	$('.vote a').live('click',function(trigger){
+	$('.vote-up').live('click',function(trigger){
 		// vote in the background 
-		newVote(trigger,$(this));
+		newVoteUp(trigger,$(this));
+		trigger.preventDefault();
+	
+	});
+	$('.vote-down').live('click',function(trigger){
+		// vote in the background 
+		newVoteDown(trigger,$(this));
 		trigger.preventDefault();
 	
 	});

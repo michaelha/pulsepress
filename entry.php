@@ -39,7 +39,7 @@
 						 if ( ! post_password_required() && !get_option( 'pulse_press_show_twitter' )) : ?>
 							<?php echo post_reply_link( array( 'before' => '', 'after' => ' | ',  'reply_text' => __( 'Reply', 'pulse_press' ), 'add_below' => 'prologue' ), get_the_id() ); ?>
 						<?php endif; ?>
-						<a href="<?php the_permalink(); ?>" class="thepermalink"><?php _e( 'Permalink', 'pulse_press' ); ?></a> 
+						<a href="<?php the_permalink(); ?>" class="thepermalink" title="go to: <?php echo the_title_attribute(); ?>"><?php _e( 'Permalink', 'pulse_press' ); ?></a> 
 					<?php else : 
 						
 						pulse_press_vote_on_post();
@@ -48,12 +48,12 @@
 					?>
 						
 						<?php if ( comments_open() && ! post_password_required() && !get_option( 'pulse_press_show_twitter' ) ) :
-							echo post_reply_link( array( 'before' => '', 'after' => '',  'reply_text' => __( 'Reply', 'pulse_press' ), 'add_below' => 'prologue' ), get_the_id() ); ?>
+							echo post_reply_link( array( 'before' => '', 'after' => '',  'reply_text' => __( 'Reply', 'pulse_press' ), 'add_below' => 'pusle_press' ), get_the_id() ); ?>
 						<?php endif; ?>
 					<?php endif;?>
 					
 					<?php if ( current_user_can( 'edit_post', get_the_id() ) ) : ?>
-						| <a href="<?php echo ( get_edit_post_link( get_the_id() ) ); ?>" class="edit-post-link" rel="<?php the_ID(); ?>"><?php _e( 'Edit', 'pulse_press' ); ?></a>
+						| <a href="<?php echo ( get_edit_post_link( get_the_id() ) ); ?>" class="edit-post-link" title="edit post" rel="<?php the_ID(); ?>"><?php _e( 'Edit', 'pulse_press' ); ?></a>
 					<?php endif; ?> 
 					
 					

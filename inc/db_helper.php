@@ -14,7 +14,7 @@ function pulse_press_install () {
 					id mediumint(9) NOT NULL AUTO_INCREMENT,
 					post_id bigint(11) DEFAULT '0' NOT NULL,
 					user_id tinytext NOT NULL,
-			
+					counter bigint(11) DEFAULT '0' NOT NULL,
 					date TIMESTAMP NOT NULL,
 					date_gmt DATETIME  DEFAULT '0000-00-00 00:00:00' NOT NULL,
 					type VARCHAR(64) NOT NULL,
@@ -80,7 +80,20 @@ function pulse_press_vote($post_id) {
 	// for knowing when to update this 
 	$date = pulse_press_get_gmt_time();
 	update_option('pulse_press_votes_updated',$date);
-	return pulse_press_add_user_post_meta($post_id,'vote');
+	return pulse_press_add_user_post_meta($post_id,'vote',1);
+	
+}
+
+function pulse_press_vote_down($post_id) {
+	// store the value in custom field 
+	
+	$votes = pulse_press_total_votes($post_id) - 1;
+	// save the number of votes to better get popular votes 
+	add_post_meta($post_id, 'updates_votes', $votes, true) or update_post_meta($post_id, 'updates_votes', $votes);
+	// for knowing when to update this 
+	$date = pulse_press_get_gmt_time();
+	update_option('pulse_press_votes_updated',$date);
+	return pulse_press_add_user_post_meta($post_id,'vote',-1);
 	
 }
 function pulse_press_delete_vote($post_id) {
@@ -170,7 +183,7 @@ function pulse_press_get_sum_users_meta($post_id,$type) {
 	return $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM ".PulsePress_DB_TABLE." WHERE post_id = %d AND  type ='%s';", $post_id,$type ));
 
 }
-function pulse_press_add_user_post_meta($post_id,$type) {
+function pulse_press_add_user_post_meta($post_id,$type,$count=1) {
 
 	global $wpdb,$current_user;
 	wp_get_current_user();
@@ -178,6 +191,7 @@ function pulse_press_add_user_post_meta($post_id,$type) {
 	$data = array( 
 			'post_id' 	=> $post_id, 
 			'type' 		=> $type,
+			'counter'	=> $count,
 			'user_id'	=> $current_user->ID,
 			'date_gmt'  => $date,
 			 );

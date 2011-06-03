@@ -90,7 +90,6 @@ class PulsePressOptions {
 						<td>
 							<input id="pulse_press_show_fav" type="checkbox" name="pulse_press_show_fav" <?php  checked($set_option['show_fav']); ?> value="1" />
 							<label for="pulse_press_show_fav"><?php _e( 'Enable Favouriting Interface', 'pulse_press' ); ?></label>
-							
 						</td>
 					</tr>
 					
@@ -99,8 +98,13 @@ class PulsePressOptions {
 						<td>
 							<input id="pulse_press_show_voting" type="checkbox" name="pulse_press_show_voting" <?php  checked($set_option['show_voting']); ?> value="1" />
 							<label for="pulse_press_show_voting"><?php _e( 'Enable Voting Interface', 'pulse_press' ); ?></label>
-							
-							
+							<br />
+							<div>
+							<input id="pulse_press_voting_type_1" type="radio" name="pulse_press_voting_type" <?php  checked($set_option['voting_type'],"one"); ?> value="one" />
+							<label for="pulse_press_voting_type_1"><?php _e( 'Vote Up - User are only able to vote posts up', 'pulse_press' ); ?></label><br />
+							<input id="pulse_press_voting_type_2" type="radio" name="pulse_press_voting_type" <?php  checked($set_option['voting_type'],"two"); ?> value="two" />
+							<label for="pulse_press_voting_type_2"><?php _e( 'Two Way Voting - User can choose to vote items both up or down', 'pulse_press' ); ?></label>
+							</div>
 						</td>
 					</tr>
 					
@@ -109,7 +113,6 @@ class PulsePressOptions {
 						<td>
 							<input id="pulse_press_show_tagging" type="checkbox" name="pulse_press_show_tagging" <?php  checked($set_option['show_tagging']); ?> value="1" />
 							<label for="pulse_press_show_tagging"><?php _e( 'Add Tagging Interface', 'pulse_press' ); ?></label>
-							
 						</td>
 					</tr>
 					
@@ -193,6 +196,7 @@ function pulse_press_options() {
 			'allow_users_publish',
 			'hide_threads',
 			'show_voting',
+			'voting_type',
 			'show_fav',
 			'show_tagging',
 			'show_twitter',

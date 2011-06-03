@@ -1652,8 +1652,11 @@ div.menu li {
 	margin-right: 3px;
 }
 #main .vote-down{ background-position: 0 -34px;}
-#main .vote .vote-up:hover{ background: #010101 url('i/arrows.gif') no-repeat 0 0px; }
-#main .vote .vote-down:hover{ background: #010101 url('i/arrows.gif') no-repeat 0 -34px; }
+#main .vote .vote-up:hover,
+#main .vote .vote-up-set
+{ background: #010101 url('i/arrows.gif') no-repeat 0 0px; }
+#main .vote .vote-down:hover,
+#main .vote .vote-down-set{ background: #010101 url('i/arrows.gif') no-repeat 0 -34px; }
 
 /* 
  * =Favorite
