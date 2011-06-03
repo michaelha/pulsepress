@@ -9,8 +9,11 @@
 		<ul>
 			<li>
 				<ul>
+					<?php if(get_option( 'pulse_press_show_popular' )): ?>
 					<li><a href="?popular">Popular</a></li>
-					<?php if(current_user_can( 'read' ) && get_option( 'pulse_press_show_fav' )): ?>
+					<?php 
+					endif;
+					if(current_user_can( 'read' ) && get_option( 'pulse_press_show_fav' )): ?>
 					<li><a href="?starred" id="starred">Starred </a></li>
 					<?php endif; ?>
 				</ul>

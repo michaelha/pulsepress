@@ -38,7 +38,7 @@ class PulsePress {
 		$parsed = parse_url( $url );
 		$host = ( isset( $parsed['host'] ) ) ? $parsed['host'] : '';
 		if (!false === strpos( 'http', $url) )
-			return preg_replace( '|https?://'.preg_quote( $host ).'|', get_bloginfo( 'url' ), $url );
+			return preg_replace( '|https?://'.preg_quote( $host ).'|', home_url(), $url );
 		return $url;
 	}
 

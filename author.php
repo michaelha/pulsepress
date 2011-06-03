@@ -1,31 +1,33 @@
 <?php
 /**
- * Category Template
+ * Author Template
  *
- * This template is loaded when viewing a category archive.
- * It shows the category's description and latest posts.
- * @link http://codex.wordpress.org/Category_Templates
+ * This template is loaded when viewing an author archive.
+ * It shows the author's bio, avatar, and latest posts.
+ * @link http://codex.wordpress.org/Author_Templates
  *
- * @package Pulsepress
+ * @package PuslePress
  * @subpackage Template
  */
- $tag_obj = $wp_query->get_queried_object();
+$id = get_query_var( 'author' );
+
 get_header(); ?>
 <div class="sleeve_main">
-	<?php if ( pulse_press_user_can_post() && !is_archive() ) : ?>
-		<?php locate_template( array( 'post-form.php' ), true ); ?>
-	<?php endif; ?>
 	<div id="main">
+		<div id="author-bio">
+		<?php echo get_avatar($id,100); ?>
+		<strong><?php the_author_meta( 'display_name', $id ); ?></strong>
+		<p class="author-bio">
+					<?php the_author_meta( 'description', $id ); ?>
+				</p><!-- .author-bio -->
+		</div>
 		<h2>
-			
-				<?php single_cat_title(); ?> <?php if ( pulse_press_get_page_number() > 1 ) printf( __( 'Page %s', 'pulse_press' ), pulse_press_get_page_number() ); ?><a class="rss" href="<?php echo get_category_feed_link( $tag_obj->term_id ); ?>">RSS</a>
-			
-	
-			<span class="controls">
+					<span class="controls">
 				<a href="#" id="togglecomments"> <?php _e( 'Toggle Comment Threads', 'pulse_press' ); ?></a> | <a href="#directions" id="directions-keyboard"><?php _e( 'Keyboard Shortcuts', 'pulse_press' ); ?></a>
 			</span>
+			
 		</h2>
-		
+				
 		<?php 
 		
 		if(isset($_GET['starred'])):

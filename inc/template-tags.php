@@ -42,12 +42,6 @@ function pulse_press_get_posting_type() {
 	return $p;
 }
 
-function pulse_press_media_upload_form() {
-	require( ABSPATH . '/wp-admin/includes/template.php' );
-	media_upload_form();
-?>
-<?php
-}
 
 function pulse_press_user_display_name() {
 	echo pulse_press_get_user_display_name();

@@ -1,11 +1,11 @@
 /*
 Theme Name: PulsePress
 Theme URI:
-Author: 
-Author URI: 
-Description: 
+Author: Enej Bajgoric 
+Author URI: http://ctlt.ubc.ca
+Description: Theme based on the popular 
 Version: 1.
-Tags: blue, two-columns, fixed-width, rtl-language-support, right-sidebar, white, light, front-page-post-form
+Tags: two-columns, fixed-width, rtl-language-support, right-sidebar, white, light, front-page-post-form
 License: GNU General Public License v2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,14 +38,13 @@ time, mark, audio, video {
 }
 
 body {line-height:1.5; font-size:80%; color:#4D4D4D; }
-
 caption, th, td { text-align:left; font-weight:normal; }
 table, th { vertical-align:middle; } 
 blockquote:before, blockquote:after, q:before, q:after { content:""; }
 blockquote, q { quotes:"" ""; }
 img.left { float:left; margin:1.5em 1.5em 1.5em 0; padding:0; }
 img.right { float:right; margin:1.5em 0 1.5em 1.5em; }
-a:focus, a:hover { color: #7491a3;  }
+
 a {text-decoration:underline; color: #002859; }
 a img { border:none; }
 hr {background-color: #eee; border:0;height: 1px;margin-bottom: 1.5em;clear:both;}
@@ -65,43 +64,7 @@ hr {background-color: #eee; border:0;height: 1px;margin-bottom: 1.5em;clear:both
 .bottom { margin-bottom:0;padding-bottom:0;}
 hr.space{ background-color: #FFF; color:#FFF; }
 
-/* =WordPress Classes
--------------------------------------------------------------- */
-.alignright {}
-.alignleft {}
-.alignnone {}
-.aligncenter {}
-.wp-caption {}
-.gallery {}
-.wp-smiley {}
-
-.alignleft,
-img.alignleft {
-	display: inline;
-	float: left;
-	margin-right: 24px;
-	margin-top: 4px;
-}
-.alignright,
-img.alignright {
-	display: inline;
-	float: right;
-	margin-left: 24px;
-	margin-top: 4px;
-}
-.aligncenter,
-img.aligncenter {
-	clear: both;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-}
-img.alignleft, img.alignright, img.aligncenter {
-	margin-bottom: 12px;
-}
-.entry-content img{
-	max-width: 560px;
-}
+/* define typograpgy */
 h1, h2, h3, h4, h5, h6 { font-weight: normal; }
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight: inherit; }
 h1 { font-size: 3.538em; line-height: 1.087; margin-bottom: 1.077em; }
@@ -133,6 +96,7 @@ address {margin:0 0 1.5em;font-style:italic;}
 del {color:#666;}
 pre { margin:1.5em 0;white-space:pre; }
 pre, code, tt {font:1em 'andale mono', 'lucida console', monospace;line-height:1.5;}
+code { background: #f1f1f1; }
 li ul, li ol {margin:0 1.5em;}
 ul, ol {margin:0 1.5em 1.5em 1.5em; padding: 0;}
 ul {list-style-type:disc;}
@@ -140,37 +104,12 @@ ol {list-style-type:decimal;}
 dl {margin:0 0 1.5em 0;}
 dd {margin-bottom:0.75em;}
 
-
-table {
-	margin-bottom:1.4em;
-	width:100%; 
-	border-left: 1px solid #eee;
-	border-top: 1px solid #eee; 
-}
-th {font-weight:bold; border-bottom: 1px solid #eee;  }
-tr.even td {background:#EEE;}
-th {
-	border-right: 1px solid #eee; 
-	border-bottom: 1px solid #eee; 
-	letter-spacing: 2px;
-	text-transform: uppercase;
-	text-align: left;
-	padding: 5px 5px 5px 10px;
-	background: #EEE;
-}
-
-td {
-	border-right: 1px solid #eee; 
-	border-bottom: 1px solid #eee; 
-}
-tfoot {font-style:italic;}
-
 /*
  * =Layout
  * The CSS for the layout
 -------------------------------------------------------------- */
 body{
- text-align: center;
+	text-align: center;
 }
 
 #shell{
@@ -187,6 +126,7 @@ body{
 }
 #header h1 {
 	padding: 10px;
+	margin-bottom: 2px;
 }
 #header small {
 	display: block;
@@ -194,19 +134,19 @@ body{
 	margin-top: -3px;
 	padding: 0 12px 12px 12px;
 }
-
 #header, #footer {
 	width: 980px;
 	margin: 0 auto;
 }
 #footer {
 	clear: both;
-	border: solid;
-	border-width: 1px;
 	margin: 20px auto 0;
 }
 #footer p {
-	margin: 10px 16px;
+	margin:0 16px;
+		color: #777;
+	font-size: 1.3em;
+	padding: 20px 0;
 }
 #wrapper {
 	background: #FFF;
@@ -215,7 +155,10 @@ body{
 	position: relative;
 	overflow: hidden;
 }
-#wrapper button, #submit,#searchsubmit {
+button, 
+#submit, 
+input[type="submit"],
+#searchsubmit {
 	border: solid;
 	border-width: 1px;
 	border-radius: 5px;
@@ -224,7 +167,6 @@ body{
 	-moz-border-radius: 5px;
 	height: 28px;
 	display: inline-block;
-display: inline-block;
 	padding: 5px 10px 6px;
 	color: #fff;
 	text-decoration: none;
@@ -234,7 +176,22 @@ display: inline-block;
 	border-bottom: 1px solid rgba(0,0,0,0.25);
 	position: relative;
 	cursor: pointer;
+	border-color: #ccc;
+	background: #F2F2F2 url(./i/white-grad.png) repeat-x;
+	color: #333;
+	text-shadow: 0 1px 0 #fff;
 
+}
+button:active,
+input[type="submit"]:active {
+	background: #eee url(./i/white-grad-active.png) repeat-x scroll left top;
+}
+
+.sleeve_main {
+	width: 758px;
+	border: 1px solid #CCC;
+	border-top:none;
+	float: left;
 }
 
 /*
@@ -274,7 +231,8 @@ display: inline-block;
 	font-size: 13px;
 	padding: 5px 7px;
 }
-#wrapper form input[type="text"], .inlineediting input[type="text"] {
+#wrapper form input[type="text"], 
+.inlineediting input[type="text"] {
 	border: solid;
 	border-width: 1px;
 	padding: 5px 7px;
@@ -367,13 +325,12 @@ input#comment-submit {
 	line-height: 1.1em;
 	font-size: 12px;
 }
-#main .controls {
-	right: 14px;
-	position: absolute;
+#main .post h2 {
+	margin: 0 0 15px 0;
+	font-size: 30px;
+	padding: 0;
 }
-.single #main .controls {
-position: static;
-}
+#main .post .transparent-title, 
 #main .transparent-title {
 	text-indent: -1000em;
 	height: 0;
@@ -382,9 +339,7 @@ position: static;
 	padding: 0;
 	margin: 0;
 }
-#main .post h2 {
-	margin: 0 0 15px;
-}
+
 #main img.avatar {
 	float: left;
 	margin-right: 10px;
@@ -396,6 +351,14 @@ position: static;
 	overflow: visible;
 	padding: 14px 14px 0;
 	border-top:1px solid #EEE;
+	margin: 0 -34px 0 -14px;
+}
+#main ul#postlist li.sticky{
+	background: #F1F1F1;
+	border-bottom: 1px solid #FEFEFE;
+	border-top:1px solid #E1E1E1;
+	position: relative;
+	overflow: hidden;
 }
 #main ul#postlist li li{
 	padding: 14px 0 0;
@@ -405,17 +368,28 @@ position: static;
 	border-top-width: 1px;
 	display: block;
 }
-
-#main h4 {
+/* post title */
+.post-title, .inlinecomments h4 {
 	position: relative;
+	font-size: 1em;
+	line-height: 1.2em;
+	margin-left: 55px;
 }
-#main .actions {
-	position: absolute;
-	right: 2px;
-	top: 0;
-	width: 240px;
+.post-title a {
+	font-weight: bold;
 }
-#main .actions{}
+.post-title span a {
+	font-weight: normal;
+}
+.inlinecomments h4 {
+	margin-left: 37px;
+	
+}
+h4.post-title .actions {
+	float: right;
+	
+}
+
 .bottom_of_entry {
 	overflow: hidden;
 	width: 100%;
@@ -433,6 +407,8 @@ h2 img {
 	border-style: solid;
 	border-width: 1px;
 	display: block;
+	max-width: 600px;
+	height:auto;
 }
 .attachment #main .entry .attachment-image {
 	margin: .7em 0;
@@ -451,6 +427,9 @@ h2 img {
 #main ul, #main ol {
 	margin-left: 18px;
 }
+/*
+ * = Comments 
+-------------------------------------------------------------- */
 #main ul.commentlist {
 	border-top: 0;
 	list-style: none;
@@ -473,14 +452,25 @@ h2 img {
 	overflow: visible;
 	padding-top: 0;
 }
-.postcontent ul, .postcontent ol, .commentcontent ul, .commentcontent ol {
+.postcontent ul, 
+.postcontent ol, 
+.commentcontent ul, 
+.commentcontent ol {
 	margin: 10px 0 22px 20px !important;
 }
-.postcontent ul ul, .postcontent ul ol, .postcontent ol ol, .postcontent ol ul, .commentcontent ul ul, .commentcontent ul ol, .commentcontent ol ol, .commentcontent ol ul {
+.postcontent ul ul, 
+.postcontent ul ol, 
+.postcontent ol ol, 
+.postcontent ol ul, 
+.commentcontent ul ul, 
+.commentcontent ul ol, 
+.commentcontent ol ol, 
+.commentcontent ol ul {
 	margin-top: 0 !important;
 	margin-bottom: 0 !important;
 }
-#main ul#postlist .postcontent li, #main ul#postlist .commentlist .commentcontent li {
+#main ul#postlist .postcontent li, 
+#main ul#postlist .commentlist .commentcontent li {
 	border: none;
 	border-width: none;
 	border-style: none;
@@ -499,7 +489,6 @@ h2 img {
 	display: list-item;
 	padding-top: 0;
 }
-
 #main form {
 	margin-top: 10px;
 }
@@ -510,16 +499,13 @@ h2 img {
 	overflow: hidden;
 	position: relative;
 }
-#postpage #respond {
-	width: 70%;
-	margin-bottom: 20px;
-	margin-left: 72px;
-}
-#main #respond, .textedit {
-	-khtml-border-radius: 6px;
-	-moz-border-radius: 6px;
-	-webkit-border-radius: 6px;
-	border-radius: 6px;
+
+#main #respond, 
+.textedit {
+	-khtml-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
 	margin-bottom: 10px;
 	margin-left: 60px;
 	padding: 14px 16px 12px;
@@ -533,15 +519,14 @@ h2 img {
 #main .commentlist li #respond.replying {
 	margin-left: 93px;
 }
-#respond textarea, .textedit textarea {
+#respond textarea, 
+.textedit textarea {
 	width: 94%;
 	padding: 6px;
 	border-width: 1px;
 	border-style: solid;
 }
-#postpage #respond p {
-	margin-right: 0;
-}
+
 #respond p, li ul #respond p {
 	float: right;
 	margin-right: 10%;
@@ -565,15 +550,7 @@ h2 img {
 #respond p.comment-form-author input, #respond p.comment-form-email input, #respond p.comment-form-url input {
 	width: 90%;
 }
-#postpage li ul #respond p {
-	margin-right: 5%;
-}
-#postpage #respond textarea {
-	width: 96%;
-}
-#postpage li ul #respond textarea {
-	width: 94% !important;
-}
+
 .commentcontent {
 	overflow: auto;
 }
@@ -616,12 +593,7 @@ h2 .rss {
 h2 a.rss:hover {
 	border: none;
 }
-.sleeve_main {
-	width: 734px;
-	border: 1px solid #CCC;
-	border-top:none;
-	float: left;
-}
+
 /* 
  * =Page
 -------------------------------------------------------------- */
@@ -629,20 +601,28 @@ h2 a.rss:hover {
 	font-size: 11px;
 	padding-bottom: 10px;
 }
+
+#page-title{
+	color:#333;
+	font-size: 1.5em;
+}
 /* 
  * =Sidebar
 -------------------------------------------------------------- */
 #sidebar {
 	margin-left: -1px;
 	float: right;
-	width: 212px;
+	width: 192px;
 	position: relative;
 	top: 0;
-	padding: 6px 12px 18px 12px;
+	padding: 6px 0 18px 12px;
 }
 #sidebar h2 {
 	margin-top: 5px;
 	margin-bottom: 6px;
+	font-size: 14px;
+	text-transform: uppercase;
+	font-weight: normal;
 }
 #sidebar ul li p {
 	margin-bottom: 1.5em;
@@ -652,14 +632,18 @@ h2 a.rss:hover {
 }
 #sidebar ul {
 	list-style: none;
+	margin: 0;
 	margin-bottom: 22px;
+	
+	
 }
 #sidebar ul ul {
 	margin-bottom: 0px;
+	margin: 0;
 }
 #sidebar ul li {
 	clear: both;
-	padding: 4px 0 0;
+	padding: 4px 0 5px;
 	border-bottom:1px solid #EEE;
 }
 #sidebar ul li ul li{
@@ -692,6 +676,9 @@ h2 a.rss:hover {
 .widget_authors a strong {
 	padding-left: 6px;
 }
+/* 
+ * =Search Form
+ -------------------------------------------------------------- */
 #searchform div {
 	height: 2em;
 	clear: both;
@@ -725,28 +712,63 @@ h2 a.rss:hover {
 .search #searchform label {
 	display: none;
 }
-#wpstats {
-	margin: 20px auto;
-	display: block;
-	text-align: center;
+
+/* 
+ * =POST
+ -------------------------------------------------------------- */
+ .postcontent {
+	overflow: visible;
+	padding-left: 60px;
+	font-size: 1.1em;
+	color: #555;
 }
-#main ul#postlist, #main .post ul {
+.page .postcontent {
+	padding-left: 0;
+}
+.page .actions{ margin-top:-10px;}
+
+.postcontent h1, .commentcontent h1,
+.postcontent h2, .commentcontent h2,
+.postcontent h3, .commentcontent h3,
+.postcontent h4, .commentcontent h4,
+.postcontent h5, .commentcontent h5,
+.postcontent h6, .commentcontent h6 {
+	margin-top: .3em;
+	margin-bottom: .3em;
+	padding: 5px 0;
+}
+.no-posts {
+	padding: 2em !important;
+}
+div.entry {
+	margin-right: 248px; /* compensate for sidebar */
+	height: auto;
+}
+.attachment div.entry {
+	margin-right: 0;
+}
+#main ul#postlist, 
+#main .post ul {
 	list-style: none;
 	margin-top: 0px;
 }
-#main ul#postlist ul, #main .post ul {
+#main ul#postlist ul, 
+#main .post ul {
 	list-style: disc;
 }
-#main ul#postlist ul ul, #main ul#postlist ol ul, #main .post ul ul, #main .post ol ul {
+#main ul#postlist ul ul, 
+#main ul#postlist ol ul,
+#main .post ul ul, 
+#main .post ol ul {
 	margin-top: 0;
 }
-#main ol, #main .post ol {
+.post ol {
 	list-style: decimal;
 	margin-left: 18px;
 	margin-top: 16px;
 	padding-left: .75em;
 }
-#main ol ol, #main .post ol ol {
+.post ol ol {
 	margin-top: 0;
 }
 img.wp-smiley {
@@ -794,7 +816,7 @@ img.alignleft {
 	margin: 0 !important;
 	padding: 0 0 1.5em 0 !important;
 }
-body .gallery br {
+.gallery br {
 	display: none;
 	clear: none !important;
 }
@@ -833,6 +855,8 @@ body .gallery br {
 	margin: 0;
 	padding: 0;
 	border: none;
+	max-width: 600px;
+	height: auto;
 }
 .wp-caption p.wp-caption-text {
 	padding: 0 7px;
@@ -843,6 +867,9 @@ body .gallery br {
 	margin: 0 0 10px;
 	padding: 0 5px;
 	display: none;
+	line-height: 30px;
+	color: #464646;
+	background: #E4F2FD;
 }
 a.hidemessage {
 	display: block;
@@ -854,8 +881,9 @@ a.hidemessage {
 	position: absolute;
 	z-index: 10000;
 	display: none;
-	border-style: solid;
+	border:1px solid #CCC;
 	border-width: 1px;
+	background: rgba(255, 255, 255, 0.95);
 }
 .ac_results li {
 	padding: 4px 8px;
@@ -864,6 +892,8 @@ a.hidemessage {
 }
 .ac_over {
 	cursor: pointer;
+	color: #fff;
+	background: #EF4832;
 }
 .post-error {
 	width: 608px;
@@ -899,7 +929,8 @@ a.hidemessage {
 	border-style: solid;
 	border-width: 2px;
 }
-li.newupdates, li.newcomment {
+li.newupdates, 
+li.newcomment {
 	display: none;
 }
 #settings {
@@ -907,7 +938,19 @@ li.newupdates, li.newcomment {
 	padding: 22px 22px 0;
 	width: 176px;
 }
-#help, #notify {
+/* 
+ * =Notify
+-------------------------------------------------------------- */
+#notify {
+	top: 90%;
+	width: 20%;
+	left: 50%;
+	margin: -10% 0 0 -10%;
+	font-size: 1.8em;
+	text-align: center;
+}
+#help,
+#notify {
 	position: fixed;
 	z-index: 10000;
 	border-radius: 10px;
@@ -916,24 +959,25 @@ li.newupdates, li.newcomment {
 	-moz-border-radius: 10px;
 	display: none;
 	padding: 30px;
+	background: #000;
+	opacity: 0.7;
+	-moz-opacity: 0.7;
+	filter: alpha(opacity=70);
+	color: #fff;
 }
 #help {
-	top: 50%;
+	top: 30%;
 	width: 50%;
 	left: 50%;
 	margin: -10% 0 0 -25%;
 }
-#notify {
-	top: 90%;
-	width: 20%;
-	left: 50%;
-	margin: -10% 0 0 -10%;
-}
 #help dl {
+	font-size: 2em;
 	margin: 0;
 	padding: 0;
 }
-#help dd, #help dt {
+#help dd, 
+#help dt {
 	display: block;
 	float: left;
 	margin: 0;
@@ -943,67 +987,22 @@ li.newupdates, li.newcomment {
 	width: 15%;
 	padding-right: 5%;
 	clear: left;
+	text-align: right;
 }
 #help dd {
 	width: 80%;
 }
-#userpage  ul {
-	padding-top: 10px;
-	clear: left;
-}
-#postpage h2.title {
-	text-indent: -1000em;
-	height: 1px;
-	margin: 0;
-	padding: 0;
-}
-#postpage li li h4 {
-	margin-top: 0;
-}
-.postcontent {
-	overflow: visible;
-	padding-left: 60px;
-	font-size: 1.1em;
-}
-.page .postcontent {
-padding-left: 0;
-}
-.page .actions{ margin-top:-10px;}
-#postpage #main ul#postlist, 
-#postpage #main ul#postlist li {
-	border-width: 0;
-	margin-top: 0;
-	padding-top: 0;
-}
-#postpage #main ul#postlist li ul li {
-	border-width: 1px 0 0;
-	margin-top: 0;
-	padding-top: 14px;
-}
-.postcontent h1, .commentcontent h1,
-.postcontent h2, .commentcontent h2,
-.postcontent h3, .commentcontent h3,
-.postcontent h4, .commentcontent h4,
-.postcontent h5, .commentcontent h5,
-.postcontent h6, .commentcontent h6 {
-	margin-top: .3em;
-	margin-bottom: .3em;
-	padding: 5px 0;
-}
-.no-posts {
-	padding: 2em !important;
-}
-div.entry {
-	margin-right: 248px; /* compensate for sidebar */
-	height: auto;
-}
-.attachment div.entry {
-	margin-right: 0;
-}
+
+
+/** 
+ * =Navigation 
+ * Navigation of previous and next posts
+ ------------------------------------------------------------------- */
 .navigation {
 	clear: both;
 	overflow: hidden;
 	padding: 0 14px;
+	border-top: 1px solid #bbb;
 }
 .navigation p {
 	float: left;
@@ -1018,6 +1017,7 @@ div.entry {
 	clear: left;
 	margin-bottom: 20px;
 }
+
 .discussion p img {
 	padding: 0 !important;
 	border: none !important;
@@ -1030,7 +1030,9 @@ div.entry {
 	margin-right: 8px;
 	margin-bottom: 4px;
 }
-
+.pulse_press-recent-comments  .text{
+	vertical-align: top;
+}
 
 .discussion p a img {
 	padding: 0 !important;
@@ -1063,14 +1065,10 @@ div.entry {
 	line-height: 28px;
 	padding: 0 10px 2px;
 }
-
-/*
-#
-# COLORS
-#
-*/
-
-
+/* 
+ * = COLORS
+ ----------------------------------- */
+ 
 a, a:visited, h1 a:visited, a:active, #main .selected .actions a, #main .selected .actions a:link, #main .selected .actions a:visited, #help dt {
 	color: #EF4832;
 }
@@ -1080,12 +1078,19 @@ a:hover, h1 a:hover, #main .selected .actions a:hover, #main .selected .actions 
 a:hover {
 	border-bottom-color: #bbb;
 }
+
+/*
+#
+# COLORS
+#
+*/
+
+
+
 acronym {
 	border-bottom-color: rgb(85, 85, 85);
 }
-code {
-	background: #f1f1f1;
-}
+
 .category-quote blockquote p {
 	color: #888;
 	background: #eee;
@@ -1120,9 +1125,7 @@ h3 {
 	background: #fff;
 	border-color: #fff;
 }
-#footer p {
-	color: #777;
-}
+
 
 #postbox .avatar img {
 	border-color: #ccc;
@@ -1163,9 +1166,7 @@ h3 {
 #media-buttons {
 	color: #999;
 }
-.postcontent {
-	color: #555;
-}
+
 #main p img {
 	border-color: #eee;
 }
@@ -1188,24 +1189,12 @@ h3 {
 #sidebar ul {
 	color: #888;
 }
-.wp-caption, .gallery-icon {
-	border-color: #ddd;
-	border-color: rgba(255,255,255,0);
-	background: #fff;
-	text-shadow: 0 1px 0 #fff;
-}
+
 .liveupdates {
 	color: #464646;
 	background: #E4F2FD;
 }
-.ac_results {
-	border-color: #ccc;
-	background: rgba(255, 255, 255, 0.95);
-}
-.ac_over {
-	color: #fff;
-	background: #EF4832;
-}
+
 .post-error {
 	color: red !important;
 }
@@ -1227,14 +1216,10 @@ li.newupdates, li.newcomment, em.newupdates {
 	background: transparent;
 }
 #help, #notify {
-	background: #000;
-	opacity: 0.7;
-	-moz-opacity: 0.7;
-	filter: alpha(opacity=70);
-	color: #fff;
+	
 }
 .navigation {
-	border-top: 1px solid #bbb;
+	
 }
 .keyselected {
 	background-color: #eee !important;
@@ -1259,12 +1244,12 @@ li.newupdates, li.newcomment, em.newupdates {
 	background: #fff;
 }
 
-
 /*
 #
 # FONTS
 #
 */
+
 body, form *, #respond #cancel-comment-reply-link, input, textarea {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -1326,9 +1311,7 @@ h4, h5, h6 {
 .postcontent h4, h5, h6 {
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-#footer p {
-	font-size: 1.3em;
-}
+
 #main {
 	font-size: 1.3em;
 }
@@ -1357,6 +1340,10 @@ h4, h5, h6 {
 #main .controls {
 	font-size: 12px;
 	text-align: right;
+	float: right;
+}
+#main div.controls {
+	float: none;
 }
 #main .controls a:hover{
 	border-bottom: none;
@@ -1366,15 +1353,16 @@ h4, h5, h6 {
 	line-height: 1.2em;
 	margin-left: 55px;
 }
-#main .inlinecomments h4 {
-	margin-left: 37px;
-}
 #main h4 a {
 	font-weight: bold;
 }
 #main h4 span a {
 	font-weight: normal;
 }
+#main .inlinecomments h4 {
+	margin-left: 37px;
+}
+
 .postcontent h1 {
 	display: block;
 	font-size: 2em;
@@ -1423,11 +1411,13 @@ h4, h5, h6 {
 #main span.meta {
 	font-size: 12px;
 }
+
 #main .meta a{ padding: 0 5px;} 
 #main .meta a:hover{
 	background: #333;
 	color:#FFF!important;
 	-moz-border-radius: 3px; /* FF1+ */
+	
   -webkit-border-radius: 3px; /* Saf3-4 */
           border-radius: 3px; /* Opera 10.5, IE 9, Saf5, Chrome */
 	
@@ -1438,10 +1428,7 @@ h4, h5, h6 {
 #main p.meta {
 	font-size: 1em;
 }
-#sidebar h2 {
-	font-weight: normal;
-	font-size: 1.7em;
-}
+
 #sidebar ul li p {
 	line-height: 1.4em;
 }
@@ -1471,27 +1458,8 @@ form.textedit textarea {
 	font-size: 12px;
 	line-height: 12px;
 }
-/* 
- * =Notify
--------------------------------------------------------------- */
-#notify {
-	top: 90%;
-	width: 20%;
-	left: 50%;
-	margin: -10% 0 0 -10%;
-	font-size: 1.8em;
-	text-align: center;
-}
-#help dl {
-	font-size: 2.8em;
-}
-#help dt {
-	text-align: right;
-}
-#postpage h2.title {
-	line-height: 1px;
-	font-size: 1px;
-}
+
+
 #post-types li {
 	font-size: 0.9em;
 }
@@ -1510,9 +1478,6 @@ form.textedit textarea {
 }
 
 
-
-
-
 /* Text meant only for screen readers */
 .screen-reader-text {
 	position: absolute;
@@ -1523,11 +1488,11 @@ form.textedit textarea {
 -------------------------------------------------------------- */
 
 #access {
-	background: #666 url('img/bg-access.jpg') repeat-x bottom;
+	background: #666 url('i/bg-access.jpg') repeat-x bottom;
 	display: block;
 	float: left;
 	margin-left:1px;
-	width: 736px;
+	width: 758px;
 	padding-top: 5px;
 }
 #access .menu-header,
@@ -1607,8 +1572,12 @@ div.menu li {
 	padding: 0;
 	
 }
+#access ul.children li:hover > a,
+#access ul.sub-menu li:hover > a,
+#access ul.children li a:hover,
 #access ul.sub-menu li a:hover,
 #access ul li:hover > li a,
+#access ul li.current_page_ancestor ul li a,
 #access ul li.current_page_item ul li  a,
 #access ul li.current-menu-ancestor ul li a,
 #access ul li.current-menu-item ul li a,
@@ -1623,6 +1592,8 @@ div.menu li {
 	
 }
 /* This part makes ure that the page that is suppoed to be higlited is highlited */
+
+#access ul li.current_page_ancestor  a,
 #access ul li.current_page_item  a,
 #access ul li.current-menu-ancestor  a,
 #access ul li.current-menu-item  a,
@@ -1638,16 +1609,14 @@ div.menu li {
 	border-bottom:1px solid #FFF;
 	padding: 0 13px;
 }
-
-
-/* =Page
--------------------------------------------------------------- */
-#page-title{
-	color:#333;
-	font-size: 1.5em;
+#author-bio{
+	position: relative;
+	overflow: hidden;
 }
 
-/* =Voting
+
+/* 
+ * =Voting
 -------------------------------------------------------------- */
 .vote strong{ color:#666; font-size: 13px;}
 .vote em{ font-style: normal; 
@@ -1685,12 +1654,16 @@ div.menu li {
 #main .vote-down{ background-position: 0 -34px;}
 #main .vote .vote-up:hover{ background: #010101 url('i/arrows.gif') no-repeat 0 0px; }
 #main .vote .vote-down:hover{ background: #010101 url('i/arrows.gif') no-repeat 0 -34px; }
-/* =Favorite
+
+/* 
+ * =Favorite
 -------------------------------------------------------------- */
 .action-star{
- display: inline;
+  display: inline;
+  float:left;
 }
-#main .action-star a,#main .vote a{ padding: 0;}
+#main .action-star a,
+#main .vote a{ padding: 0; }
 .star,.unstar{
 	background: url('i/star.gif') no-repeat 0 0;  
 	line-height: 16px; 
@@ -1706,13 +1679,14 @@ div.menu li {
 	overflow: hidden; }
 	
 #starred {
-	padding-right: 20px;
-	background: url('i/star.gif') no-repeat 100% -87px;  
+	background: url("i/star.gif") no-repeat scroll 0 -84px transparent;
+    margin-left: -15px;
+    padding-left: 15px;
 	
 }
+
 /* 
-*/
-/* =Widgets Calendar and widget table
+ * =Widgets Calendar and widget table
 -------------------------------------------------------------- */
 #sidebar table,#sidebar tr, #sidebar td, #sidebar th{
 	border:0;
@@ -1721,13 +1695,13 @@ div.menu li {
 	width: 100%;
 }
 #wp-calendar caption {
-	font-size: 14px;
+	
 	font-weight: bold;
 	padding-bottom: 4px;
 	text-align: left;
 }
 #wp-calendar thead {
-	font-size: 12px;
+	font-size: 11px;
 }
 #wp-calendar thead th {
 }
@@ -1736,14 +1710,14 @@ div.menu li {
 }
 #wp-calendar tbody td {
 	background: #f5f5f5;
-	padding: 3px 0 2px;
+	padding: 1px 0 1px;
 	text-align: center;
 }
 #wp-calendar tbody td a {
 	display: block;
 	color:#FFF;
 	background: #EF4832;
-	padding: 3px 0 2px;
+	padding: 1px 0 1px;
 	-moz-border-radius: 2px; /* FF1+ */
   -webkit-border-radius: 2px; /* Saf3-4 */
           border-radius: 2px; /* Opera 10.5, IE 9, Saf5, Chrome */

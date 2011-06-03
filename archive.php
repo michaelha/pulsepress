@@ -6,7 +6,7 @@
  * Ideally, all archives would be handled by a more appropriate template according to the current
  * page context.
  *
- * @package Hybrid
+ * @package PulsePress
  * @subpackage Template
  */
 
@@ -18,11 +18,11 @@ get_header(); ?>
 	<div id="main">
 		<h2>
 			<?php if(is_day()): ?>
-			<?php printf( _x( 'Updates from %s', 'Month name', 'wordpress' ), get_the_time( 'l jS F , Y' ) ); ?>
+			<?php printf( _x( 'Updates from <strong>%s</strong>', 'Month name', 'wordpress' ), get_the_time( 'l jS F, Y' ) ); ?>
 			<?php elseif(is_month()): ?>
-			<?php printf( _x( 'Updates from %s', 'Month name', 'pulse_press' ), get_the_time( 'F, Y' ) ); ?>
+			<?php printf( _x( 'Updates from <strong>%s</strong>', 'Month name', 'pulse_press' ), get_the_time( 'F, Y' ) ); ?>
 			<?php elseif(is_year()): ?>
-			<?php printf( 'Updates from %s', get_the_time( 'Y' ) ); ?>
+			<?php printf( 'Updates from <strong>%s</strong>', get_the_time( 'Y' ) ); ?>
 			<?php endif; ?>
 			<span class="controls">
 				<a href="#" id="togglecomments"> <?php _e( 'Toggle Comment Threads', 'pulse_press' ); ?></a> | <a href="#directions" id="directions-keyboard"><?php _e( 'Keyboard Shortcuts', 'pulse_press' ); ?></a>

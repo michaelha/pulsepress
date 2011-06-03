@@ -5,9 +5,9 @@
  */
 
 define( 'PulsePress_INC_PATH',  get_template_directory() . '/inc' );
-define( 'PulsePress_INC_URL', get_bloginfo( 'template_directory' ).'/inc' );
+define( 'PulsePress_INC_URL', get_template_directory_uri().'/inc' );
 define( 'PulsePress_JS_PATH',  get_template_directory() . '/js' );
-define( 'PulsePress_JS_URL', get_bloginfo( 'template_directory' ).'/js' );
+define( 'PulsePress_JS_URL', get_template_directory_uri().'/js' );
 define('PulsePress_DB_VERSION',"1");
 define('PulsePress_DB_TABLE', $wpdb->prefix . "pulse_press_user_post_meta");
 
@@ -37,7 +37,7 @@ function pulse_press_get_at_name_map() {
 	static $name_map = array();
 	if ( $name_map ) // since $names is static, the stuff below will only get run once per page load.
  		return $name_map;
-	$users = get_users_of_blog();
+	$users = get_users();
 	// get display names (can take out if you only want to handle nicenames)
 	foreach ( $users as $user ) {
  		$name_map["@$user->user_login"]['id'] = $user->ID;
@@ -296,9 +296,10 @@ function pulse_press_comments( $comment, $args, $echo = true ) {
 				$comment_text
 		</div>
 HTML;
-	if (!is_single() && get_comment_type() != 'comment' )
+/*
+	if ( get_comment_type() != 'comment' )
 		return false;
-
+*/
 	if ( $echo )
 		echo $html;
 	else
@@ -401,7 +402,7 @@ function pulse_press_new_post_noajax() {
 		auth_redirect();
 
 	if ( !current_user_can( 'publish_posts' ) ) {
-		wp_redirect( get_bloginfo( 'url' ) . '/' );
+		wp_redirect( home_url() . '/' );
 		exit;
 	}
 
@@ -423,7 +424,7 @@ function pulse_press_new_post_noajax() {
 		'post_status'	=> 'publish'
 	) );
 
-	wp_redirect( get_bloginfo( 'url' ) . '/' );
+	wp_redirect( home_url() . '/' );
 
 	exit;
 }
@@ -571,18 +572,72 @@ if ( defined( 'IS_WPCOM' ) && IS_WPCOM ) {
 
 
 function pulse_press_background_color() {
-	$background_color = get_option( 'pulse_press_background_color' );
+	
+	$background = get_background_image();
+	$color = get_background_color();
+	if ( ! $background && ! $color )
+		return;
 
-	if ( '' != $background_color ) :
-	?>
-	<style type="text/css">
-		body {
-			background-color: <?php esc_attr_e( $background_color ); ?>;
-		}
-	</style>
-	<?php endif;
+	$style = $color ? "background-color: #$color;" : '';
+
+	if ( $background ) {
+		$image = " background-image: url('$background');";
+
+		$repeat = get_theme_mod( 'background_repeat', 'repeat' );
+		if ( ! in_array( $repeat, array( 'no-repeat', 'repeat-x', 'repeat-y', 'repeat' ) ) )
+			$repeat = 'repeat';
+		$repeat = " background-repeat: $repeat;";
+
+		$position = get_theme_mod( 'background_position_x', 'left' );
+		if ( ! in_array( $position, array( 'center', 'right', 'left' ) ) )
+			$position = 'left';
+		$position = " background-position: top $position;";
+
+		$attachment = get_theme_mod( 'background_attachment', 'scroll' );
+		if ( ! in_array( $attachment, array( 'fixed', 'scroll' ) ) )
+			$attachment = 'scroll';
+		$attachment = " background-attachment: $attachment;";
+
+		$style .= $image . $repeat . $position . $attachment;
+	}
+?>
+<style type="text/css">
+body { <?php echo trim( $style ); ?> }
+#shell{
+	margin: 30px auto;
+	background: none repeat scroll 0 0 #FFFFFF;
+    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);}
+    
+    a, a:visited, h1 a:visited, a:active, #main .selected .actions a, #main .selected .actions a:link, #main .selected .actions a:visited, #help dt {
+	color: <?php echo ColorDarken($color, 60); ?>;
 }
-add_action( 'wp_head', 'pulse_press_background_color' );
+
+a:hover, h1 a:hover, #main .selected .actions a:hover, #main .selected .actions a:active {
+	color: <?php echo ColorDarken($color, 100); ?>;
+}
+#wp-calendar tbody td a{ background-color: <?php echo ColorDarken($color, 20); ?>; text-decoration: none;}
+#wp-calendar tbody td a:hover{background-color: <?php echo ColorDarken($color, 60); ?>; }
+</style>
+<?php
+}
+
+function ColorDarken($color, $dif=20){
+ 
+    $color = str_replace('#', '', $color);
+    if (strlen($color) != 6){ return '000000'; }
+    $rgb = '';
+ 
+    for ($x=0;$x<3;$x++){
+        $c = hexdec(substr($color,(2*$x),2)) - $dif;
+        $c = ($c < 0) ? 0 : dechex($c);
+        $rgb .= (strlen($c) < 2) ? '0'.$c : $c;
+    }
+ 
+    return '#'.$rgb;
+}
+
+
+
 
 
 add_action( 'wp_head', 'pulse_press_show_twitter');
@@ -597,6 +652,7 @@ function pulse_press_hidden_sidebar_css() {
 		.sleeve_main { <?php echo $sleeve_margin;?> }
 		#wrapper { background: transparent; }
 		#header, #footer, #wrapper { width: 760px; }
+		#shell{ width: 800px; }
 	</style>
 	<?php endif;
 	
@@ -621,7 +677,7 @@ function pulse_press_breadcrumbs() {
     echo '<div id="crumbs">';
  
     global $post;
-    $homeLink = get_bloginfo('url');
+    $homeLink = home_url();
     echo '<a href="' . $homeLink . '">' . $home . '</a> ' . $delimiter . ' ';
  
     if ( is_category() ) {
@@ -726,7 +782,7 @@ function pulse_press_after_signup_form() {
 add_action( 'after_signup_form', 'pulse_press_after_signup_form' );
 
 // Enable background
-add_custom_background();
+add_custom_background("pulse_press_background_color");
 
 
 // Feed me

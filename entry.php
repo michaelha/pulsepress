@@ -15,10 +15,8 @@
 				);
 			?>
 		<?php endif; ?>
-			<h4>
-			<?php if ( !is_page() ) : ?>
-			
-			<?php
+			<h4 class="post-title">
+			<?php if ( !is_page() ) : 
 				printf(
 					'<a href="%1$s" title="%2$s">%3$s</a>',
 					get_author_posts_url( pulse_press_get_author_id() ),
@@ -27,6 +25,7 @@
 				);
 			?>
 			<?php endif; ?>
+			
 			<span class="meta">
 				<?php if ( !is_page() ) : ?>
 					<?php echo pulse_press_date_time_with_microformat(); ?>
@@ -35,12 +34,16 @@
 				<span class="actions">
 					<?php if ( ! is_single() ) : 
 						 pulse_press_vote_on_post();
+						 pulse_press_star_a_post(); 
+						 
 						 if ( ! post_password_required() && !get_option( 'pulse_press_show_twitter' )) : ?>
 							<?php echo post_reply_link( array( 'before' => '', 'after' => ' | ',  'reply_text' => __( 'Reply', 'pulse_press' ), 'add_below' => 'prologue' ), get_the_id() ); ?>
 						<?php endif; ?>
 						<a href="<?php the_permalink(); ?>" class="thepermalink"><?php _e( 'Permalink', 'pulse_press' ); ?></a> 
 					<?php else : 
-						pulse_press_vote_on_post(); 
+						
+						pulse_press_vote_on_post();
+						pulse_press_star_a_post();  
 						
 					?>
 						
@@ -48,11 +51,13 @@
 							echo post_reply_link( array( 'before' => '', 'after' => '',  'reply_text' => __( 'Reply', 'pulse_press' ), 'add_below' => 'prologue' ), get_the_id() ); ?>
 						<?php endif; ?>
 					<?php endif;?>
+					
 					<?php if ( current_user_can( 'edit_post', get_the_id() ) ) : ?>
 						| <a href="<?php echo ( get_edit_post_link( get_the_id() ) ); ?>" class="edit-post-link" rel="<?php the_ID(); ?>"><?php _e( 'Edit', 'pulse_press' ); ?></a>
 					<?php endif; ?> 
-					<?php pulse_press_star_a_post(); ?>
-				</span>
+					
+					
+				</span> <!-- end of actions -->
 				
 			<?php if ( !is_page() ) : ?>
 				<span class="tags">
@@ -78,9 +83,9 @@
 			</p>
 		</div>
 	<?php endif; ?>
-	<?php wp_link_pages(); ?>
+	
 	<div class="bottom_of_entry">&nbsp;</div>
-
+	<?php wp_link_pages(); ?>
 	<?php if ( ! pulse_press_is_ajax_request() ) : ?>
 		<?php comments_template(); ?>
 		<?php $pc = 0; ?>

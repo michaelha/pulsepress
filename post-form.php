@@ -33,7 +33,7 @@ $post_type = pulse_press_get_posting_type();
 						value="<?php esc_attr_e( 'Tag it', 'pulse_press' ); ?>"
 						onfocus="this.value=(this.value=='<?php echo esc_js( __( 'Tag it', 'pulse_press' ) ); ?>') ? '' : this.value;"
 						onblur="this.value=(this.value=='') ? '<?php echo esc_js( __( 'Tag it', 'pulse_press' ) ); ?>' : this.value;" /> <br />
-						<em><?php _e('Separate tags with commas'); ?></em>
+						<em><?php _e('Separate tags with commas', 'pulse_press'); ?></em>
 					<?php endif; ?>
 						<?php 
 						// anonomouse is commneted out for now

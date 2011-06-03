@@ -6,50 +6,50 @@
 ?>
 <?php get_header(); ?>
 
-<div id="postpage">
 
-	<div class="sleeve_main">
 
-		<div id="main">
+<div class="sleeve_main">
 
-			<?php if ( have_posts() ) : ?>
+	<div id="main">
 
-				<?php while ( have_posts( ) ) : the_post(); ?>
+		<?php if ( have_posts() ) : ?>
 
-					<div <?php post_class( 'post' ); ?> id="post-<?php the_ID( ); ?>">
+			<?php while ( have_posts( ) ) : the_post(); ?>
 
-						<h2><a href="<?php echo get_permalink($post->post_parent); ?>" rev="attachment"><?php echo get_the_title($post->post_parent); ?></a> &raquo; <?php the_title(); ?></h2>
+				<div <?php post_class( 'post' ); ?> id="post-<?php the_ID( ); ?>">
 
-						<div class="entry">
-							<?php edit_post_link( 'Edit this entry.', '<p>', '</p>' ); ?>
-							
-							<div class="attachment-image">
-								<?php echo wp_get_attachment_image( $post->ID, array($content_width - 8, 700)); ?>
-								<div class="caption"><?php if ( !empty($post->post_excerpt) ) the_excerpt(); ?></div>
-								<div class="image-description"><?php if ( !empty($post->post_content) ) the_content(); ?></div>
-							</div>
+					<h2><a href="<?php echo get_permalink($post->post_parent); ?>" rev="attachment"><?php echo get_the_title($post->post_parent); ?></a> &raquo; <?php the_title(); ?></h2>
 
-							<div class="navigation attachment">
-								<div class="alignleft"><?php previous_image_link(); ?></div>
-								<div class="alignright"><?php next_image_link(); ?></div>
-							</div>
+					<div class="entry">
+						<?php edit_post_link( 'Edit this entry.', '<p>', '</p>' ); ?>
+						
+						<div class="attachment-image">
+							<?php echo wp_get_attachment_image( $post->ID, array($content_width - 8, 700)); ?>
+							<div class="caption"><?php if ( !empty($post->post_excerpt) ) the_excerpt(); ?></div>
+							<div class="image-description"><?php if ( !empty($post->post_content) ) the_content(); ?></div>
+						</div>
 
-							<div class="bottom_of_entry">&nbsp;</div>
+						<div class="navigation attachment">
+							<div class="alignleft"><?php previous_image_link(); ?></div>
+							<div class="alignright"><?php next_image_link(); ?></div>
+						</div>
 
-							<?php comments_template(); ?>
+						<div class="bottom_of_entry">&nbsp;</div>
 
-						</div> <!-- // entry -->
+						<?php comments_template(); ?>
 
-					</div> <!-- post-<?php the_ID( ); ?> -->
+					</div> <!-- // entry -->
 
-				<?php endwhile; ?>
+				</div> <!-- post-<?php the_ID( ); ?> -->
 
-			<?php endif; ?>
+			<?php endwhile; ?>
 
-		</div> <!-- // main -->
+		<?php endif; ?>
 
-	</div>
+	</div> <!-- // main -->
 
 </div>
+
+
 
 <?php get_footer(); ?>

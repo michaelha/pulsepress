@@ -9,16 +9,16 @@
 <div class="sleeve_main">
 	
 	<div id="main">
-		
+		<div class="controls">
+					<a href="#" id="togglecomments"><?php _e( 'Toggle Comment Threads', 'pulse_press' ); ?></a>
+					&nbsp;|&nbsp;
+					<a href="#directions" id="directions-keyboard"><?php  _e( 'Keyboard Shortcuts', 'pulse_press' ); ?></a>
+				</div>
 		<?php if ( have_posts() ) : ?>
 			
 			<?php while ( have_posts() ) : the_post(); ?>
 			
-				<div class="controls">
-					<a href="#" id="togglecomments"><?php _e( 'Hide threads', 'pulse_press' ); ?></a>
-					&nbsp;|&nbsp;
-					<a href="#directions" id="directions-keyboard"><?php  _e( 'Keyboard Shortcuts', 'pulse_press' ); ?></a>
-				</div>
+				
 		
 				<ul id="postlist">
 		    		<?php pulse_press_load_entry() // loads entry.php ?>

@@ -28,7 +28,7 @@ class PulsePressJS {
 			wp_enqueue_script( 'suggest' );
 			wp_enqueue_script( 'jeditable', PulsePress_JS_URL . '/jquery.jeditable.js', array( 'jquery' )  );
 			
-			if(get_option( 'pulse_press_show_twitter' )) {
+			if(get_option( 'pulse_press_show_twitter' ) && is_home() && is_user_logged_in() ) {
 				wp_enqueue_script( 'counter', PulsePress_JS_URL . '/counter.js', array( 'jquery' ) );
 				
 				if(get_option( 'pulse_press_bitly_user') && get_option( 'pulse_press_bitly_api')) {
@@ -122,7 +122,7 @@ class PulsePressJS {
 		}
 		
 		if(FORCE_SSL_ADMIN): ?>
-		var ajaxUrl = "<?php echo js_escape( get_bloginfo( 'siteurl' ) . '/?pulse_pressajax' ); ?>";
+		var ajaxUrl = "<?php echo esc_js( get_bloginfo( 'siteurl' ) . '/?pulse_pressajax' ); ?>";
 		<?php
 		else: ?>
 		var ajaxUrl = "<?php echo esc_js( pulse_press_url( '/wp-admin/admin-ajax.php?pulse_pressajax=true' ) ); ?>";
@@ -131,7 +131,7 @@ class PulsePressJS {
 		var updateRate = "15000"; // 30 seconds
 		var nonce = "<?php echo esc_js( $page_options['nonce'] ); ?>";
 		var login_url = "<?php echo $page_options['login_url'] ?>";
-		var templateDir  = "<?php esc_js( bloginfo( 'template_directory' ) ); ?>";
+		var templateDir  = "<?php esc_js( get_template_directory_uri() ); ?>";
 		var isFirstFrontPage = <?php echo $page_options['is_first_front_page'] ?>;
 		var isFrontPage = <?php echo $page_options['is_front_page'] ?>;
 		var isSingle = <?php echo $page_options['is_single'] ?>;
@@ -146,7 +146,7 @@ class PulsePressJS {
 		var getVotesUpdate = 0;
 		var inlineEditPosts =  <?php echo $page_options['pulse_press_inlineedit'] ?>;
 		var inlineEditComments =  <?php echo $page_options['pulse_press_comments_inlineedit'] ?>;
-		var wpUrl = "<?php echo esc_js( get_bloginfo( 'wpurl' ) ); ?>";
+		var wpUrl = "<?php echo esc_js( site_url() ); ?>";
 		var rssUrl = "<?php esc_js( get_bloginfo( 'rss_url' ) ); ?>";
 		var pageLoadTime = "<?php echo gmdate( 'Y-m-d H:i:s' ); ?>";
 		var latestPermalink = "<?php echo esc_js( latest_post_permalink() ); ?>";

@@ -10,7 +10,12 @@
 <div class="sleeve_main">
 
 	<div id="main">
-		<h2><?php printf( __( 'Tagged: %s', 'pulse_press' ), single_tag_title( '', false) ); ?> <a class="rss" href="<?php echo get_tag_feed_link( $tag_obj->term_id ); ?>">RSS</a></h2>
+		<h2><?php printf( __( 'Tagged: %s', 'pulse_press' ), single_tag_title( '', false) ); ?> <a class="rss" href="<?php echo get_tag_feed_link( $tag_obj->term_id ); ?>">RSS</a>
+		
+		<span class="controls">
+				<a href="#" id="togglecomments"> <?php _e( 'Toggle Comment Threads', 'pulse_press' ); ?></a> | <a href="#directions" id="directions-keyboard"><?php _e( 'Keyboard Shortcuts', 'pulse_press' ); ?></a>
+		</span>
+		</h2>
 
 		<?php if ( have_posts() ) : ?>
 

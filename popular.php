@@ -8,9 +8,6 @@
 <?php get_header(); ?>
 
 <div class="sleeve_main">
-	<?php if ( pulse_press_user_can_post() ) : ?>
-		<?php locate_template( array( 'post-form.php' ), true ); ?>
-	<?php endif; ?>
 	<div id="main">
 		<h2>Popular Updates
 			<?php if ( pulse_press_get_page_number() > 1 ) printf( __( 'Page %s', 'pulse_press' ), pulse_press_get_page_number() ); ?>

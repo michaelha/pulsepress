@@ -8,6 +8,7 @@ jQuery(function($) {
 function disable_submit(){
 	// we need sometime out to have a better reading of what is really there. 
 	setTimeout(function() {
+		
 		var remainder = 140 - jQuery("#posttext").val().length;
 		
 		if(remainder < 0) {

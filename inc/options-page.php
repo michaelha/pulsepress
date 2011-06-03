@@ -185,66 +185,6 @@ class PulsePressOptions {
 
 		</form>
 		</div>
-<?php /*
-<script type="text/javascript">
-	var farbtastic;
-
-	function pickColor(color) {
-		jQuery('#pulse_press_background_color_hex').val(color);
-		farbtastic.setColor(color);
-	}
-
-	jQuery(document).ready(function() {
-		jQuery('#pickcolor').click(function() {
-			jQuery('#colorPickerDiv').show();
-		});
-
-		jQuery('#hidetext' ).click(function() {
-			toggle_text();
-		});
-
-		farbtastic = jQuery.farbtastic( '#colorPickerDiv', function(color) { pickColor(color); });
-	});
-
-	jQuery(document).mousedown(function(){
-		// Make the picker disappear, since we're using it in an independant div
-		hide_picker();
-	});
-
-	function colorDefault() {
-		pickColor( '#<?php echo HEADER_TEXTCOLOR; ?>' );
-	}
-
-	function hide_picker(what) {
-		var update = false;
-		jQuery('#colorPickerDiv').each(function(){
-			var id = jQuery(this).attr( 'id' );
-			if (id == what) {
-				return;
-			}
-			var display = jQuery(this).css( 'display' );
-			if (display == 'block' ) {
-				jQuery(this).fadeOut(2);
-			}
-		});
-	}
-
-	function toggle_text(force) {
-		if (jQuery('#textcolor').val() == 'blank' ) {
-			//Show text
-			jQuery(buttons.toString()).show();
-			jQuery('#textcolor').val( '<?php echo HEADER_TEXTCOLOR; ?>' );
-			jQuery('#hidetext').val( '<?php _e( 'Hide Text' ); ?>' );
-		}
-		else {
-			//Hide text
-			jQuery(buttons.toString()).hide();
-			jQuery('#textcolor').val( 'blank' );
-			jQuery('#hidetext').val( '<?php _e( 'Show Text' ); ?>' );
-		}
-	}
-</script>
-*/ ?>
 <?php
 	}
 }
