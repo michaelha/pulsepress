@@ -5,6 +5,7 @@ function pulse_press_vote_on_post()
 {	
 	if(get_option('pulse_press_show_voting')):
 	$votes = pulse_press_total_votes(get_the_ID());
+	
 		if(empty($votes))
 			$votes = 0;
 	
@@ -33,15 +34,15 @@ function pulse_press_vote_on_post()
 			<a id="voteup-<?php the_ID();?>" href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up" title="Vote Up"> <span>Vote Up</span></a> 
 			<a id="votedw-<?php the_ID();?>"href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=votedown" class="vote-down" title="Vote Down"> <span>Vote Down</span></a>
 			
-			<?php elseif( pulse_press_is_vote(get_the_ID()) == 1 ): // voted up ?>
+			<?php elseif( pulse_press_is_vote(get_the_ID()) > 0 ): // voted up ?>
 			
-			<a id="voteup-<?php the_ID();?>" href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up" title="Vote Up"> <span>Vote Up</span></a> 
+			<a id="voteup-<?php the_ID();?>" href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up vote-up-set" title="Unvote"> <span>Unvote</span></a> 
 			<a id="votedw-<?php the_ID();?>"href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=votedown" class="vote-down" title="Vote Down"> <span>Vote Down</span></a>
 			
 			<?php else: // voted down ?>
 			
 			<a id="voteup-<?php the_ID();?>" href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up" title="Vote Up"> <span>Vote Up</span></a> 
-			<a id="votedw-<?php the_ID();?>"href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=votedown" class="vote-down" title="Vote Down"> <span>Vote Down</span></a>
+			<a id="votedw-<?php the_ID();?>"href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=votedown" class="vote-down vote-down-set" title="Unvote"> <span>Unvote</span></a>
 			
 			<?php endif; ?>
 		<?php endif; ?>
@@ -64,7 +65,7 @@ function pulse_press_voting_init($redirect=true)
 		switch( get_option('pulse_press_voting_type') ) {
 			default:
 			case "one":
-				if( !pulse_press_is_vote($post_id) ):
+				if( pulse_press_is_vote($post_id) == null ):
 					pulse_press_vote($post_id);
 				else:
 					pulse_press_delete_vote($post_id);
@@ -81,10 +82,19 @@ function pulse_press_voting_init($redirect=true)
 						pulse_press_vote($post_id);
 					endif;
 	
-				elseif( $_GET['action'] == "votedown" ): // the user want to vote things down
-				
+				elseif(  pulse_press_is_vote( $post_id ) > 0 ): // the user previously voted up
+					pulse_press_delete_vote($post_id); 
+					
+					if( $_GET['action'] == "votedown"  ):
+						
+						pulse_press_vote_down($post_id); // 
+					endif;
 				else:
-				
+					pulse_press_delete_vote($post_id); 
+					
+					if( $_GET['action'] == "vote"  ):
+						pulse_press_vote($post_id); // 
+					endif;
 				endif; 
 			break;
 		}

@@ -1,6 +1,6 @@
 <?php 
 
-function pulse_press_install () {
+function pulse_press_install() {
 	
 	global $wpdb;
 	
@@ -8,22 +8,21 @@ function pulse_press_install () {
 		
 		delete_option( 'pulse_press_db_version' );
 		$pulse_press_db_table = PulsePress_DB_TABLE;
-		if($wpdb->get_var("show tables like '$pulse_press_db_table'") != $pulse_press_db_table):
+				
+		$sql = "CREATE TABLE " . $pulse_press_db_table . " (
+				id mediumint(9) NOT NULL AUTO_INCREMENT,
+				post_id bigint(11) DEFAULT '0' NOT NULL,
+				user_id tinytext NOT NULL,
+				counter bigint(11) DEFAULT '1' NOT NULL,
+				date TIMESTAMP NOT NULL,
+				date_gmt DATETIME  DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				type VARCHAR(64) NOT NULL,
+				UNIQUE KEY id (id)
+				);";
 		
-			$sql = "CREATE TABLE " . $pulse_press_db_table . " (
-					id mediumint(9) NOT NULL AUTO_INCREMENT,
-					post_id bigint(11) DEFAULT '0' NOT NULL,
-					user_id tinytext NOT NULL,
-					counter bigint(11) DEFAULT '0' NOT NULL,
-					date TIMESTAMP NOT NULL,
-					date_gmt DATETIME  DEFAULT '0000-00-00 00:00:00' NOT NULL,
-					type VARCHAR(64) NOT NULL,
-					UNIQUE KEY id (id)
-					);";
-			
-			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-			dbDelta($sql);
-		endif;
+		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+		dbDelta($sql);
+		
 		add_option("pulse_press_db_version", PulsePress_DB_VERSION);
 		$date = pulse_press_get_gmt_time();
 		add_option("pulse_press_votes_updated", $date,'','no');
@@ -32,7 +31,6 @@ function pulse_press_install () {
 if(is_admin())  // this runs when you active the theme 
 	pulse_press_install();
 
-// delete_option( 'pulse_press_db_version' );
 
 // delete table once you switch themes
 add_action("switch_theme","pulse_press_delete_tables_and_options");
@@ -111,11 +109,13 @@ function pulse_press_delete_vote($post_id) {
 }
 
 function pulse_press_is_vote($post_id) {
-	return pulse_press_get_user_post_meta($post_id,'vote');
+	return pulse_press_get_user_post_meta_counter($post_id,'vote');
 }
 
 function pulse_press_total_votes($post_id) {
-	return pulse_press_get_sum_users_meta($post_id,'vote');
+	$result = pulse_press_get_total_posts_meta($post_id,'vote');
+	
+	return $result[0]->count;
 }
 function pulse_press_get_popular_vote() {
 	return pulse_press_get_popular_posts_meta('vote');
@@ -133,7 +133,7 @@ function pulse_press_total_posts_votes($post_ids)
 	endif;
 	
 	
-	return pulse_press_get_sum_posts_meta($post_ids,'vote');
+	return pulse_press_get_total_posts_meta($post_ids,'vote');
 }
 function pulse_press_get_updates_since_vote($date) {
 	
@@ -168,6 +168,17 @@ function pulse_press_get_user_post_meta($post_id,$type) {
 	
 	return $wpdb->get_var($wpdb->prepare("SELECT id FROM ".PulsePress_DB_TABLE." WHERE post_id = %d AND user_id = %d AND type ='%s';", $post_id,$current_user->ID,$type ));
 }
+
+
+function pulse_press_get_user_post_meta_counter($post_id,$type) {
+
+	global $wpdb,$current_user;
+	wp_get_current_user();
+	
+	return $wpdb->get_var($wpdb->prepare("SELECT counter FROM ".PulsePress_DB_TABLE." WHERE post_id = %d AND user_id = %d AND type ='%s';", $post_id,$current_user->ID,$type ));
+}
+
+
 
 function pulse_press_get_all_user_post_meta($type) {
 
@@ -218,13 +229,17 @@ function pulse_press_get_popular_posts_meta($type) {
 	
 	return $wpdb->get_results($wpdb->prepare("SELECT post_id, COUNT(post_id) as count FROM ".PulsePress_DB_TABLE." WHERE type ='%s' GROUP BY post_id ORDER BY count DESC;", $type ));
 }
-
+/* This gives you back all the items in the table together */
 function pulse_press_get_sum_posts_meta($post_ids,$type) {
 	global $wpdb;
 	return $wpdb->get_results($wpdb->prepare("SELECT post_id, COUNT(*) as count FROM ".PulsePress_DB_TABLE." WHERE post_id IN (".$post_ids.") AND type ='%s' GROUP BY post_id;", $type));
 	
 }
-
+/* this returns a list of summed up items */
+function pulse_press_get_total_posts_meta($post_ids,$type) {
+	global $wpdb;
+	return $wpdb->get_results($wpdb->prepare("SELECT post_id, SUM(counter) as count FROM ".PulsePress_DB_TABLE." WHERE post_id IN (".$post_ids.") AND type ='%s' GROUP BY post_id;", $type));
+}
 function pulse_press_get_updates_since_post_meta($date,$type) {
 	global $wpdb;
 	return $wpdb->get_var($wpdb->prepare("SELECT date_gmt FROM ".PulsePress_DB_TABLE." WHERE date_gmt > %s  AND type ='%s' ORDER BY date_gmt;",$date, $type));

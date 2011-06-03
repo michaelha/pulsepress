@@ -39,7 +39,6 @@ class PulsePressOptions {
 			
 				$set_option[$option] = ( isset($_POST[ 'pulse_press_'.$option ]) ? $_POST[ 'pulse_press_'.$option ] : 0 );
 				update_option( 'pulse_press_'.$option, $set_option[$option] );
-				
 			endif;
 			
 		endforeach;
@@ -175,6 +174,14 @@ class PulsePressOptions {
 				 			(<?php _e( 'if empty, defaults to <strong>What&rsquo;s happening?</strong>', 'pulse_press' ); ?>)
 						</td>
 					</tr>
+					
+					<tr valign="top">
+						<th scope="row"><?php _e( 'Vote text:', 'pulse_press' ); ?></th>
+						<td>
+							<input id="pulse_press_vote_text" type="text" name="pulse_press_vote_text" class="regular-text"  value="<?php echo ($set_option['vote_text'] == __("votes") ) ? __("votes") : esc_attr( $set_option['vote_text'] ); ?>" />
+				 			(<?php _e( 'if empty, defaults to <strong>votes</strong>', 'pulse_press' ); ?>)
+						</td>
+					</tr>
 
 				</tbody>
 			</table>
@@ -203,7 +210,9 @@ function pulse_press_options() {
 			'bitly_user',
 			'bitly_api',
 			'hide_sidebar',
-			'prompt_text'
+			'prompt_text',
+			'vote_text',
+			'vote_style'
 		);
 }
 add_action( 'wp_before_admin_bar_render', 'pulse_press_admin_bar_render' );

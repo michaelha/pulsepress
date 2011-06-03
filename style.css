@@ -690,10 +690,10 @@ h2 a.rss:hover {
 	margin-top: 5px;
 }
 #searchform #s {
-	width: 57%;
+	width: 55%;
 }
 #searchform #searchsubmit {
-	width: 30%;
+	width: 31%;
 	margin-left: 10px;
 }
 .error404 #searchform div,
@@ -1653,8 +1653,7 @@ div.menu li {
 }
 #main .vote-down{ background-position: 0 -34px;}
 #main .vote .vote-up:hover,
-#main .vote .vote-up-set
-{ background: #010101 url('i/arrows.gif') no-repeat 0 0px; }
+#main .vote .vote-up-set { background: #010101 url('i/arrows.gif') no-repeat 0 0px; }
 #main .vote .vote-down:hover,
 #main .vote .vote-down-set{ background: #010101 url('i/arrows.gif') no-repeat 0 -34px; }
 

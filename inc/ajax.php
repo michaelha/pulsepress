@@ -408,6 +408,11 @@ class PulsePressAjax {
 		if(pulse_press_voting_init("bypass"))
 			echo "voted";
 	}	
+	function votedown(){
+	
+		if(pulse_press_voting_init("bypass"))
+			echo "voted";
+	}	
 	function star(){
 	
 		if(pulse_press_star_init("bypass"))

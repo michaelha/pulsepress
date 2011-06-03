@@ -378,23 +378,73 @@ jQuery(function($) {
 			url: queryString,
 			data: {_ajax_post: nonce, do_ajax:'true'},
 			success: function(result) {
-				
+								
 				if ("voted" == result) {
 					
 					// update the UI 
 					if(id.hasClass('vote-up-set')){
-						id.html("<span>Vote Up</span>");
-						id.removeClass("vote-up-set");
-						id.attr('title',"Vote Up");
+						id.html("<span>Vote Up</span>").removeClass("vote-up-set").attr('title',"Vote Up");
 						
-						// remove the 
+						// remove the vote
 						$("#votes-"+p_id).html(votes-1);
 					
 					}else{
-						id.html( "<span>Unvote</span>" );
-						id.addClass( "vote-up-set" );
-						id.attr( 'title',"Unvote" );
+						id.html( "<span>Unvote</span>" ).addClass( "vote-up-set" ).attr( 'title',"Unvote" );
+						var count = 1;
+						
+						if($("#votedw-"+p_id).hasClass('vote-down-set')) {
+							$("#votedw-"+p_id).html("<span>Vote Down</span>").removeClass("vote-down-set").attr('title',"Vote Down");
+							count = 2;
+						}
+						$("#votes-"+p_id).html(votes+count);
+						
+					}
+				}
+				
+			  },
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				// if something goes wrong
+			},
+			timeout: 60000
+		});
+		
+		// toggleUpdates('unewposts');
+	
+	}
+	
+	function newVoteDown(trigger,id) {
+	
+		var queryString = ajaxUrl +'&'+id.attr('href').substring(1);
+		var p_id = id.attr('id').substring(7);
+		var votes = parseInt($("#votes-"+p_id).html());
+		
+		$.ajax({
+			type: "GET",
+			url: queryString,
+			data: {_ajax_post: nonce, do_ajax:'true'},
+			success: function(result) {
+				
+				if ("voted" == result) {
+					
+					// update the UI 
+					if(id.hasClass('vote-down-set')){
+						
+						id.html("<span>Vote Down</span>").removeClass("vote-down-set").attr('title',"Vote Down");
+			
+						// remove the 
 						$("#votes-"+p_id).html(votes+1);
+					
+					}else{
+						id.html( "<span>Unvote</span>" );
+						id.addClass( "vote-down-set" );
+						id.attr( 'title',"Unvote" );
+						var count = 1;
+						if($("#voteup-"+p_id).hasClass('vote-up-set')) {
+							
+							$("#voteup-"+p_id).html("<span>Vote Up</span>").removeClass("vote-up-set").attr('title',"Vote Up");
+							count = 2;
+						}
+						$("#votes-"+p_id).html(votes-count);
 						
 					}
 				}
