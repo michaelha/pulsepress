@@ -32,11 +32,7 @@ get_header(); ?>
 			$paged = pulse_press_get_page_number();	
 			query_posts(array('post__in'=>pulse_press_get_user_starred_post_meta(), 'paged'=>$paged));
 		endif; 
-		
-		if(isset($_GET['popular'])):
-		$paged = pulse_press_get_page_number();
-			query_posts('meta_key=updates_votes&orderby=meta_value&order=DESC&paged='.$paged);
-		endif;
+	
 		?>
 		
 		<ul id="postlist">
