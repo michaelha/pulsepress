@@ -805,7 +805,6 @@ function pulsepress_main_loop_test($query) {
 
 
 /*
-
 function pulse_press_orderby1($order){
 	echo "1".$order."<br />";
 	return $order;
@@ -845,5 +844,6 @@ add_filter('posts_orderby','pulse_press_orderby4');
 add_filter('posts_distinct', 'pulse_press_orderby5');
 add_filter('post_limits', 'pulse_press_orderby6');
 add_filter('posts_fields', 'pulse_press_orderby7');
-*/
 
+
+*/

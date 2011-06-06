@@ -70,7 +70,8 @@ jQuery(function($) {
 			if( $.pp_words[i].substring(4,0)  == "http" && 
 			    $.pp_words[i].substring(13,0) != "http://bit.ly" && // ignore bitly as well 
 			    $.pp_words[i].substring(11,0) != "http://j.mp" && // ignore bitly as well 
-			    $.pp_words[i].substring(13,0) != "http://goo.gl") {
+			    $.pp_words[i].substring(13,0) != "http://goo.gl" &&
+			    $.pp_words[i].substring(14,0) != "http://yhoo.it") {
 			   
 			  
 			    $.shortenUrl( $.pp_words[i], function(short_url,longUrl) {

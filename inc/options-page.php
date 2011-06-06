@@ -81,7 +81,20 @@ class PulsePressOptions {
 
 						</td>
 					</tr>
-					
+					<tr valign="top">
+						<th scope="row"><?php _e( 'Enable Reply:', 'pulse_press' ); ?></th>
+						<td>
+
+						<input id="pulse_press_show_reply" type="checkbox" name="pulse_press_show_reply"  value="1" <?php  checked($set_option['show_reply']); ?> />
+						<label for="pulse_press_show_reply"><?php _e( 'Allow members to post a reply', 'pulse_press' ); ?></label>
+						<br />
+						<span><em><?php  if(get_option('default_comment_status') == 'open') : ?>
+						Currently you are allowing comments on new posts by default. Change it in the <a href="<?php echo admin_url('options-discussion.php'); ?>">Discussion Settings</a>.
+						<?php else : ?>
+						Currently you are <strong>NOT</strong> allowing replys on new post by default. Change it in the <a href="<?php echo admin_url('options-discussion.php'); ?>">Discussion Settings</a>.
+						<?php endif; ?></em></span>
+						</td>
+					</tr>
 					
 					
 					<tr>
@@ -119,12 +132,12 @@ class PulsePressOptions {
 						<th><?php _e( 'Twitter Style:', 'pulse_press' )?></th>
 						<td>
 							<input id="pulse_press_show_twitter" type="checkbox" name="pulse_press_show_twitter" <?php  checked($set_option['show_twitter']); ?> value="1" />
-							<label for="pulse_press_show_twitter"><?php _e( 'Twitter Style Interface', 'pulse_press' ); ?></label>
-							<ul>
-								<li><?php _e( 'Post will be limited to 140 Characters', 'pulse_press' ); ?></li>
+							<label for="pulse_press_show_twitter"><?php _e( 'Twitter Style Interface', 'pulse_press' ); ?></label><br />
+							<span><em><?php _e( 'Post will be limited to 140 Characters', 'pulse_press' ); ?></em></span><br />
 								<?php if(get_option('embed_autourls')): ?>
-								<li><?php _e( 'Currently some url will be converted into embeddable content, disable Auto-embeds under <a href="'.admin_url('options-media.php').'">Media Settings</a> to disable that feature. ', 'pulse_press' ); ?></li>
+								<span><em><?php _e( 'Currently some url will be converted into embeddable content, disable Auto-embeds under <a href="'.admin_url('options-media.php').'">Media Settings</a> to disable that feature. ', 'pulse_press' ); ?></em></span><br />
 								<?php else: ?>
+								<span><em> <?php _e( 'Currently Auto-embeds are disabled. To enable them visit <a href="'.admin_url('options-media.php').'">Media Settings</a>. ', 'pulse_press' ); ?></em></span>
 								<?php endif; ?>
 								
 							</ul>
@@ -139,12 +152,16 @@ class PulsePressOptions {
 							<label for="pulse_press_bitly_user"><?php _e( 'bitly Username', 'pulse_press' ); ?></label><br />
 							<input id="pulse_press_bitly_api" type="text" class="regular-text" name="pulse_press_bitly_api" value="<?php echo esc_attr($set_option['bitly_api']); ?>" />
 							<label for="pulse_press_bitly_api"><?php _e( 'bitly API Key', 'pulse_press' ); ?></label>
-							<p>to get your <a target="_blank" href="http://bit.ly">bit.ly</a> API key - <a target="_blank" href="http://bit.ly/a/sign_up">sign up</a> and view your <a target="_blank" href="http://bit.ly/a/your_api_key/">API KEY</a></p>
+							<br /><span><em>To get your <a target="_blank" href="http://bit.ly">bit.ly</a> API key - <a target="_blank" href="http://bit.ly/a/sign_up">sign up</a> and view your <a target="_blank" href="http://bit.ly/a/your_api_key/">API KEY</a>
+							 </<em></span>
 							
 							
 						</td>
 					</tr>
-				
+					
+					
+					
+					
 					
 					
 					
@@ -202,6 +219,7 @@ function pulse_press_options() {
 	return array(
 			'allow_users_publish',
 			'hide_threads',
+			'show_reply',
 			'show_voting',
 			'voting_type',
 			'show_fav',

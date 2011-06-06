@@ -30,15 +30,6 @@ get_header(); ?>
 			
 		</h2>
 		
-		<?php 
-		
-		if(isset($_GET['starred'])):
-			$paged = pulse_press_get_page_number();	
-			query_posts(array('post__in'=>pulse_press_get_user_starred_post_meta(), 'paged'=>$paged));
-		endif; 
-		
-		?>
-		
 		<ul id="postlist">
 		<?php if ( have_posts() ) : ?>
 

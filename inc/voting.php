@@ -13,7 +13,7 @@ function pulse_press_vote_on_post()
 		default:
 		case "one": ?>
 		<div class="vote" >
-		<em title="total votes"><strong id="votes-<?php the_ID();?>"><?php echo $votes; ?></strong> votes </em>
+		<em title="total votes"><strong id="votes-<?php the_ID();?>"><?php echo $votes; ?></strong> <?php echo (  get_option( 'pulse_press_vote_text' ) == ''  ? __("votes",'pulse_press') : esc_html( get_option( 'pulse_press_vote_text' )) ); ?></em>
 		<?php if( pulse_press_user_can_post() ) : ?>
 			<?php if(!pulse_press_is_vote(get_the_ID())) : ?>
 			<a id="voteup-<?php the_ID();?>" href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up" title="Vote Up"> <span>Vote Up</span></a> 

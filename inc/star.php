@@ -40,3 +40,28 @@ function pulse_press_star_init($redirect=true)
 }
 if(!isset($_GET['do_ajax']))
 	add_action('init','pulse_press_star_init');
+	
+	
+
+if(isset($_GET['starred'])):
+	
+	add_filter('posts_where_paged', 'pulse_press_star_where_paged');
+	
+	
+endif;
+
+
+/** 
+ * filter need to be applies to the main query to display the information in popularity order *
+ * I tried to recreate the query query_posts('meta_key=updates_votes&orderby=meta_value&order=DESC&paged='.$paged);
+ */
+/* change the query when using the popular filter */
+/* changes the main loop to make popular work */
+function pulse_press_star_where_paged( $where ) {
+	global $wpdb, $pulse_press_main_loop;
+
+  	if($pulse_press_main_loop)
+  		$where = " ".$wpdb->posts.".ID IN (".implode (",",pulse_press_get_user_starred_post_meta()).")  AND ". $where;
+	
+	return $where;
+}
