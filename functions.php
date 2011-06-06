@@ -787,3 +787,63 @@ add_custom_background("pulse_press_background_color");
 
 // Feed me
 add_theme_support( 'automatic-feed-links' );
+
+
+// only set this on the main loop
+$pulse_press_main_loop = false;
+function pulsepress_main_loop_test($query) {
+  global $wp_the_query, $pulse_press_main_loop;
+  
+  if ($query === $wp_the_query) {
+  	$pulse_press_main_loop = true;
+  }else{
+  	$pulse_press_main_loop = false;
+  }
+  
+}
+
+
+
+/*
+
+function pulse_press_orderby1($order){
+	echo "1".$order."<br />";
+	return $order;
+}
+
+function pulse_press_orderby2($order){
+	echo "2".$order."<br />";
+	return $order;
+}
+function pulse_press_orderby3($order){
+	echo "3".$order."<br />";
+	return $order;
+}
+function pulse_press_orderby4($order){
+	echo "4".$order."<br />";
+	return $order;
+}
+function pulse_press_orderby5($order){
+	echo "5".$order."<br />";
+	return $order;
+}
+function pulse_press_orderby6($order){
+	echo "6".$order."<br />";
+	return $order;
+}
+function pulse_press_orderby7($order){
+	echo "7".$order."<br />";
+	return $order;
+}
+
+
+add_filter('posts_where_paged', 'pulse_press_orderby1');
+add_filter('posts_groupby', 'pulse_press_orderby2');
+add_filter('posts_join_paged', 'pulse_press_orderby3');
+add_filter('posts_orderby','pulse_press_orderby4');
+
+add_filter('posts_distinct', 'pulse_press_orderby5');
+add_filter('post_limits', 'pulse_press_orderby6');
+add_filter('posts_fields', 'pulse_press_orderby7');
+*/
+
