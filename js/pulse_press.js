@@ -1,5 +1,5 @@
 var loggedin = false;
-
+var author_avatar = null;
 jQuery(function($) {
 
 	edCanvas = document.getElementById('posttext');
@@ -17,7 +17,7 @@ jQuery(function($) {
 				success: function(result) {			
 					if (result != 'logged_in') {
 						newNotification('Please login again.');
-						window.location = login_url;
+						// window.location = login_url;
 					} else {
 						loggedin = true;
 					}
@@ -35,6 +35,18 @@ jQuery(function($) {
 	  		return pulse_presstxt.unsaved_changes;   // For Safari
 		}
 	};
+	// set the author_avatar 
+	pulse_presstxt.author_avatar = $("#postbox img.avatar").attr('src');
+	// check for anonomous 
+	$('#post-anonymous').change(function() {
+		if( $(this).is(":checked") ){
+			$(this).parent().siblings('img').attr('src',pulse_presstxt.anonymous_avatar);
+			console.log("checked off",$(this).parent().siblings('img'),pulse_presstxt.anonymous_avatar);
+		}else{
+			$(this).parent().siblings('img').attr('src',pulse_presstxt.author_avatar);
+			console.log("un checked",$(this).parent().siblings('img'),pulse_presstxt.author_avatar);
+		}
+	});
 	
 		
 	/*
@@ -259,8 +271,18 @@ jQuery(function($) {
 		var post_cat = $('#post_cat').val();
 		var post_title = $('#posttitle').val();
 		var post_citation = $('#postcitation').val();
+		
+		
+		// if anonymouse is enabled 
+		if( $('#post-anonymous').is(':checked') ) {
+			var args = {action: 'new_post', _ajax_post:nonce, posttext: posttext, tags: tags, post_cat: post_cat, post_title: post_title, post_citation: post_citation, anonymous:1 };
+		} 
+		else {
+			var args = {action: 'new_post', _ajax_post:nonce, posttext: posttext, tags: tags, post_cat: post_cat, post_title: post_title, post_citation: post_citation };
+		}
+			
 
-		var args = {action: 'new_post', _ajax_post:nonce, posttext: posttext, tags: tags, post_cat: post_cat, post_title: post_title, post_citation: post_citation };
+		
 		var errorMessage = '';
 		$.ajax({
 			type: "POST",

@@ -18,7 +18,7 @@
 
 				<div <?php post_class( 'post' ); ?> id="post-<?php the_ID( ); ?>">
 
-					<h2><a href="<?php echo get_permalink($post->post_parent); ?>" rev="attachment"><?php echo get_the_title($post->post_parent); ?></a> &raquo; <?php the_title(); ?></h2>
+					<h2><a class="permalink" href="<?php echo get_permalink($post->post_parent); ?>" rev="attachment"><?php echo get_the_title($post->post_parent); ?></a> &raquo; <?php the_title(); ?></h2>
 
 					<div class="entry">
 						<?php edit_post_link( 'Edit this entry.', '<p>', '</p>' ); ?>

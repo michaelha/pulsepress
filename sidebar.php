@@ -14,7 +14,7 @@
 					<?php 
 					endif;
 					if(current_user_can( 'read' ) && get_option( 'pulse_press_show_fav' )): ?>
-					<li><a href="?starred" id="starred">Starred </a></li>
+					<li><a href="?starred" id="starred">My Starred</a></li>
 					<?php endif; ?>
 				</ul>
 			</li>

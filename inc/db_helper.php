@@ -40,21 +40,15 @@ function pulse_press_delete_tables_and_options($name)
 	$options = pulse_press_options();
 	foreach($options as $option):
 	
-	delete_option( 'pulse_press_rewrites_flushed' );
+	delete_option( 'pulse_press_'.$option );
 	endforeach;
 	delete_option( 'pulse_press_rewrites_flushed' );
 	delete_option( 'pulse_press_db_version' );
 	
 	delete_option( 'pulse_press_show_titles' );
-	delete_option( 'pulse_press_allow_users_publish' );
 	delete_option( 'pulse_press_prompt_text' );
-	delete_option( 'pulse_press_hide_sidebar' );
-	delete_option( 'pulse_press_background_color' );
-	delete_option( 'pulse_press_background_image' );
-	delete_option( 'pulse_press_hide_threads' );
 	delete_option( 'pulse_press_votes_updated' );
-	
-	
+
 	$pulse_press_db_table = PulsePress_DB_TABLE;
    	$wpdb->query("DROP TABLE IF EXISTS $pulse_press_db_table");
 	// delete the different option

@@ -70,6 +70,8 @@ class PulsePressJS {
 			'time_format' => get_option( 'time_format' ),
 			// if we don't convert the entities to characters, we can't get < and > inside
 			'l10n_print_after' => 'try{convertEntities(pulse_presstxt);}catch(e){};',
+			'author_avatar' => null,
+			'anonymous_avatar' => get_template_directory_uri().'/i/anonymous.png',
 		));
 			
 		wp_enqueue_script( 'scrollit', PulsePress_JS_URL .'/jquery.scrollTo-min.js', array( 'jquery' )  );

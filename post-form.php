@@ -13,6 +13,9 @@ $post_type = pulse_press_get_posting_type();
 <div id="postbox">
 		<div class="avatar">
 			<?php pulse_press_user_avatar( 'size=48' ); ?>
+			<?php if(get_option( 'pulse_press_show_anonymous' )): ?>
+			<label id="anonymous"><input type="checkbox"  value="1" id="post-anonymous" name="anonymous" /> shy <div id="shy-tooltip">posting this way will hide your identity on the font end, but the admistaror will still be able to find out who posted</div></label>
+			<?php endif; ?>
 		</div>
 
 		<div class="inputarea">
@@ -21,6 +24,7 @@ $post_type = pulse_press_get_posting_type();
 				<label for="posttext">
 					<?php pulse_press_user_prompt(); ?>
 				</label>
+				
 				<?php endif; ?>
 
 				<textarea class="expand70-200" name="posttext" id="posttext" tabindex="1" rows="4" cols="60"></textarea>
@@ -37,15 +41,16 @@ $post_type = pulse_press_get_posting_type();
 					<?php endif; ?>
 						<?php 
 						// anonomouse is commneted out for now
-						//<label id="anonymous"><input type="checkbox" checked="checked" value="1" /> anonymous</label> 
-						
 						?>
+						
+						
+						
 						
 					<input id="submit" type="submit" tabindex="3" value="<?php esc_attr_e( 'Post it', 'pulse_press' ); ?>" />
 					<?php if(get_option( 'pulse_press_show_twitter' )): ?>
 					
 					<a href="#" id="shorten-url">shorten url</a>
-					<span id="post-count">count</span>
+					<span id="post-count">140</span>
 					<?php endif; ?>
 				</div>
 				<!-- <input type="hidden" name="post_cat" id="post_cat" value="<?php echo esc_attr( $post_type ); ?>" /> -->

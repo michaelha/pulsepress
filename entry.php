@@ -7,24 +7,33 @@
 <li id="prologue-<?php the_ID(); ?>" <?php post_class( get_the_author_meta( 'ID' ) ); ?>>
 		<?php if ( !is_page() ) : ?>
 			<?php
+			
+				if( get_option( 'pulse_press_show_anonymous' ) && get_post_custom_values('anonymous') ):
+					echo '<img class="avatar avatar-48 photo" src="'.get_template_directory_uri().'/i/anonymous.png"  alt="anonymous" />';
+				else:
 				printf(
 					'<a href="%1$s" title="%2$s">%3$s</a>',
 					get_author_posts_url( pulse_press_get_author_id() ),
 					sprintf( __( 'Posts by %s', 'pulse_press' ), esc_attr( pulse_press_get_author_name() ) ),
 					pulse_press_get_user_avatar( array( 'user_id' => pulse_press_get_author_id(), 'email' => '', 'size' => 48 ) )
 				);
+				
+				endif;
 			?>
 		<?php endif; ?>
 			<h4 class="post-title">
 			<?php if ( !is_page() ) : 
-				printf(
+				if( get_option( 'pulse_press_show_anonymous' ) && get_post_custom_values('anonymous') ):
+					echo __( 'Anonymous', 'pulse_press' );
+				else:
+					printf(
 					'<a href="%1$s" title="%2$s">%3$s</a>',
 					get_author_posts_url( pulse_press_get_author_id() ),
 					sprintf( __( 'Posts by %s', 'pulse_press' ), esc_attr( pulse_press_get_author_name() ) ),
 					get_the_author()
 				);
-			?>
-			<?php endif; ?>
+				endif;
+			 endif; // end of not page ?>
 			
 			<span class="meta">
 				<?php if ( !is_page() ) : ?>
@@ -39,7 +48,7 @@
 						 if ( ! post_password_required() && get_option( 'pulse_press_show_reply' )) : ?>
 							<?php echo post_reply_link( array( 'before' => '', 'after' => ' | ',  'reply_text' => __( 'Reply', 'pulse_press' ), 'add_below' => 'prologue' ), get_the_id() ); ?>
 						<?php endif; ?>
-						<a href="<?php the_permalink(); ?>" class="thepermalink" title="go to: <?php echo the_title_attribute(); ?>"><?php _e( 'Permalink', 'pulse_press' ); ?></a> 
+						<a href="<?php the_permalink(); ?>" class="permalink" title="go to: <?php echo the_title_attribute(); ?>"><?php _e( 'Permalink', 'pulse_press' ); ?></a> 
 					<?php else : 
 						
 						pulse_press_vote_on_post();

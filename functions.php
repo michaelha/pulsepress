@@ -61,9 +61,9 @@ function pulse_press_get_at_name_map() {
 	return $name_map;
 }
 
-add_action( 'init', 'mention_taxonomy', 0 ); // initialize the taxonomy
+add_action( 'init', 'pusle_press_mention_taxonomy', 0 ); // initialize the taxonomy
 
-function mention_taxonomy() {
+function pusle_press_mention_taxonomy() {
 	register_taxonomy( 'mentions', 'post', array( 'show_ui' => false ) );
 	pulse_press_flush_rewrites();
 }
@@ -75,6 +75,25 @@ function pulse_press_flush_rewrites() {
 		$wp_rewrite->flush_rules();
 	}
 }
+
+add_action( 'template_redirect', 'pulse_press_anonymous_feed', 0 ); // makethe feed info appear anonomous
+function pulse_press_anonymous_feed(){
+	
+	if( get_option( 'pulse_press_show_anonymous' ) && is_feed() ):	
+		add_filter('get_the_author_login',"pulse_press_anonymous_author");
+		add_filter("the_author","pulse_press_anonymous_author");
+	endif;
+	
+	
+}
+function pulse_press_anonymous_author( $author) { 
+	global $post;
+	if(get_post_custom_values('anonymous')):
+		return "Anonymous";
+	else:
+		return $author;
+	endif;
+ }
 
 add_action( 'init', 'pulse_press_register_menu', 0 ); // initialize the menu 
 function pulse_press_register_menu(){
@@ -161,7 +180,7 @@ function pulse_press_comment( $comment, $args, $depth ) {
 	<?php echo get_avatar( $comment, 32 ); ?>
 	<h4>
 		<?php comment_author_link(); ?>
-		<span class="meta"><?php comment_time(); ?> <?php _e( 'on', 'pulse_press' ); ?> <?php comment_date(); ?> <span class="actions"><a href="#comment-<?php comment_ID( ); ?>"><?php _e( 'Permalink', 'pulse_press' ); ?></a><?php echo comment_reply_link(array( 'depth' => $depth, 'max_depth' => $args['max_depth'], 'before' => ' | ' )); ?><?php edit_comment_link( __( 'Edit' , 'pulse_press' ), ' | ','' ); ?></span><br /></span>
+		<span class="meta"><?php comment_time(); ?> <?php _e( 'on', 'pulse_press' ); ?> <?php comment_date(); ?> <span class="actions"><a href="#comment-<?php comment_ID( ); ?>" class="permalink"><?php _e( 'Permalink', 'pulse_press' ); ?></a><?php echo comment_reply_link(array( 'depth' => $depth, 'max_depth' => $args['max_depth'], 'before' => ' | ' )); ?><?php edit_comment_link( __( 'Edit' , 'pulse_press' ), ' | ','' ); ?></span><br /></span>
 	</h4>
 	<div class="commentcontent<?php if (current_user_can( 'edit_post', $comment->comment_post_ID)) echo( ' comment-edit' ); ?>"  id="commentcontent-<?php comment_ID( ); ?>">
 			<?php comment_text( ); ?>
@@ -243,7 +262,7 @@ function pulse_press_the_title( $before = '<h2>', $after = '</h2>', $returner = 
 		if ( is_single() )
 			$out = $before . $t . $after;
 		else
-			$out = $before . '<a href="' . get_permalink( $temp->ID ) . '">' . $t . '&nbsp;</a>' . $after;
+			$out = $before . '<a href="' . get_permalink( $temp->ID ) . ' " class="permalink">' . $t . '&nbsp;</a>' . $after;
 
 		if ( $returner )
 			return $out;
@@ -289,7 +308,7 @@ function pulse_press_comments( $comment, $args, $echo = true ) {
 				$author_link
 				<span class="meta">
 						$date_time
-						<span class="actions"><a href="$permalink">$permalink_text</a> $reply_link $edit_link</span>
+						<span class="actions"><a href="$permalink" class="permalink">$permalink_text</a> $reply_link $edit_link</span>
 				</span>
 		</h4>
 		<div class="$content_class" id="commentcontent-$id">

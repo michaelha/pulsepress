@@ -168,7 +168,6 @@ input[type="submit"],
 	height: 28px;
 	display: inline-block;
 	padding: 5px 10px 6px;
-	color: #fff;
 	text-decoration: none;
 	font-weight: bold;
 	line-height: 1;
@@ -207,11 +206,37 @@ input[type="submit"]:active {
 	margin-top: 1em;
 	float: left;
 	border: 0;
+	width: 50px;
 }
 #postbox .avatar img {
 	padding: 0;
 	border: solid;
 	border-width: 1px;
+}
+#postbox #anonymous {
+	font-size:12px;
+	padding: 5px 0;
+	position: relative;
+	z-index: 10;
+	width: 52px;
+}
+#postbox #anonymous:hover{
+	background: #F9D423;
+}
+#postbox #anonymous:hover #shy-tooltip{
+	display: block;
+}
+#shy-tooltip{
+	display: none;
+	position: absolute;
+	top:-17px;
+	left: 53px;
+	background: #FFF;
+	border:1px solid #BBB;
+	width: 200px;
+	font-size: 12px;
+	padding:2px 5px;
+	box-shadow: 0 2px 6px rgba(100, 100, 100, 0.6);
 }
 #postbox .inputarea {
 	padding-left: 60px;
@@ -243,6 +268,7 @@ input[type="submit"]:active {
 form#new_post {
 	margin-top: 20px;
 }
+
 #postbox label {
 	display: block;
 	font-weight: normal;
@@ -268,17 +294,14 @@ form#new_post {
 	color:#AAA;
 	position: absolute;
 	top:2px;
-	right:80px;
+	right:83px;
 }
 #shorten-url{
 	position: absolute;
 	top:10px;
 	right:130px;
 }
-#postbox #anonymous {
-	font-size:12px;
-	padding: 5px 10px 0;
-}
+
 #postbox input#submit {
 	position: absolute;
 	top:0;
@@ -573,7 +596,7 @@ h2 img {
 
 .rss {
 	float: right;
-	background: url(i/feed.png) bottom left no-repeat;
+	background: url(i/feed.png) center left no-repeat;
 	padding-left: 14px;
 	padding-top: 4px;
 }
@@ -583,7 +606,7 @@ h2 img {
 }
 h2 .rss {
 	float: none;
-	background: url(i/feed12x12.png) bottom left no-repeat;
+	background: url(i/feed12x12.png) center left no-repeat;
 	padding-top: 0;
 	padding-left: 16px;
 	
@@ -884,6 +907,7 @@ a.hidemessage {
 	border:1px solid #CCC;
 	border-width: 1px;
 	background: rgba(255, 255, 255, 0.95);
+	box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
 }
 .ac_results li {
 	padding: 4px 8px;
@@ -897,7 +921,8 @@ a.hidemessage {
 }
 .post-error {
 	width: 608px;
-	padding-bottom: 10px;
+	color: red !important;
+	font-size: 10px;
 }
 #respond p.logged-in-as, #respond p.must-log-in, #respond p.comment-notes {
 	position: absolute;
@@ -1195,9 +1220,6 @@ h3 {
 	background: #E4F2FD;
 }
 
-.post-error {
-	color: red !important;
-}
 #tooltip {
 	background: #333;
 	color: #FFF;
@@ -1210,7 +1232,7 @@ h3 {
 	border-color: #f00;
 }
 li.newupdates, li.newcomment, em.newupdates {
-	background-color: #F6F3D1;
+	background-color: #F9D423;
 }
 .repyling .post .comment {
 	background: transparent;
@@ -1474,7 +1496,7 @@ form.textedit textarea {
 	left: 0;
 }
 .mention-highlight {
-	background-color: #DEEE66;
+	background-color: #F9D423;
 }
 
 
@@ -1740,38 +1762,187 @@ div.menu li {
 	 clear:both;
 	}
 	#header, #footer, #shell, #sidebar,#sidebar,.sleeve_main,#wrapper,#access{ width: 100%; }
-	
-	#main .inlinecomments .action{
-		display: block;
+	.sleeve_main{ border:none; }
+	#main .controls{ display: none;}
+	#shell{
+		margin: 0 auto !important;
+	}
+	#main h2{
+		width: 100%;
+		margin: 0;
+		padding: 0 0 2px;
+	}
+	.rss{
+		padding-right: 10px;
 	}
 	
-	#main h4 span.actions{
-		top: -37px;
-		display: block;
+	#main ul#postlist ul.commentlist li{
 		background: #EEE;
-		border-top: 5px solid #EEE;
-		margin-left: 5px;
-          width: 420px;
-          height: 19px;
-          padding-top: 20px;
-          font-size: 14px;
-          padding:5px 10px;
-          left: 0;
-          margin-top:1px;  
+		margin: 0 -35px 0 -60px;
+		padding: 5px 5px 30px 5px;
 	}
-	#main ul#postlist li{
-		padding: 10px 5px 0;
+	#main ul#postlist ul.children li{
+		position: relative;
+		background: #FFF;
+		margin: 0 0 0 5px;
 	}
-	#main img.avatar{
-		width: 32px;
-		height: 32px;
+	.post,#main ul#postlist ul.commentlist li {
+		position: relative;
 	}
-	.postcontent {
-		padding-left: 40px;
+	.commentlist,
+	#main ul#postlist li.post{ 
+		padding-bottom: 30px; 
+		border-top: 1px solid #CCC;
+		}
+	.post-title,.inlinecomments h4 {
+		position: static;
 	}
-	#main h4{
-		margin-left: 35px;
-		margin-top: 35px;
+	.post .actions{
+		position: absolute;
+		bottom:0;
+		left: 0;
+		background: #EEE;
+		width: 100%;
+		margin-left: -10;
+		padding: 10px 0 5px 10px;
+		
 	}
-
+	#access{
+		background: #FFF;
+		width: 99%;
+		position: relative;
+		overflow: hidden;
+		
+	}
+	
+	#access ul li,
+	#access ul
+	{
+		border: 0;
+		display: block;
+		float: none;
+		margin: 0;
+		padding: 0;
+		position: relative;
+		width: 98%;
+		overflow: hidden;
+	}
+	#access ul ul{
+		display: none;
+		position: relative;
+	}
+	#access ul li.current_page_item ul,
+	#access ul li.current_page_ancestor ul{
+		display: block;
+		top:auto;
+		float: none;
+		width: auto;
+		z-index: 0;
+	}
+	#access ul ul li,
+	#access ul li a,
+	#access ul li a:hover{
+		padding: 7px 10px;
+		border-bottom:1px solid #BBB;
+		border-top:1px solid #FFF;
+		font-size:13px;
+		font-weight:bold;
+		color:#555;
+		text-shadow: 0 1px 1px #F6F6F6;
+		text-decoration: none;
+		background: #F7F7F7; /* old browsers */
+		background: -moz-linear-gradient(top, #F7F7F7 0%, #EEEEEE 100%); /* firefox */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F7F7F7), color-stop(100%,#EEEEEE)) ; /* webkit */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F7F7F7', endColorstr='#EEEEEE',GradientType=0 ); /* ie */
+		min-width: 100%;
+		width: 100%;
+		padding:5px 10px!important;
+	}
+	#access ul li a:hover,
+	#access ul li.current_page_item a{
+		border-top:0;
+		border-radius: 0;
+		-webkit-border-radius: 0!important;
+		-moz-border-radius: 0!important;
+		border-radius: 0!important;
+	}
+		#access ul li li{
+		margin: 0 -20px 0 0  !important;
+		padding: 0 0 0 10px !important;
+		display: block;
+		position: relative;
+		}
+	
+	#access ul ul ul {
+		left: auto;
+		top:auto;
+		display: none;
+	}
+	#access ul ul a {
+		width: 100%;
+	}
+	#access li:hover > a{
+		padding: 0 13px;
+		-moz-border-radius-topright: 0;
+		border-top-right-radius: 0;
+		-moz-border-radius-topleft: 0;
+		border-top-left-radius: 0;
+	}
+	
+	#access ul li:hover > ul {
+		display:  none !important;
+	}
+	#access ul.children li:hover > a,
+	#access ul.sub-menu li:hover > a,
+	#access ul.children li a:hover,
+	#access ul.sub-menu li a:hover,
+	#access ul li:hover > li a,
+	#access ul li.current_page_ancestor ul li a,
+	#access ul li.current_page_item ul li  a,
+	#access ul li.current-menu-ancestor ul li a,
+	#access ul li.current-menu-item ul li a,
+	#access ul li.current-menu-parent ul li a
+	#access ul li:hover > li a:hover{
+		padding: 12px 8px;
+	}
+	/* This part makes ure that the page that is suppoed to be higlited is highlited */
+	#postbox .postrow{
+		height:70px;
+		clear: both;
+	}
+	#postbox #post-count,
+	#postbox input#submit{
+		top:52px;
+	}
+	#postbox .avatar{ margin-top: 10px; }
+	#postbox textarea#posttext{ float: left;}
+	#postbox{ overflow: hidden; }
+	#shorten-url{ top:60px;}
+	#postbox label{ font-size: 1.1em;}
+	
+	#postbox input#tags {
+		width: 97%;
+		float: none;
+	}
+	
+	
+	/* comments */
+	#main #respond{ 
+		clear: both; 
+		margin: -5px -20px 0 -10px; 
+		width: 100%; 
+		background:#CCC; 
+		-moz-border-radius: 0; 
+		border-radius: 0; 
+		-webkit-border-radius: 0;   }
+	#main .commentlist li  #respond.replying,
+	#main .commentlist li li #respond.replying,
+	#main .commentlist #respond.replying{
+		margin-left: -60px;
+		width: 100%;
+	}
+	#main .commentlist li  #respond.replying,
+	#main .commentlist li li #respond.replying{
+		margin-left: 0;
+	}
 }

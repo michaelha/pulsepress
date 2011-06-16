@@ -5,19 +5,20 @@ add_action( 'admin_menu', array( 'PulsePressOptions', 'init' ) );
 class PulsePressOptions {
 
 	function init() {
-		global $plugin_page;
+		// global $plugin_page;
 
 		add_theme_page( __( 'Theme Options', 'pulse_press' ), __( 'Theme Options', 'pulse_press' ), 'edit_theme_options', 'pulse_press-options-page', array( 'PulsePressOptions', 'page' ) );
-
+		/* 
 		if ( 'pulse_press-options-page' == $plugin_page ) {
-			/* 
+			
 			wp_enqueue_script( 'farbtastic' );
 			wp_enqueue_style( 'farbtastic' );
 			wp_enqueue_script( 'colorpicker' );
 			wp_enqueue_style( 'colorpicker' );
 			
-			*/
+			
 		}
+		*/
 	}
 
 	function page() {
@@ -89,19 +90,28 @@ class PulsePressOptions {
 						<label for="pulse_press_show_reply"><?php _e( 'Allow members to post a reply', 'pulse_press' ); ?></label>
 						<br />
 						<span><em><?php  if(get_option('default_comment_status') == 'open') : ?>
-						Currently you are allowing comments on new posts by default. Change it in the <a href="<?php echo admin_url('options-discussion.php'); ?>">Discussion Settings</a>.
+						<?php _e( 'Currently you are allowing comments on new posts by default. Change it in the','pulse_press');?> <a href="<?php echo admin_url('options-discussion.php'); ?>"><?php _e( 'Discussion Settings','pulse_press');?></a>.
 						<?php else : ?>
-						Currently you are <strong>NOT</strong> allowing replys on new post by default. Change it in the <a href="<?php echo admin_url('options-discussion.php'); ?>">Discussion Settings</a>.
+						<?php _e( 'Currently you are <strong>NOT</strong> allowing replys on new post by default. Change it in the','pulse_press');?>  <a href="<?php echo admin_url('options-discussion.php'); ?>"><?php _e( 'Discussion Settings','pulse_press');?></a>.
 						<?php endif; ?></em></span>
 						</td>
 					</tr>
-					
-					
+					<tr>
+						<th><?php _e( 'Enable Anonymous Posting:', 'pulse_press' )?></th>
+						<td>
+							<input id="pulse_press_show_anonymous" type="checkbox" name="pulse_press_show_anonymous" <?php checked($set_option['show_anonymous']); ?> value="1" />
+							<label for="pulse_press_show_anonymous"><?php _e( 'Enable Anonymous Interface', 'pulse_press' ); ?></label><br />
+							<span><em><?php _e( 'Allows logged in users to posts anonymously, their post will appear as anonymouse on the front end but as an admin you will be able to see posted.', 'pulse_press' ); ?></em></span><br />
+
+						</td>
+					</tr>
 					<tr>
 						<th><?php _e( 'Enable Favouriting:', 'pulse_press' )?></th>
 						<td>
-							<input id="pulse_press_show_fav" type="checkbox" name="pulse_press_show_fav" <?php  checked($set_option['show_fav']); ?> value="1" />
-							<label for="pulse_press_show_fav"><?php _e( 'Enable Favouriting Interface', 'pulse_press' ); ?></label>
+							<input id="pulse_press_show_fav" type="checkbox" name="pulse_press_show_fav" <?php checked($set_option['show_fav']); ?> value="1" />
+							<label for="pulse_press_show_fav"><?php _e( 'Enable Favouriting Interface', 'pulse_press' ); ?></label><br />
+							<span><em><?php _e( 'Allows logged in users to STAR ( favorite ) posts, and view them.', 'pulse_press' ); ?></em></span><br />
+
 						</td>
 					</tr>
 					
@@ -159,12 +169,6 @@ class PulsePressOptions {
 						</td>
 					</tr>
 					
-					
-					
-					
-					
-					
-					
 				</tbody>
 			</table>
 
@@ -188,7 +192,7 @@ class PulsePressOptions {
 						<th scope="row"><?php _e( 'Post prompt:', 'pulse_press' ); ?></th>
 						<td>
 							<input id="pulse_press_prompt_text" type="text" name="pulse_press_prompt_text" class="regular-text"  value="<?php echo ($set_option['prompt_text'] == __("What&rsquo;s happening?") ) ? __("What&rsquo;s happening?") : esc_attr( $set_option['prompt_text'] ); ?>" />
-				 			(<?php _e( 'if empty, defaults to <strong>What&rsquo;s happening?</strong>', 'pulse_press' ); ?>)
+				 			(<?php _e( 'if empty, defaults to "What&rsquo;s happening?"', 'pulse_press' ); ?>)
 						</td>
 					</tr>
 					
@@ -196,7 +200,7 @@ class PulsePressOptions {
 						<th scope="row"><?php _e( 'Vote text:', 'pulse_press' ); ?></th>
 						<td>
 							<input id="pulse_press_vote_text" type="text" name="pulse_press_vote_text" class="regular-text"  value="<?php echo ($set_option['vote_text'] == __("votes") ) ? __("votes") : esc_attr( $set_option['vote_text'] ); ?>" />
-				 			(<?php _e( 'if empty, defaults to <strong>votes</strong>', 'pulse_press' ); ?>)
+				 			(<?php _e( 'if empty, defaults to "votes"', 'pulse_press' ); ?>)
 						</td>
 					</tr>
 
@@ -222,6 +226,7 @@ function pulse_press_options() {
 			'show_reply',
 			'show_voting',
 			'voting_type',
+			'show_anonymous',
 			'show_fav',
 			'show_tagging',
 			'show_twitter',
