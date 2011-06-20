@@ -251,7 +251,7 @@ class PulsePressAjax {
 
 			$number_of_new_posts++;
 			$post_request_ajax = true;
-			require( dirname( dirname( __FILE__ ) ) . '/entry.php' );
+			require_once( dirname( dirname( __FILE__ ) ) . '/entry.php' );
 	    endwhile;
 	   	$posts_html = ob_get_clean();
 

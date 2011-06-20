@@ -841,10 +841,7 @@ img.alignleft {
 	margin: 0 !important;
 	padding: 0 0 1.5em 0 !important;
 }
-.gallery br {
-	display: none;
-	clear: none !important;
-}
+
 .gallery-icon {
 	width: auto !important;
 	margin-bottom: 4px;
@@ -874,7 +871,6 @@ img.alignleft {
 	display: inline-block !important;
 	padding-bottom: 1px;
 	margin: 0 auto !important;
-	float: none !important;
 }
 .wp-caption img {
 	margin: 0;
@@ -1512,7 +1508,7 @@ form.textedit textarea {
 -------------------------------------------------------------- */
 
 #access {
-	background: #666 url('i/bg-access.jpg') repeat-x bottom;
+	background: #FFF url('i/bg-access.jpg') repeat-x bottom ;
 	display: block;
 	float: left;
 	margin-left:1px;

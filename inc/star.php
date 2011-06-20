@@ -18,7 +18,7 @@ function pulse_press_star_a_post()
 
 function pulse_press_star_init($redirect=true)
 {
-	if( wp_verify_nonce($_GET['nononc'], 'star') && ($_GET['action'] == "star")):
+	if( isset($_GET['nononc']) && wp_verify_nonce($_GET['nononc'], 'star') && ($_GET['action'] == "star")):
 		$post_id = (int)$_GET['pid'];
 		
 		if(!pulse_press_is_star($post_id)):

@@ -59,7 +59,7 @@ function pulse_press_vote_on_post()
 
 function pulse_press_voting_init($redirect=true)
 {
-	if( wp_verify_nonce( $_GET['nononc'], 'vote') && in_array( $_GET['action'], array("vote","votedown") ) ):
+	if( isset($_GET['nononc']) &&  wp_verify_nonce( $_GET['nononc'], 'vote') && in_array( $_GET['action'], array("vote","votedown") ) ):
 		$post_id = (int)$_GET['pid'];
 		
 		switch( get_option('pulse_press_voting_type') ) {
