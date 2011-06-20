@@ -410,6 +410,8 @@ input#comment-submit {
 }
 h4.post-title .actions {
 	float: right;
+	display: block;
+	width: auto;
 	
 }
 
@@ -1650,7 +1652,8 @@ div.menu li {
           float: right;
           margin-top: -3px;
           }
-.vote { display:block; float: left; margin-right: 5px;}
+.vote { display:block; float: left; margin-right: 5px; }
+
 /* 
 #main .vote-up, #main .vote-down{ background: url('i/votes.gif') no-repeat 0 -28px; line-height: 16px; width: 16px; height:14px; float: left; display: block;  }
 #main .vote .vote-up:hover{ background: url('i/votes.gif') no-repeat 0 -28px;  } 
@@ -1965,3 +1968,12 @@ div.menu li {
 		margin-left: 0;
 	}
 }
+/* IE Bugs */
+.ie7 .vote { width:65px; }
+.ie7 .action-star{ width: 20px; }
+.ie7 #main img.avatar{ margin-top:15px; }
+.ie7 #main .actions{ margin-top: -15px; }
+.ie7 #main .controls { margin-top: -10px; }
+.ie7 #postbox #post-count{ right:110px; }
+.ie7 #shorten-url{ right: 160px; }
+.ie7 #main input[type='submit']{ line-height: 1; }

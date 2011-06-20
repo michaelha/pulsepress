@@ -76,7 +76,7 @@ class PulsePressJS {
 			
 		wp_enqueue_script( 'scrollit', PulsePress_JS_URL .'/jquery.scrollTo-min.js', array( 'jquery' )  );
 
-		wp_enqueue_script( 'wp-locale', PulsePress_JS_URL . '/wp-locale.js', array(), filemtime(PulsePress_JS_PATH . '/wp-locale.js' ) );
+		wp_enqueue_script( 'wp-locale', PulsePress_JS_URL . '/wp-locale.js', array(), 12 );
 
 		// the localization functinality can't handle objects, that's why
 		// we are using poor man's hash maps here -- using prefixes of the variable names
