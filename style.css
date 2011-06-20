@@ -1764,6 +1764,7 @@ div.menu li {
 	#header, #footer, #shell, #sidebar,#sidebar,.sleeve_main,#wrapper,#access{ width: 100%; }
 	.sleeve_main{ border:none; }
 	#main .controls{ display: none;}
+	#main { clear: both; }
 	#shell{
 		margin: 0 auto !important;
 	}
@@ -1838,6 +1839,7 @@ div.menu li {
 		float: none;
 		width: auto;
 		z-index: 0;
+		
 	}
 	#access ul ul li,
 	#access ul li a,
@@ -1858,15 +1860,32 @@ div.menu li {
 		width: 100%;
 		padding:5px 10px!important;
 	}
-	#access ul li a:hover,
-	#access ul li.current_page_item a{
+
+	#access ul li.current_page_ancestor a, 
+	#access ul li.current_page_item a, 
+	#access ul li.current-menu-ancestor a, 
+	#access ul li.current-menu-item a, 
+	#access ul li.current-menu-parent a, 
+	#access ul li a:hover{
 		border-top:0;
 		border-radius: 0;
 		-webkit-border-radius: 0!important;
 		-moz-border-radius: 0!important;
 		border-radius: 0!important;
+		color: #FFF;
+		background: #333;
+		text-shadow: 0 0 0;
+		display: block !important;
 	}
-		#access ul li li{
+	
+	#access ul li.current_page_ancestor ul,
+	#access ul li.current_page_item ul,
+	#access ul li.current-menu-ancestor ul, 
+	#access ul li.current-menu-item ul, 
+	#access ul li.current-menu-parent ul{
+		display: block !important;
+	}
+	#access ul li li{
 		margin: 0 -20px 0 0  !important;
 		padding: 0 0 0 10px !important;
 		display: block;
@@ -1890,7 +1909,7 @@ div.menu li {
 	}
 	
 	#access ul li:hover > ul {
-		display:  none !important;
+		display: none;
 	}
 	#access ul.children li:hover > a,
 	#access ul.sub-menu li:hover > a,
