@@ -1,5 +1,11 @@
 PulsePress Theme - Changes
 ---------------------------
+1.1.1 - June 
+- Compatibility with 3.0 
+- Removed PHP Warnings 
+- Updated footer credit info
+- Added couple more options for changing default text
+
 1.1 - Jun 2011 - initial release 
 - 2 way voting
 - twitter like interface

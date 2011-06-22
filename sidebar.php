@@ -10,11 +10,11 @@
 			<li>
 				<ul>
 					<?php if(get_option( 'pulse_press_show_voting' )): ?>
-					<li><a href="?popular">Popular</a></li>
+					<li><a href="?popular"><?php echo ( !get_option( 'pulse_press_popular_text' ) || get_option( 'pulse_press_popular_text' ) == __("Popular") ) ? __("Popular") : esc_html( get_option( 'pulse_press_popular_text' ) ); ?></a></li>
 					<?php 
 					endif;
 					if(current_user_can( 'read' ) && get_option( 'pulse_press_show_fav' )): ?>
-					<li><a href="?starred" id="starred">My Starred</a></li>
+					<li><a href="?starred" id="starred"><?php echo (! get_option( 'pulse_press_star_text' ) || get_option( 'pulse_press_star_text' ) == __("My Starred") ) ? __("My Starred") : esc_html( get_option( 'pulse_press_star_text' ) ); ?></a></li>
 					<?php endif; ?>
 				</ul>
 			</li>

@@ -203,6 +203,22 @@ class PulsePressOptions {
 				 			(<?php _e( 'if empty, defaults to "votes"', 'pulse_press' ); ?>)
 						</td>
 					</tr>
+					
+					<tr valign="top">
+						<th scope="row"><?php _e( 'Popular text:', 'pulse_press' ); ?></th>
+						<td>
+							<input id="pulse_press_popular_text" type="text" name="pulse_press_popular_text" class="regular-text"  value="<?php echo ($set_option['popular_text'] == __("Popular") ) ? __("Popular") : esc_attr( $set_option['popular_text'] ); ?>" />
+				 			(<?php _e( 'if empty, defaults to "Popular"', 'pulse_press' ); ?>)
+						</td>
+					</tr>
+					
+					<tr valign="top">
+						<th scope="row"><?php _e( 'Started text:', 'pulse_press' ); ?></th>
+						<td>
+							<input id="pulse_press_star_text" type="text" name="pulse_press_star_text" class="regular-text"  value="<?php echo ($set_option['star_text'] == __("My Starred") ) ? __("My Starred") : esc_attr( $set_option['star_text'] ); ?>" />
+				 			(<?php _e( 'if empty, defaults to "My Starred"', 'pulse_press' ); ?>)
+						</td>
+					</tr>
 
 				</tbody>
 			</table>
@@ -235,7 +251,9 @@ function pulse_press_options() {
 			'hide_sidebar',
 			'prompt_text',
 			'vote_text',
-			'vote_style'
+			'vote_style',
+			'popular_text',
+			'star_text'
 		);
 }
 add_action( 'wp_before_admin_bar_render', 'pulse_press_admin_bar_render' );

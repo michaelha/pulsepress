@@ -382,7 +382,7 @@ class PulsePressAjax {
 		
 		/* todo: only run the update if there is any new votes */
 		if($loaded < $updated):
-			
+			$changed_posts = array();
 			$post_count_data = pulse_press_total_posts_votes($visible_posts);
 			foreach($post_count_data as $data):
 				$changed_posts[] = $data->post_id;

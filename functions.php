@@ -37,7 +37,13 @@ function pulse_press_get_at_name_map() {
 	static $name_map = array();
 	if ( $name_map ) // since $names is static, the stuff below will only get run once per page load.
  		return $name_map;
-	$users = get_users();
+ 		if( function_exists('get_users') ): // since WP 3.1 
+			$users = get_users();
+		elseif(function_exists('get_users_of_blog')):
+			$users = get_users_of_blog();
+		else:
+			return array(); // empty array
+		endif;
 	// get display names (can take out if you only want to handle nicenames)
 	foreach ( $users as $user ) {
  		$name_map["@$user->user_login"]['id'] = $user->ID;
