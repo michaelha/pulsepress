@@ -116,14 +116,13 @@ if(!isset($_GET['do_ajax']))
 	add_action('init','pulse_press_voting_init');
 	
 	
-
 if(isset($_GET['popular'])):
 
 	add_filter('posts_where_paged', 'pulse_press_popular_where_paged');
 	add_filter('posts_groupby', 	'pulse_press_popular_groupby');
 	add_filter('posts_join_paged', 	'pulse_press_popular_join_paged');
 	add_filter('posts_orderby', 	'pusle_press_popular_orderby');
-	add_action("pre_get_posts","pulsepress_main_loop_test");
+	add_action('pre_get_posts',		'pulsepress_main_loop_test');
 	
 endif;
 
@@ -135,13 +134,15 @@ endif;
 /* changes the main loop to make popular work */
 function pulse_press_popular_where_paged( $where ) {
 	global $wpdb, $pulse_press_main_loop;
+	
   	if($pulse_press_main_loop)
-  		$where = $where." AND ".$wpdb->postmeta.".meta_key = 'updates_votes'";
+    		$where = $where." AND ".$wpdb->postmeta.".meta_key = 'updates_votes'";
 	
 	return $where;
 }
 function pulse_press_popular_groupby( $group ) {
 	global $wpdb, $pulse_press_main_loop;
+	
   	if($pulse_press_main_loop)
   		$group = $wpdb->posts.".ID";
 	
@@ -149,15 +150,19 @@ function pulse_press_popular_groupby( $group ) {
 }
 function pulse_press_popular_join_paged( $join ) {
 	global $wpdb, $pulse_press_main_loop;
+	
   	if($pulse_press_main_loop)
-  		$join = " INNER JOIN ".$wpdb->postmeta." ON (".$wpdb->posts.".ID = ".$wpdb->postmeta.".post_id)";
+  		$join = $join." INNER JOIN ".$wpdb->postmeta." ON (".$wpdb->posts.".ID = ".$wpdb->postmeta.".post_id) ";
 	
 	return $join;
 }
 function pusle_press_popular_orderby( $orderby ) {
 	global $wpdb, $pulse_press_main_loop;
+	
   	if($pulse_press_main_loop)
   		$orderby = $wpdb->postmeta.".meta_value DESC, ".$wpdb->posts.".post_date DESC";
+	
+	
 	
 	return $orderby;
 
@@ -173,7 +178,6 @@ function pulse_press_save_post($post_id)
 	// save the number of votes to better get popular votes 
 	add_post_meta($post_id, 'updates_votes', $votes, true) or update_post_meta($post_id, 'updates_votes', $votes);
 
-
 }
 /* used for testing 
 function pulse_press_orderby($order){
@@ -184,5 +188,4 @@ function pulse_press_orderby($order){
 
 add_action('posts_selection','pulse_press_orderby');
 */
-
 

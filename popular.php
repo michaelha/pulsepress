@@ -9,7 +9,7 @@
 
 <div class="sleeve_main">
 	<div id="main">
-		<h2>Popular Updates
+		<h2 class="popular-title">Popular Updates
 			<?php if ( pulse_press_get_page_number() > 1 ) printf( __( 'Page %s', 'pulse_press' ), pulse_press_get_page_number() ); ?>
 			<a class="rss" href="<?php bloginfo( 'rss2_url' ); ?>">RSS</a>
 

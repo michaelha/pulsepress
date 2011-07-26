@@ -296,7 +296,7 @@ function pulse_press_date_range($start_date,$end_date,$selected_date=null) {
 		$end_date_array['year'] = date('Y', $end_date);
 		$end_date_array['month'] = date('n', $end_date);
 		$end_date_array['day'] = date('j', $end_date);
-		// var_dump(pulse_press_number_of_days_in_current_month($current_date_array));
+		
 		// display the date range in days if we area dealing with roughly number of duration less then 8 months
 		$same_year=false; $same_month = false;
 		if(intval($duration['month']) < 8):

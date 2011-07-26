@@ -11,7 +11,7 @@
 		<?php locate_template( array( 'post-form.php' ), true ); ?>
 	<?php endif; ?>
 	<div id="main">
-		<h2>
+		<h2 class="home-title">
 			<?php if ( pulse_press_get_page_number() > 1 ) printf( __( 'Page %s', 'pulse_press' ), pulse_press_get_page_number() ); ?>
 			<a class="rss" href="<?php bloginfo( 'rss2_url' ); ?>">RSS</a>
 

@@ -16,7 +16,7 @@ get_header(); ?>
 		<?php locate_template( array( 'post-form.php' ), true ); ?>
 	<?php endif; ?>
 	<div id="main">
-		<h2>
+		<h2 class="archive-title date-archive">
 			<?php if(is_day()): ?>
 			<?php printf( _x( 'Updates from <strong>%s</strong>', 'Month name', 'wordpress' ), get_the_time( 'l jS F, Y' ) ); ?>
 			<?php elseif(is_month()): ?>

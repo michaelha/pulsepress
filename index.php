@@ -11,7 +11,7 @@
 		<?php locate_template( array( 'post-form.php' ), true ); ?>
 	<?php endif; ?>
 	<div id="main">
-		<h2>
+		<h2 class="index-title">
 			<?php if ( is_author() ) : ?>
 				
 				<?php printf( _x( 'Updates from %s', 'Author name', 'pulse_press' ), pulse_press_get_archive_author() ); ?>

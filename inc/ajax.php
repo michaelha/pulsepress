@@ -218,7 +218,7 @@ class PulsePressAjax {
 			'tags_input'	=> $tags,
 			'post_status'	=> 'publish'
 		) );
-		var_dump($_POST['anonymous']);
+		
 		if( get_option( 'pulse_press_show_anonymous' ) && $_POST['anonymous'] == 1): // anonymous posting 
 			add_post_meta($post_id, 'anonymous', 1, true);
 		endif;

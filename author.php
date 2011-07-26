@@ -21,7 +21,7 @@ get_header(); ?>
 					<?php the_author_meta( 'description', $id ); ?>
 				</p><!-- .author-bio -->
 		</div>
-		<h2>
+		<h2 class="archive-title author-title">
 					<span class="controls">
 				<a href="#" id="togglecomments"> <?php _e( 'Toggle Comment Threads', 'pulse_press' ); ?></a> | <a href="#directions" id="directions-keyboard"><?php _e( 'Keyboard Shortcuts', 'pulse_press' ); ?></a>
 			</span>

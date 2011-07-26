@@ -16,7 +16,7 @@ get_header(); ?>
 		<?php locate_template( array( 'post-form.php' ), true ); ?>
 	<?php endif; ?>
 	<div id="main">
-		<h2>
+		<h2 class="archive-title category-archive">
 				<?php single_cat_title(); ?> <?php if ( pulse_press_get_page_number() > 1 ) printf( __( 'Page %s', 'pulse_press' ), pulse_press_get_page_number() ); ?><a class="rss" href="<?php echo get_category_feed_link( $tag_obj->term_id ); ?>">RSS</a>
 			<span class="controls">
 				<a href="#" id="togglecomments"> <?php _e( 'Toggle Comment Threads', 'pulse_press' ); ?></a> | <a href="#directions" id="directions-keyboard"><?php _e( 'Keyboard Shortcuts', 'pulse_press' ); ?></a>

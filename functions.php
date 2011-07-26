@@ -8,8 +8,8 @@ define( 'PulsePress_INC_PATH',  get_template_directory() . '/inc' );
 define( 'PulsePress_INC_URL', get_template_directory_uri().'/inc' );
 define( 'PulsePress_JS_PATH',  get_template_directory() . '/js' );
 define( 'PulsePress_JS_URL', get_template_directory_uri().'/js' );
-define('PulsePress_DB_VERSION',"2");
-define('PulsePress_DB_TABLE', $wpdb->prefix . "pulse_press_user_post_meta");
+define( 'PulsePress_DB_VERSION',"3");
+define( 'PulsePress_DB_TABLE', $wpdb->prefix . "pulse_press_user_post_meta");
 
 if ( !class_exists( 'Services_JSON' ) ) require_once( PulsePress_INC_PATH . '/JSON.php' );
 require_once( PulsePress_INC_PATH . '/compat.php' );

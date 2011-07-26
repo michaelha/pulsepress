@@ -9,7 +9,7 @@
 <div class="sleeve_main">
 
 	<div id="main">
-		<h2><?php printf( __( 'Search Results for: %s', 'pulse_press' ), get_search_query() ); ?></h2>
+		<h2 class="archive-title search-title"><?php printf( __( 'Search Results for: %s', 'pulse_press' ), get_search_query() ); ?></h2>
 		
 		<?php if ( have_posts() ) : ?>
 			

@@ -3,8 +3,8 @@
 function pulse_press_install() {
 	
 	global $wpdb;
-	
-	if(PulsePress_DB_VERSION > get_option("pulse_press_db_version")):
+
+	if(PulsePress_DB_VERSION > get_option("pulse_press_db_version") ):
 		
 		delete_option( 'pulse_press_db_version' );
 		$pulse_press_db_table = PulsePress_DB_TABLE;
@@ -26,6 +26,14 @@ function pulse_press_install() {
 		add_option("pulse_press_db_version", PulsePress_DB_VERSION);
 		$date = pulse_press_get_gmt_time();
 		add_option("pulse_press_votes_updated", $date,'','no');
+		
+		// create 
+		$all_posts = get_posts('posts_per_page=-1&post_type=post&post_status=');
+		foreach( $all_posts as $postinfo) {
+			
+			add_post_meta($postinfo->ID, 'updates_votes', 0, true);
+			
+		}
 	endif;
 }
 if(is_admin())  // this runs when you active the theme 
@@ -200,7 +208,7 @@ function pulse_press_add_user_post_meta($post_id,$type,$count=1) {
 			'user_id'	=> $current_user->ID,
 			'date_gmt'  => $date,
 			 );
-			 
+	$GLOBALS[ 'wp_log' ][ 'pulsepress' ][] = 'added user post meta';
 	$result = $wpdb->insert( PulsePress_DB_TABLE,$data , array( '%d', '%s', '%d', '%s') );
 	
 	return $result;
