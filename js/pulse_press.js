@@ -10,7 +10,7 @@ jQuery(function($) {
 	// if FORCE_SSL_ADMIN is defined true that will not work! 
 	if (isUserLoggedIn) {
 		// Checks if you are logged in and try to input data (To fix for ONLY private posts.)
-		jQuery('.inputarea, #comment, .comment-reply-link, #comment-submit').click(function() {
+		jQuery('#comment, .comment-reply-link, #comment-submit,# posttext,#submit').click(function() {
 			jQuery.ajax({
 				type: "POST",
 				url: ajaxUrl +'&action=logged_in_out&_loggedin=' + nonce,

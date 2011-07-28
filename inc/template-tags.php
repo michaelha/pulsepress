@@ -407,3 +407,17 @@ function pulse_press_duration($seconds, $max_periods=4)
     return $duration;
 }
 
+function pulse_press_media_buttons() {
+	// If we're using http and the admin is forced to https, bail.
+	if ( ! is_ssl() && ( force_ssl_admin() || get_user_option( 'use_ssl' ) )  ) {
+		return;
+	}
+
+	include_once( ABSPATH . '/wp-admin/includes/media.php' );
+	ob_start();
+	do_action( 'media_buttons' );
+
+	// Replace any relative paths to media-upload.php
+	echo preg_replace( '/([\'"])media-upload.php/', '${1}' . admin_url( 'media-upload.php' ), ob_get_clean() );
+}
+

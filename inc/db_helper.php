@@ -39,6 +39,8 @@ function pulse_press_install() {
 if(is_admin())  // this runs when you active the theme 
 	pulse_press_install();
 
+if(isset($_GET['update_custom_field_table']))
+	pulse_press_update_custom_field_from_table();
 
 // delete table once you switch themes
 add_action("switch_theme","pulse_press_delete_tables_and_options");

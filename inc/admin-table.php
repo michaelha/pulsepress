@@ -23,4 +23,3 @@ function pulse_press_modify_post_table_row( $column_name, $post_id ) {
         default:
     }
 }
- 

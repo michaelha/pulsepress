@@ -80,7 +80,17 @@
 	<div class="postcontent<?php if ( current_user_can( 'edit_post', get_the_id() ) ) : ?> editarea<?php endif ?>" id="content-<?php the_ID(); ?>">
 		
 			<?php pulse_press_title(); ?>
-			<?php the_content( __( '(More ...)' , 'pulse_press' ) ); ?>
+			<?php 
+				
+				if(in_category('post',$post) || is_single()): 
+					the_content( __( '(More ...)' , 'pulse_press' ) );
+				else:
+				
+					the_excerpt(); ?>
+					<span class="read-more"><a href="<?php the_permalink(); ?>"><?php _e("Read More", 'pulse_press'); ?> <?php the_title(); ?> </a></span>
+				<?php
+				endif;
+				?>
 
 	</div>
 

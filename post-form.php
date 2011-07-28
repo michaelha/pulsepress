@@ -18,7 +18,7 @@ $post_type = pulse_press_get_posting_type();
 			<?php endif; ?>
 		</div>
 
-		<div class="inputarea">
+		<div id="inputarea">
 			<form id="new_post" name="new_post" method="post" action="<?php echo site_url(); ?>/">
 				<?php if ( 'status' == pulse_press_get_posting_type() || '' == pulse_press_get_posting_type() ) : ?>
 				<label for="posttext">
@@ -26,7 +26,11 @@ $post_type = pulse_press_get_posting_type();
 				</label>
 				
 				<?php endif; ?>
-
+				<?php if ( current_user_can( 'upload_files' ) && get_option("pulse_press_allow_fileupload")): ?>
+				<div id="media-buttons" class="hide-if-no-js">
+					<?php pulse_press_media_buttons(); ?>
+				</div>
+				<?php endif; ?>
 				<textarea class="expand70-200" name="posttext" id="posttext" tabindex="1" rows="4" cols="60"></textarea>
 				
 				<label class="post-error" for="posttext" id="posttext_error"></label>

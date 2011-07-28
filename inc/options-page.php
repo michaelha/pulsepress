@@ -130,6 +130,14 @@ class PulsePressOptions {
 					</tr>
 					
 					<tr>
+						<th><?php _e( 'Enable File Uploads:', 'pulse_press' )?></th>
+						<td>
+							<input id="pulse_press_allow_fileupload" type="checkbox" name="pulse_press_allow_fileupload" <?php  checked($set_option['allow_fileupload']); ?> value="1" />
+							<label for="pulse_press_allow_fileupload"><?php _e( 'Add File Upload Interface', 'pulse_press' ); ?></label>
+						</td>
+					</tr>
+					
+					<tr>
 						<th><?php _e( 'Twitter Style:', 'pulse_press' )?></th>
 						<td>
 							<input id="pulse_press_show_twitter" type="checkbox" name="pulse_press_show_twitter" <?php  checked($set_option['show_twitter']); ?> value="1" />
@@ -220,12 +228,24 @@ class PulsePressOptions {
 			<p class="submit">
 				<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'pulse_press' ); ?>" />
 			</p>
-
+			
 		</form>
 		</div>
 <?php
 	}
 }
+
+function pulse_press_options_help($contextual_help, $screen_id, $screen) {
+
+	
+	if ($screen_id == 'appearance_page_pulse_press-options-page') {
+
+		$contextual_help .= '<a href="?page=pulse_press-options-page&update_custom_field_table=1">Update custom field to mach database</a><br />';
+	}
+	return $contextual_help;
+}
+
+add_filter('contextual_help', 'pulse_press_options_help', 10, 3);
 function pulse_press_options() {
 	return array(
 			'allow_users_publish',
@@ -236,6 +256,7 @@ function pulse_press_options() {
 			'show_anonymous',
 			'show_fav',
 			'show_tagging',
+			'allow_fileupload',
 			'show_twitter',
 			'bitly_user',
 			'bitly_api',

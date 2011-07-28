@@ -13,8 +13,11 @@ class PulsePressJS {
 	}
 
 	function enqueue_styles() {
-		if ( is_home() && is_user_logged_in() )
+		if (  is_user_logged_in() && current_user_can( 'upload_files' ) && get_option("pulse_press_allow_fileupload") ):
+		
 			wp_enqueue_style( 'thickbox' );
+			wp_enqueue_script( 'thickbox' );
+		endif;
 	}
 
 	function enqueue_scripts() {

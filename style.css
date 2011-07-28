@@ -238,14 +238,15 @@ input[type="submit"]:active {
 	padding:2px 5px;
 	box-shadow: 0 2px 6px rgba(100, 100, 100, 0.6);
 }
-#postbox .inputarea {
+#inputarea {
 	padding-left: 60px;
 	height: 100%;
+	font-size: 12px;
 }
-.inputarea .post-input {
+#inputarea .post-input {
 	display: none;
 }
-.inputarea .selected {
+#inputarea .selected {
 	display: block;
 }
 #postbox textarea#posttext, textarea.posttext {
@@ -372,9 +373,9 @@ input#comment-submit {
 }
 #main ul#postlist li {
 	overflow: visible;
-	padding: 14px 14px 0;
+	padding: 5px 0 0;
 	border-top:1px solid #EEE;
-	margin: 0 -34px 0 -14px;
+
 }
 #main ul#postlist li.sticky{
 	background: #F1F1F1;
@@ -384,7 +385,7 @@ input#comment-submit {
 	overflow: hidden;
 }
 #main ul#postlist li li{
-	padding: 14px 0 0;
+	
 }
 #main ul#postlist ul.commentlist li {
 	border-top-style: solid;
@@ -414,7 +415,7 @@ h4.post-title .actions {
 	width: auto;
 	
 }
-
+.read-more{ font-size: 11px; }
 .bottom_of_entry {
 	overflow: hidden;
 	width: 100%;
@@ -427,13 +428,16 @@ h2 img {
 	margin-right: 12px;
 }
 #main p img {
+	border:1px solid  #eee;
 	vertical-align: top;
 	padding: 2px;
-	border-style: solid;
-	border-width: 1px;
 	display: block;
 	max-width: 600px;
 	height:auto;
+	background: #FFF;
+}
+#main p img {
+	
 }
 .attachment #main .entry .attachment-image {
 	margin: .7em 0;
@@ -577,6 +581,7 @@ h2 img {
 }
 
 .commentcontent {
+	margin-top: -10px;
 	overflow: auto;
 }
 .commentlist {
@@ -1188,11 +1193,14 @@ h3 {
 }
 #media-buttons {
 	color: #999;
+	float: right;
+	margin-top: 10px;
+}
+#media-buttons a{
+	margin-right: 5px;
 }
 
-#main p img {
-	border-color: #eee;
-}
+
 #main p, #main ul, #main ol {
 	color: #555;
 }
@@ -1338,9 +1346,7 @@ h4, h5, h6 {
 #postbox {
 	font-size: 14px;
 }
-#postbox .inputarea {
-	font-size: 12px;
-}
+
 #postbox textarea#posttext, textarea.posttext {
 	font-size: 13px;
 }

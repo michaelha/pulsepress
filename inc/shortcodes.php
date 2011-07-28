@@ -12,19 +12,18 @@ function pulse_press_leaderboard( $atts ) {
 	), $atts ) );
 	
 	$html = $before.$html;
-	/*
+
 	if($query)
 		query_posts( $query ."&meta_key=updates_votes&orderby=meta_value&order=DESC");
 	else
-	*/
 		query_posts( 'posts_per_page='.$num.'&meta_key=updates_votes&orderby=meta_value&order=DESC' );
 		
-	$html .= "<ul>";
+	$html .= '<ul class="pp_leaderboard">';
 	while ( have_posts() ) : the_post();
 		
-		$html .= '<li><span>'.pulse_press_total_votes(get_the_ID()).'</span>';
-		$html .= '<a href="'.get_permalink().'" title="'.esc_attr(get_the_title()).'" >'.get_the_title().'</a>';
-		$html .= '<span>'.get_the_author().'</span>';
+		$html .= '<li><span class="pp_total_votes">'.pulse_press_total_votes(get_the_ID()).'</span> ';
+		$html .= '<a class="pp_permalink" href="'.get_permalink().'" title="'.esc_attr(get_the_title()).'" >'.get_the_title().'</a>';
+		$html .= ' <span class="pp_authoer">by <a href="'.get_author_posts_url(get_the_author_id()).'">'.get_the_author().'</a></span>';
 		$html .= '</li>';
 	endwhile;
 	$html .= "</ul>".$after;
