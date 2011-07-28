@@ -22,6 +22,8 @@ require_once( PulsePress_INC_PATH . '/widgets/recent-comments.php' );
 require_once( PulsePress_INC_PATH . '/voting.php' );
 require_once( PulsePress_INC_PATH . '/star.php' );
 require_once( PulsePress_INC_PATH . '/db_helper.php' );
+require_once( PulsePress_INC_PATH . '/shortcodes.php' );
+require_once( PulsePress_INC_PATH . '/admin-table.php' );
 
 $content_width = '632';
 
