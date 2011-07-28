@@ -8,19 +8,10 @@ class PulsePressOptions {
 		// global $plugin_page;
 
 		add_theme_page( __( 'Theme Options', 'pulse_press' ), __( 'Theme Options', 'pulse_press' ), 'edit_theme_options', 'pulse_press-options-page', array( 'PulsePressOptions', 'page' ) );
-		/* 
-		if ( 'pulse_press-options-page' == $plugin_page ) {
-			
-			wp_enqueue_script( 'farbtastic' );
-			wp_enqueue_style( 'farbtastic' );
-			wp_enqueue_script( 'colorpicker' );
-			wp_enqueue_style( 'colorpicker' );
-			
-			
-		}
-		*/
+		
 	}
-
+	
+		
 	function page() {
 				
 		$options = pulse_press_options();
