@@ -1,5 +1,12 @@
 PulsePress Theme - Changes
 ---------------------------
+1.2 - July
+- Votes count can be see in manage posts and users table
+- ability to hide enter box
+- ability to upload files from front end
+- ability to see attachments
+- lots of bug fixes
+
 1.1.1 - June 
 - Compatibility with 3.0 
 - Removed PHP Warnings 

@@ -4,7 +4,7 @@ Theme URI: http://blogs.ubc.ca/beta/pulsepress
 Author: Enej Bajgoric - CTLT - UBC
 Author URI: http://blogs.ubc.ca/beta/
 Description: Theme based on the popular P2 but with added functionality
-Version: 1.1.1
+Version: 1.2
 Tags: two-columns,one-column, fixed-width, rtl-language-support, right-sidebar, white, front-page-post-form, custom-background, sticky-post, theme-options, threaded-comments, translation-ready, custom-menu
 License: GNU General Public License v2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -154,6 +154,8 @@ body{
 	margin: 0 auto;
 	position: relative;
 	overflow: hidden;
+	border:1px solid #CCC;
+	border-top:0;
 }
 button, 
 #submit, 
@@ -189,8 +191,6 @@ input[type="submit"]:active {
 .sleeve_main {
 	width: 758px;
 	float: left;
-	border:1px solid #CCC;
-	border-top:0;
 }
 
 /*
@@ -1771,7 +1771,7 @@ div.menu li {
 	 clear:both;
 	}
 	#header, #footer, #shell, #sidebar, #sidebar, .sleeve_main, #wrapper, #access, .no-sidebar #access{ width: 100%; }
-	.sleeve_main { border:none; }
+	#wrapper { border:none; }
 	#main .controls{ display: none;}
 	#main { clear: both; }
 	#shell{
@@ -1983,16 +1983,19 @@ div.menu li {
 
 
 /* attachemnts */
+#main ul#postlist .postcontent ul.post-attachments li,
 #main ul.post-attachments {
 	list-style: none;
 	margin-left: 0;
 	padding-left: 0;
 }
-
+#main ul#postlist .postcontent ul.post-attachments li,
 li.post-attachment {
-	background: url(i/document.png) 0 4px no-repeat;
 	padding-left: 24px;
 	line-height: 20px;
+}
+li.post-attachment{
+	background: url(i/document.png) 0 4px no-repeat;
 }
 .post-attachment.mime-imagejpeg,
 .post-attachment.mime-imagepng {

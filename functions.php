@@ -650,7 +650,7 @@ a:hover, h1 a:hover, #main .selected .actions a:hover, #main .selected .actions 
 
 #main .vote .vote-down:hover,
 #main .vote .vote-down-set{ background-color: <?php echo ColorDarken($color,60); ?>;   }
-.sleeve_main{ border-color:#FFF;}
+#wrapper{ border-color:#FFF;}
 </style>
 <?php
 }
