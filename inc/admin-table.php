@@ -1,25 +1,79 @@
 <?php
 
+if(get_option('pulse_press_show_voting') ):
+	add_filter( 'manage_posts_columns', 'pulse_press_modify_post_table' );
+	add_filter( 'manage_posts_custom_column', 'pulse_press_modify_post_table_row', 10, 2 );
+	
+	add_filter( 'manage_users_columns', 'pulse_press_modify_post_table' );
+	add_filter( 'manage_users_custom_column', 'pulse_press_modify_user_table_row', 10, 3 );
+endif;
 
-add_filter( 'manage_posts_columns', 'pulse_press_modify_post_table' );
-add_filter( 'manage_posts_custom_column', 'pulse_press_modify_post_table_row', 10, 2 );
-function pulse_press_modify_post_table( $column ) {
-		
-		$date = array_pop($column);
-    	$column['pulse_press_votes'] = ( get_option( 'pulse_press_vote_text' ) == ''  ? __("Votes",'pulse_press') : esc_html( get_option( 'pulse_press_vote_text' ) ) );
-  		$column['date'] = $date;
-    	return $column;
+function pulse_press_modify_post_table( $columns ) {
+			
+  		$column_pulse_press_votes = array( 'pulse_press_votes' => ( get_option( 'pulse_press_vote_text' ) == ''  ? __("Votes",'pulse_press') : esc_html( get_option( 'pulse_press_vote_text' ) ) ) );
+	    $columns = array_slice( $columns, 0, 5, true ) + $column_pulse_press_votes + array_slice( $columns, 5, NULL, true );
+    	return $columns;
 	}
 	
 function pulse_press_modify_post_table_row( $column_name, $post_id ) {
  
     $custom_fields = get_post_custom( $post_id );
- 
+ 	
     switch ($column_name) {
-        case 'pulse_press_votes' :
-            echo "total: ".$custom_fields['updates_votes'][0];
-            break;
+    	case 'pulse_press_votes' :
+    		$sum = $custom_fields['updates_votes'][0];
+    		$total_num_votes = pulse_press_get_total_votes_by_post($post_id);
+    	
+    		if($sum > 0) {
+					$negative_votes = (($total_num_votes-$sum)/2);
+					$positive_votes = $total_num_votes-$negative_votes;
+				} else if( $sum == 0 ){
+					$negative_votes = $total_num_votes/2;
+					$positive_votes = $negative_votes;
+				} else{
+					$negative_votes = (($total_num_votes-$sum)/2);
+					$positive_votes = $total_num_votes-$negative_votes;
+				}
+
+    
+    
+    
+    
+        	echo "sum: ".$sum;
+        	if( get_option('pulse_press_voting_type') == 'two' )
+        	echo " (+): ".$positive_votes." (-): ".$negative_votes;
+       	
+        break;
  
         default:
     }
+}
+
+
+
+
+
+function pulse_press_modify_user_table_row( $test, $column_name,$user_id ) {
+	
+ 	$sum 				= pulse_press_get_sum_votes_by_user( $user_id );
+ 	$total_num_votes 	= pulse_press_get_total_votes_by_user($user_id);
+ 	// var_dump($total_num_votes);
+ 	if($sum > 0) {
+ 		$negative_votes = (($total_num_votes-$sum)/2);
+ 		$positive_votes = $total_num_votes-$negative_votes;
+ 		
+ 	} else if( $sum == 0 ){
+ 		$negative_votes = $total_num_votes/2;
+ 		$positive_votes = $negative_votes;
+ 	} else{
+ 		$negative_votes = (($total_num_votes-$sum)/2);
+ 		$positive_votes = $total_num_votes-$negative_votes;
+ 	
+ 	}
+ 	
+ 	$back = "voted:".$total_num_votes;
+ 	if( get_option('pulse_press_voting_type') == 'two' )
+        	$back .=" (+): ".$positive_votes." (-): ".$negative_votes;
+ 	return  $back;
+    
 }

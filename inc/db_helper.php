@@ -121,6 +121,10 @@ function pulse_press_total_votes($post_id) {
 	
 	return $result[0]->count;
 }
+
+function pulse_press_get_sum_votes_by_user($user_id){
+	return pulse_press_get_sum_meta_by_user('vote',$user_id);
+}
 function pulse_press_get_popular_vote() {
 	return pulse_press_get_popular_posts_meta('vote');
 }
@@ -142,6 +146,16 @@ function pulse_press_total_posts_votes($post_ids)
 function pulse_press_get_updates_since_vote($date) {
 	
 	return pulse_press_get_updates_since_post_meta($date,'vote');
+}
+
+function pulse_press_get_total_votes_by_post($post_id) {
+	
+	return pulse_press_get_total_meta_by_post('vote',$post_id);
+}
+
+function pulse_press_get_total_votes_by_user($user_id) {
+	
+	return pulse_press_get_total_meta_by_user('vote',$user_id);
 }
 /**
  * Star 
@@ -182,8 +196,23 @@ function pulse_press_get_user_post_meta_counter($post_id,$type) {
 	return $wpdb->get_var($wpdb->prepare("SELECT counter FROM ".PulsePress_DB_TABLE." WHERE post_id = %d AND user_id = %d AND type ='%s';", $post_id,$current_user->ID,$type ));
 }
 
+function pulse_press_get_user_from_meta_post_id($type,$post_id) {
+	global $wpdb;
+	
+	return $wpdb->get_col($wpdb->prepare("SELECT user_id FROM ".PulsePress_DB_TABLE." WHERE post_id = %d AND type ='%s';",$post_id,$type ));
+}
+
+/* return the sum of the counter for */
+function pulse_press_get_total_meta_by_post($type,$post_id) {
+	global $wpdb;
+	
+	return $wpdb->get_var($wpdb->prepare("SELECT COUNT(*)  FROM ".PulsePress_DB_TABLE." WHERE post_id = %d AND type ='%s';",$post_id,$type ));
+}
 
 
+
+
+/* returns all the post_id that a user voted on or stared */
 function pulse_press_get_all_user_post_meta($type) {
 
 	global $wpdb,$current_user;
@@ -191,13 +220,22 @@ function pulse_press_get_all_user_post_meta($type) {
 	
 	return $wpdb->get_col($wpdb->prepare("SELECT post_id FROM ".PulsePress_DB_TABLE." WHERE user_id = %d AND type ='%s';",$current_user->ID,$type ));
 }
-function pulse_press_get_sum_users_meta($post_id,$type) {
+
+/* returns back the SUM of the votes a user made */ 
+function pulse_press_get_sum_meta_by_user($type,$user_id) {
 	
 	global $wpdb;
-	
-	return $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM ".PulsePress_DB_TABLE." WHERE post_id = %d AND  type ='%s';", $post_id,$type ));
+
+	return $wpdb->get_var($wpdb->prepare("SELECT SUM(counter) FROM ".PulsePress_DB_TABLE." WHERE user_id = %s AND  type ='%s';", $user_id,$type ));
 
 }
+/* returns back the total number of votes a user made */
+function pulse_press_get_total_meta_by_user($type,$user_id) {
+	global $wpdb;
+	
+	return $wpdb->get_var($wpdb->prepare("SELECT COUNT(*)  FROM ".PulsePress_DB_TABLE." WHERE user_id = %d AND type ='%s';",$user_id,$type ));
+}
+
 function pulse_press_add_user_post_meta($post_id,$type,$count=1) {
 
 	global $wpdb,$current_user;
@@ -249,6 +287,9 @@ function pulse_press_get_updates_since_post_meta($date,$type) {
 	return $wpdb->get_var($wpdb->prepare("SELECT date_gmt FROM ".PulsePress_DB_TABLE." WHERE date_gmt > %s  AND type ='%s' ORDER BY date_gmt;",$date, $type));
 
 }
+
+
+
 
 /* helper functions */
 function pulse_press_get_gmt_time(){

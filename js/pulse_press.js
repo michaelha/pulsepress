@@ -41,10 +41,10 @@ jQuery(function($) {
 	$('#post-anonymous').change(function() {
 		if( $(this).is(":checked") ){
 			$(this).parent().siblings('img').attr('src',pulse_presstxt.anonymous_avatar);
-			console.log("checked off",$(this).parent().siblings('img'),pulse_presstxt.anonymous_avatar);
+			
 		}else{
 			$(this).parent().siblings('img').attr('src',pulse_presstxt.author_avatar);
-			console.log("un checked",$(this).parent().siblings('img'),pulse_presstxt.author_avatar);
+			
 		}
 	});
 	
@@ -1297,7 +1297,7 @@ jQuery(function($) {
 	if(window.innerWidth < 601){
 
 	$('#postlist li.post').live('click',function(){
-		console.log("hey");
+		
 		var h4 = $(this).children("h4");
 		if(h4.hasClass("showup")){
 		

@@ -644,6 +644,13 @@ a:hover, h1 a:hover, #main .selected .actions a:hover, #main .selected .actions 
 }
 #wp-calendar tbody td a{ background-color: <?php echo ColorDarken($color, 20); ?>; text-decoration: none;}
 #wp-calendar tbody td a:hover{background-color: <?php echo ColorDarken($color, 60); ?>; }
+
+#main .vote .vote-up:hover,
+#main .vote .vote-up-set { background-color: <?php echo ColorDarken($color,60); ?>;  }
+
+#main .vote .vote-down:hover,
+#main .vote .vote-down-set{ background-color: <?php echo ColorDarken($color,60); ?>;   }
+.sleeve_main{ border-color:#FFF;}
 </style>
 <?php
 }
@@ -827,4 +834,29 @@ function pulsepress_main_loop_test($query) {
   	$pulse_press_main_loop = false;
   }
   
+}
+add_filter( 'the_content', 'my_the_content_filter' );
+function my_the_content_filter( $content ) {
+	global $post;
+	
+	if ( (is_single() || is_page() ) && $post->post_status == 'publish' ) {
+		$attachments = get_posts( array(
+			'post_type' => 'attachment',
+			'posts_per_page' => 0,
+			'post_parent' => $post->ID
+		) );
+
+		if ( $attachments ) {
+			$content .= '<h3>Attachments</h3>';
+			$content .= '<ul class="post-attachments">';
+			foreach ( $attachments as $attachment ) {
+				$class = "post-attachment mime-" . sanitize_title( $attachment->post_mime_type );
+				$title = wp_get_attachment_link( $attachment->ID, false );
+				$content .= '<li class="' . $class . '">' . $title . '</li>';
+			}
+			$content .= '</ul>';
+		}
+	}
+
+	return $content;
 }

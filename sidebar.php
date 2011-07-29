@@ -14,7 +14,7 @@
 					<?php 
 					endif;
 					if(current_user_can( 'read' ) && get_option( 'pulse_press_show_fav' )): ?>
-					<li><a href="?starred" id="starred"><?php echo (! get_option( 'pulse_press_star_text' ) || get_option( 'pulse_press_star_text' ) == __("My Starred") ) ? __("My Starred") : esc_html( get_option( 'pulse_press_star_text' ) ); ?></a></li>
+					<li><a href="<?php echo home_url();?>/?starred" id="starred"><?php echo (! get_option( 'pulse_press_star_text' ) || get_option( 'pulse_press_star_text' ) == __("My Starred") ) ? __("My Starred") : esc_html( get_option( 'pulse_press_star_text' ) ); ?></a></li>
 					<?php endif; ?>
 				</ul>
 			</li>

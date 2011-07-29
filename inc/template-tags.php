@@ -7,11 +7,20 @@ function pulse_press_body_class( $classes ) {
 	return $classes;
 }
 add_filter( 'body_class', 'pulse_press_body_class' );
+function pulse_press_no_sidebar($classes) {
+	if(get_option('pulse_press_hide_sidebar'))
+		$classes[] = 'no-sidebar';
+	
+	return $classes;
+}
+add_filter( 'body_class', 'pulse_press_no_sidebar' );
 
 function pulse_press_user_can_post() {
 	global $user_ID;
-
-	if ( current_user_can( 'publish_posts' ) || ( get_option( 'pulse_press_allow_users_publish' ) && $user_ID ) )
+	if(get_option('pulse_press_remove_frontend_post'))
+		return false;
+		
+	if ( current_user_can( 'publish_posts' ) || ( get_option( 'pulse_press_allow_users_publish' ) && current_user_can('read') )  )
 		return true;
 
 	return false;

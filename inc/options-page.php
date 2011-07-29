@@ -6,7 +6,6 @@ class PulsePressOptions {
 
 	function init() {
 		// global $plugin_page;
-
 		add_theme_page( __( 'Theme Options', 'pulse_press' ), __( 'Theme Options', 'pulse_press' ), 'edit_theme_options', 'pulse_press-options-page', array( 'PulsePressOptions', 'page' ) );
 		
 	}
@@ -54,6 +53,13 @@ class PulsePressOptions {
 
 			<table class="form-table">
 				<tbody>
+					<tr valign="top">
+						<th scope="row"><?php _e( 'Remove Frontend Posting:', 'pulse_press' ); ?></th>
+						<td>
+							<input id="pulse_press_remove_frontend_post" type="checkbox" name="pulse_press_remove_frontend_post" <?php  checked($set_option['remove_frontend_post']); ?> value="1" />
+							<label for="pulse_press_remove_frontend_post"><?php _e( 'Remove the frontend posting form', 'pulse_press' ); ?></label>
+						</td>
+					</tr>
 					<tr valign="top">
 						<th scope="row"><?php _e( 'Posting Access:', 'pulse_press' ); ?></th>
 						<td>
@@ -265,7 +271,8 @@ function pulse_press_options() {
 			'vote_text',
 			'vote_style',
 			'popular_text',
-			'star_text'
+			'star_text',
+			'remove_frontend_post'
 		);
 }
 add_action( 'wp_before_admin_bar_render', 'pulse_press_admin_bar_render' );

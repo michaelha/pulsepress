@@ -55,6 +55,7 @@ function pulse_press_admin_header_style() {
 	#headimg h1 a, #headimg #desc {
 		color:#<?php echo HEADER_TEXTCOLOR ?>;
 	}
+	
 	<?php endif; ?>
 
 	</style>
@@ -104,6 +105,9 @@ function pulse_press_header_style() {
 			color: #<?php header_textcolor(); ?>;
 		<?php endif; ?>
 		
+		#main .vote-up, #main .vote-down{
+			background-color:#<?php echo HEADER_TEXTCOLOR ?>; 
+		}
 	</style>
 <?php
 	endif;

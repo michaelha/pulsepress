@@ -47,9 +47,6 @@ $post_type = pulse_press_get_posting_type();
 						// anonomouse is commneted out for now
 						?>
 						
-						
-						
-						
 					<input id="submit" type="submit" tabindex="3" value="<?php esc_attr_e( 'Post it', 'pulse_press' ); ?>" />
 					<?php if(get_option( 'pulse_press_show_twitter' )): ?>
 					

@@ -188,9 +188,9 @@ input[type="submit"]:active {
 
 .sleeve_main {
 	width: 758px;
-	border: 1px solid #CCC;
-	border-top:none;
 	float: left;
+	border:1px solid #CCC;
+	border-top:0;
 }
 
 /*
@@ -644,7 +644,7 @@ h2 a.rss:hover {
 	float: right;
 	width: 192px;
 	position: relative;
-	top: 0;
+	top: 32px;
 	padding: 6px 0 18px 12px;
 }
 #sidebar h2 {
@@ -1518,9 +1518,13 @@ form.textedit textarea {
 	display: block;
 	float: left;
 	margin-left:1px;
-	width: 760px;
+	width: 978px;
 	padding-top: 5px;
 }
+.no-sidebar #access{
+	width:758px;
+}
+
 #access .menu-header,
 div.menu {
 	font-size: 14px;
@@ -1766,8 +1770,8 @@ div.menu li {
 	 float:none;
 	 clear:both;
 	}
-	#header, #footer, #shell, #sidebar,#sidebar,.sleeve_main,#wrapper,#access{ width: 100%; }
-	.sleeve_main{ border:none; }
+	#header, #footer, #shell, #sidebar, #sidebar, .sleeve_main, #wrapper, #access, .no-sidebar #access{ width: 100%; }
+	.sleeve_main { border:none; }
 	#main .controls{ display: none;}
 	#main { clear: both; }
 	#shell{
@@ -1811,16 +1815,13 @@ div.menu li {
 		width: 100%;
 		margin-left: -10;
 		padding: 10px 0 5px 10px;
-		
 	}
 	#access{
 		background: #FFF;
 		width: 99%;
 		position: relative;
 		overflow: hidden;
-		
 	}
-	
 	#access ul li,
 	#access ul
 	{
@@ -1979,3 +1980,37 @@ div.menu li {
 .ie7 #postbox #post-count{ right:110px; }
 .ie7 #shorten-url{ right: 160px; }
 .ie7 #main input[type='submit']{ line-height: 1; }
+
+
+/* attachemnts */
+#main ul.post-attachments {
+	list-style: none;
+	margin-left: 0;
+	padding-left: 0;
+}
+
+li.post-attachment {
+	background: url(i/document.png) 0 4px no-repeat;
+	padding-left: 24px;
+	line-height: 20px;
+}
+.post-attachment.mime-imagejpeg,
+.post-attachment.mime-imagepng {
+	background-image: url(i/document-image.png);
+}
+
+.post-attachment.mime-applicationzip {
+	background-image: url(i/document-zipper.png);
+}
+
+.post-attachment.mime-applicationpdf {
+	background-image: url(i/document-pdf.png);
+}
+
+.post-attachment.mime-applicationx-shockwave-flash {
+	background-image: url(i/document-flash-movie.png);
+}
+
+.post-attachment.mime-applicationmsword {
+	background-image: url(i/document-word.png);
+}
