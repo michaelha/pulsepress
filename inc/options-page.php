@@ -246,7 +246,8 @@ function pulse_press_options_help($contextual_help, $screen_id, $screen) {
 	
 	if ($screen_id == 'appearance_page_pulse_press-options-page') {
 
-		$contextual_help .= '<a href="?page=pulse_press-options-page&update_custom_field_table=1">Update custom field to mach database</a><br />';
+		$contextual_help .= '<a href="?page=pulse_press-options-page&update_custom_field_table=1">'.__('Update custom field to mach database','pulse_press').'</a><br />';
+		$contextual_help .="db version: ". get_option("pulse_press_db_version");
 	}
 	return $contextual_help;
 }

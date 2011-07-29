@@ -162,8 +162,6 @@ function pusle_press_popular_orderby( $orderby ) {
   	if($pulse_press_main_loop)
   		$orderby = $wpdb->postmeta.".meta_value DESC, ".$wpdb->posts.".post_date DESC";
 	
-	
-	
 	return $orderby;
 
 }
@@ -194,8 +192,10 @@ function pulse_press_update_custom_field_from_table(){
 	$all_posts = get_posts('posts_per_page=-1&post_type=post&post_status=');
 		foreach( $all_posts as $postinfo) {
 			$vote = pulse_press_total_votes($postinfo->ID);
-			update_post_meta($postinfo->ID, 'updates_votes', $vote );
+			if(!$vote)
+				$vote = 0;
 			
+			update_post_meta($postinfo->ID, 'updates_votes', $vote );
 		}
 
 

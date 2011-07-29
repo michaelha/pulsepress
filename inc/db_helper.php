@@ -117,9 +117,8 @@ function pulse_press_is_vote($post_id) {
 }
 
 function pulse_press_total_votes($post_id) {
-	$result = pulse_press_get_total_posts_meta($post_id,'vote');
 	
-	return $result[0]->count;
+	return pulse_press_get_sum_meta_by_post("vote",$post_id);
 }
 
 function pulse_press_get_sum_votes_by_user($user_id){
@@ -207,6 +206,12 @@ function pulse_press_get_total_meta_by_post($type,$post_id) {
 	global $wpdb;
 	
 	return $wpdb->get_var($wpdb->prepare("SELECT COUNT(*)  FROM ".PulsePress_DB_TABLE." WHERE post_id = %d AND type ='%s';",$post_id,$type ));
+}
+
+function pulse_press_get_sum_meta_by_post($type,$post_id) {
+	global $wpdb;
+	
+	return $wpdb->get_var($wpdb->prepare("SELECT SUM(counter)  FROM ".PulsePress_DB_TABLE." WHERE post_id = %d AND type ='%s';",$post_id,$type ));
 }
 
 
