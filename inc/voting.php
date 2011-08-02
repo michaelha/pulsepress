@@ -16,9 +16,9 @@ function pulse_press_vote_on_post()
 		<em title="total votes:<?php echo pulse_press_total_votes(); ?>"><strong id="votes-<?php the_ID();?>"><?php echo $votes; ?></strong> <?php echo (  get_option( 'pulse_press_vote_text' ) == ''  ? __("votes",'pulse_press') : esc_html( get_option( 'pulse_press_vote_text' )) ); ?></em>
 		<?php if( pulse_press_user_can_post() ) : ?>
 			<?php if(!pulse_press_is_vote(get_the_ID())) : ?>
-			<a id="voteup-<?php the_ID();?>" href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up" title="Vote Up"> <span>Vote Up</span></a> 
+			<a id="voteup-<?php the_ID();?>" href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up" title="<?php esc_attr_e('Vote Up','pulse_press'); ?>"> <span><?php _e('Vote Up','pulse_press'); ?></span></a> 
 			<?php else: ?>
-			<a id="voteup-<?php the_ID();?>"href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up vote-up-set" title="Unvote"> <span>Unvote</span></a>
+			<a id="voteup-<?php the_ID();?>"href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up vote-up-set" title="<?php esc_attr_e('Unvote','pulse_press'); ?>"> <span><?php _e('Unvote','pulse_press'); ?></span></a>
 			<?php endif; ?>
 		<?php endif; ?>
 		</div>
@@ -27,22 +27,22 @@ function pulse_press_vote_on_post()
 		break;
 		case "two": ?>
 		<div class="vote" >
-		<em title="total votes:<?php echo pulse_press_total_votes(get_the_ID()); ?>"><strong id="votes-<?php the_ID();?>"><?php echo $votes; ?></strong> votes </em>
+		<em title="total votes:<?php echo pulse_press_total_votes(get_the_ID()); ?>"><strong id="votes-<?php the_ID();?>"><?php echo $votes; ?></strong> <?php echo (  get_option( 'pulse_press_vote_text' ) == ''  ? __("votes",'pulse_press') : esc_html( get_option( 'pulse_press_vote_text' )) ); ?> </em>
 		<?php if( pulse_press_user_can_post() ) : ?>
 			<?php if( pulse_press_is_vote(get_the_ID()) == null ) :  // still need to vote ?>
 			
-			<a id="voteup-<?php the_ID();?>" href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up" title="Vote Up"> <span>Vote Up</span></a> 
-			<a id="votedw-<?php the_ID();?>"href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=votedown" class="vote-down" title="Vote Down"> <span>Vote Down</span></a>
+			<a id="voteup-<?php the_ID();?>" href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up" title="<?php esc_attr_e('Vote Up','pulse_press'); ?>',"> <span><?php _e('Vote Up','pulse_press'); ?></span></a> 
+			<a id="votedw-<?php the_ID();?>"href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=votedown" class="vote-down" title="<?php esc_attr_e('Vote Down','pulse_press'); ?>"> <span><?php _e('Vote Down','pulse_press'); ?></span></a>
 			
 			<?php elseif( pulse_press_is_vote(get_the_ID()) > 0 ): // voted up ?>
 			
-			<a id="voteup-<?php the_ID();?>" href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up vote-up-set" title="Unvote"> <span>Unvote</span></a> 
-			<a id="votedw-<?php the_ID();?>"href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=votedown" class="vote-down" title="Vote Down"> <span>Vote Down</span></a>
+			<a id="voteup-<?php the_ID();?>" href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up vote-up-set" title="<?php esc_attr_e('Unvote','pulse_press'); ?>"> <span><?php _e('Unvote','pulse_press'); ?></span></a> 
+			<a id="votedw-<?php the_ID();?>"href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=votedown" class="vote-down" title="<?php esc_attr_e('Vote Down','pulse_press'); ?>"> <span><?php _e('Vote Down','pulse_press'); ?></span></a>
 			
 			<?php else: // voted down ?>
 			
-			<a id="voteup-<?php the_ID();?>" href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up" title="Vote Up"> <span>Vote Up</span></a> 
-			<a id="votedw-<?php the_ID();?>"href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=votedown" class="vote-down vote-down-set" title="Unvote"> <span>Unvote</span></a>
+			<a id="voteup-<?php the_ID();?>" href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up" title="<?php esc_attr_e('Vote Up','pulse_press'); ?>"> <span><?php _e('Vote Up','pulse_press'); ?></span></a> 
+			<a id="votedw-<?php the_ID();?>"href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=votedown" class="vote-down vote-down-set" title="<?php esc_attr_e('Unvote','pulse_press'); ?>"> <span><?php _e('Unvote','pulse_press'); ?></span></a>
 			
 			<?php endif; ?>
 		<?php endif; ?>
