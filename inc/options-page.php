@@ -93,6 +93,16 @@ class PulsePressOptions {
 						<?php endif; ?></em></span>
 						</td>
 					</tr>
+					<tr valign="top">
+						<th scope="row"><?php _e( 'Display Attachments:', 'pulse_press' ); ?></th>
+						<td>
+
+						<input id="pulse_press_show_attachments" type="checkbox" name="pulse_press_show_attachments"  value="1" <?php  checked($set_option['show_attachments']); ?> />
+						<label for="pulse_press_show_attachments"><?php _e( 'Automatically create links to pdf, word, powerpoint documents.', 'pulse_press' ); ?></label>
+						<br />
+						
+						</td>
+					</tr>
 					<tr>
 						<th><?php _e( 'Enable Anonymous Posting:', 'pulse_press' )?></th>
 						<td>
@@ -123,7 +133,15 @@ class PulsePressOptions {
 							<label for="pulse_press_voting_type_1"><?php _e( 'Vote Up - User are only able to vote posts up', 'pulse_press' ); ?></label><br />
 							<input id="pulse_press_voting_type_2" type="radio" name="pulse_press_voting_type" <?php  checked($set_option['voting_type'],"two"); ?> value="two" />
 							<label for="pulse_press_voting_type_2"><?php _e( 'Two Way Voting - User can choose to vote items both up or down', 'pulse_press' ); ?></label>
+							
 							</div>
+							<br />
+							<input id="pulse_press_show_unpopular" type="checkbox" name="pulse_press_show_unpopular" <?php  checked($set_option['show_unpopular']); ?> value="1" />
+							<label for="pulse_press_show_unpopular"><?php _e( 'Display Unpopular Interface', 'pulse_press' ); ?></label>
+							<br />
+							<input id="pulse_press_show_most_voted_on" type="checkbox" name="pulse_press_show_most_voted_on" <?php  checked($set_option['show_most_voted_on']); ?> value="1" />
+							<label for="pulse_press_show_most_voted_on"><?php _e( 'Display Most voted-on Interface', 'pulse_press' ); ?></label>
+
 						</td>
 					</tr>
 					
@@ -201,6 +219,7 @@ class PulsePressOptions {
 						</td>
 					</tr>
 					
+					
 					<tr valign="top">
 						<th scope="row"><?php _e( 'Vote text:', 'pulse_press' ); ?></th>
 						<td>
@@ -214,6 +233,22 @@ class PulsePressOptions {
 						<td>
 							<input id="pulse_press_popular_text" type="text" name="pulse_press_popular_text" class="regular-text"  value="<?php echo ($set_option['popular_text'] == __("Popular") ) ? __("Popular") : esc_attr( $set_option['popular_text'] ); ?>" />
 				 			(<?php _e( 'if empty, defaults to "Popular"', 'pulse_press' ); ?>)
+						</td>
+					</tr>
+					
+					<tr valign="top">
+						<th scope="row"><?php _e( 'Unpopular text:', 'pulse_press' ); ?></th>
+						<td>
+							<input id="pulse_press_unpopular_text" type="text" name="pulse_press_unpopular_text" class="regular-text"  value="<?php echo ($set_option['unpopular_text'] == __("Unpopular") ) ? __("Unpopular") : esc_attr( $set_option['unpopular_text'] ); ?>" />
+				 			(<?php _e( 'if empty, defaults to "Unpopular"', 'pulse_press' ); ?>)
+						</td>
+					</tr>
+					
+					<tr valign="top">
+						<th scope="row"><?php _e( 'Most voted-on text:', 'pulse_press' ); ?></th>
+						<td>
+							<input id="pulse_press_most_voted_on_text" type="text" name="pulse_press_most_voted_on_text" class="regular-text"  value="<?php echo ($set_option['most_voted_on_text'] == __("Most voted-on") ) ? __("Most voted-on") : esc_attr( $set_option['most_voted_on_text'] ); ?>" />
+				 			(<?php _e( 'if empty, defaults to "Most voted-on"', 'pulse_press' ); ?>)
 						</td>
 					</tr>
 					
@@ -260,18 +295,22 @@ function pulse_press_options() {
 			'show_reply',
 			'show_voting',
 			'voting_type',
+			'show_unpopular',
+			'show_most_voted_on',
 			'show_anonymous',
 			'show_fav',
 			'show_tagging',
 			'allow_fileupload',
 			'show_twitter',
 			'bitly_user',
+			'show_attachments',
 			'bitly_api',
 			'hide_sidebar',
 			'prompt_text',
 			'vote_text',
 			'vote_style',
 			'popular_text',
+			'unpopular_text',
 			'star_text',
 			'remove_frontend_post'
 		);

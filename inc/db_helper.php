@@ -27,13 +27,8 @@ function pulse_press_install() {
 		$date = pulse_press_get_gmt_time();
 		add_option("pulse_press_votes_updated", $date,'','no');
 		
-		// create 
-		$all_posts = get_posts('posts_per_page=-1&post_type=post&post_status=');
-		foreach( $all_posts as $postinfo) {
-			
-			add_post_meta($postinfo->ID, 'updates_votes', 0, true);
-			
-		}
+		pulse_press_update_custom_field_from_table();
+		
 	endif;
 }
 if(is_admin())  // this runs when you active the theme 
@@ -44,13 +39,13 @@ if(isset($_GET['update_custom_field_table']))
 
 // delete table once you switch themes
 add_action("switch_theme","pulse_press_delete_tables_and_options");
-function pulse_press_delete_tables_and_options($name)
+function pulse_press_delete_tables_and_options()
 {
+	
 	global $wpdb;
 	$options = pulse_press_options();
 	foreach($options as $option):
-	
-	delete_option( 'pulse_press_'.$option );
+		delete_option( 'pulse_press_'.$option );
 	endforeach;
 	delete_option( 'pulse_press_rewrites_flushed' );
 	delete_option( 'pulse_press_db_version' );
@@ -62,6 +57,12 @@ function pulse_press_delete_tables_and_options($name)
 	$pulse_press_db_table = PulsePress_DB_TABLE;
    	$wpdb->query("DROP TABLE IF EXISTS $pulse_press_db_table");
 	// delete the different option
+	
+	$all_posts = get_posts('posts_per_page=-1&post_type=post&post_status=');
+	foreach( $all_posts as $postinfo) {
+		delete_post_meta($postinfo->ID, 'updates_votes');
+		delete_post_meta($postinfo->ID, 'total_votes');
+	}
 	
 
 }
@@ -76,9 +77,11 @@ function pulse_press_delete_tables_and_options($name)
 function pulse_press_vote($post_id) {
 	// store the value in custom field 
 	
-	$votes = pulse_press_total_votes($post_id) + 1;
+	$votes = pulse_press_sum_votes($post_id) + 1;
+	$total = pulse_press_total_votes($post_id) + 1;
 	// save the number of votes to better get popular votes 
 	add_post_meta($post_id, 'updates_votes', $votes, true) or update_post_meta($post_id, 'updates_votes', $votes);
+	add_post_meta($post_id, 'total_votes', $total, true) or update_post_meta($post_id, 'total_votes', $total);
 	// for knowing when to update this 
 	$date = pulse_press_get_gmt_time();
 	update_option('pulse_press_votes_updated',$date);
@@ -89,9 +92,11 @@ function pulse_press_vote($post_id) {
 function pulse_press_vote_down($post_id) {
 	// store the value in custom field 
 	
-	$votes = pulse_press_total_votes($post_id) - 1;
+	$votes = pulse_press_sum_votes($post_id) - 1;
+	$total = pulse_press_total_votes($post_id) + 1;
 	// save the number of votes to better get popular votes 
 	add_post_meta($post_id, 'updates_votes', $votes, true) or update_post_meta($post_id, 'updates_votes', $votes);
+	add_post_meta($post_id, 'total_votes', $total, true) or update_post_meta($post_id, 'total_votes', $total);
 	// for knowing when to update this 
 	$date = pulse_press_get_gmt_time();
 	update_option('pulse_press_votes_updated',$date);
@@ -101,9 +106,12 @@ function pulse_press_vote_down($post_id) {
 function pulse_press_delete_vote($post_id) {
 	// store the value in custom field 
 	
-	$votes = pulse_press_total_votes($post_id) - 1;
+	$votes = pulse_press_sum_votes($post_id) - 1;
+	$total = pulse_press_total_votes($post_id) - 1;
 	// save the number of votes to better get popular votes 
 	add_post_meta($post_id, 'updates_votes', $votes, true) or update_post_meta($post_id, 'updates_votes', $votes);
+	add_post_meta($post_id, 'total_votes', $total, true) or update_post_meta($post_id, 'total_votes', $total);
+	
 	
 	// for knowing when to update this 
 	$date = pulse_press_get_gmt_time();
@@ -116,9 +124,14 @@ function pulse_press_is_vote($post_id) {
 	return pulse_press_get_user_post_meta_counter($post_id,'vote');
 }
 
-function pulse_press_total_votes($post_id) {
+function pulse_press_sum_votes($post_id) {
 	
 	return pulse_press_get_sum_meta_by_post("vote",$post_id);
+}
+
+function pulse_press_total_votes($post_id) {
+	
+	return pulse_press_get_total_meta_by_post("vote",$post_id);
 }
 
 function pulse_press_get_sum_votes_by_user($user_id){
@@ -145,11 +158,6 @@ function pulse_press_total_posts_votes($post_ids)
 function pulse_press_get_updates_since_vote($date) {
 	
 	return pulse_press_get_updates_since_post_meta($date,'vote');
-}
-
-function pulse_press_get_total_votes_by_post($post_id) {
-	
-	return pulse_press_get_total_meta_by_post('vote',$post_id);
 }
 
 function pulse_press_get_total_votes_by_user($user_id) {
@@ -240,6 +248,8 @@ function pulse_press_get_total_meta_by_user($type,$user_id) {
 	
 	return $wpdb->get_var($wpdb->prepare("SELECT COUNT(*)  FROM ".PulsePress_DB_TABLE." WHERE user_id = %d AND type ='%s';",$user_id,$type ));
 }
+
+
 
 function pulse_press_add_user_post_meta($post_id,$type,$count=1) {
 

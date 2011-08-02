@@ -22,7 +22,7 @@ function pulse_press_modify_post_table_row( $column_name, $post_id ) {
     switch ($column_name) {
     	case 'pulse_press_votes' :
     		$sum = $custom_fields['updates_votes'][0];
-    		$total_num_votes = pulse_press_get_total_votes_by_post($post_id);
+    		$total_num_votes = $custom_fields['total_votes'][0];
     	
     		if($sum > 0) {
 					$negative_votes = (($total_num_votes-$sum)/2);
@@ -57,7 +57,7 @@ function pulse_press_modify_user_table_row( $test, $column_name,$user_id ) {
 	
  	$sum 				= pulse_press_get_sum_votes_by_user( $user_id );
  	$total_num_votes 	= pulse_press_get_total_votes_by_user($user_id);
- 	// var_dump($total_num_votes);
+ 	
  	if($sum > 0) {
  		$negative_votes = (($total_num_votes-$sum)/2);
  		$positive_votes = $total_num_votes-$negative_votes;

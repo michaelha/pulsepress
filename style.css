@@ -1983,6 +1983,9 @@ div.menu li {
 
 
 /* attachemnts */
+.attachments-shell{
+	clear:both;
+}
 #main ul#postlist .postcontent ul.post-attachments li,
 #main ul.post-attachments {
 	list-style: none;
@@ -1998,6 +2001,7 @@ li.post-attachment{
 	background: url(i/document.png) 0 4px no-repeat;
 }
 .post-attachment.mime-imagejpeg,
+.post-attachment.mime-imagegif,
 .post-attachment.mime-imagepng {
 	background-image: url(i/document-image.png);
 }
@@ -2016,4 +2020,10 @@ li.post-attachment{
 
 .post-attachment.mime-applicationmsword {
 	background-image: url(i/document-word.png);
+}
+.post-attachment.mime-applicationvnd-ms-powerpoint{
+	background-image: url(i/document-powerpoint.png);
+}
+.post-attachment.mime-applicationvnd-ms-excel{
+	background-image: url(i/document-excel.png);
 }

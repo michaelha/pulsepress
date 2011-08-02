@@ -8,7 +8,7 @@ define( 'PulsePress_INC_PATH',  get_template_directory() . '/inc' );
 define( 'PulsePress_INC_URL', get_template_directory_uri().'/inc' );
 define( 'PulsePress_JS_PATH',  get_template_directory() . '/js' );
 define( 'PulsePress_JS_URL', get_template_directory_uri().'/js' );
-define( 'PulsePress_DB_VERSION',4);
+define( 'PulsePress_DB_VERSION',5);
 define( 'PulsePress_DB_TABLE', $wpdb->prefix . "pulse_press_user_post_meta");
 
 if ( !class_exists( 'Services_JSON' ) ) require_once( PulsePress_INC_PATH . '/JSON.php' );
@@ -835,8 +835,11 @@ function pulsepress_main_loop_test($query) {
   }
   
 }
-add_filter( 'the_content', 'my_the_content_filter' );
-function my_the_content_filter( $content ) {
+
+if(get_option("pulse_press_show_attachments"))
+	add_filter( 'the_content', 'pulse_press_the_content_filter' );
+
+function pulse_press_the_content_filter( $content ) {
 	global $post;
 	
 	if ( (is_single() || is_page() ) && $post->post_status == 'publish' ) {
@@ -847,14 +850,22 @@ function my_the_content_filter( $content ) {
 		) );
 
 		if ( $attachments ) {
-			$content .= '<h3>Attachments</h3>';
-			$content .= '<ul class="post-attachments">';
+			
+			$list = "";
 			foreach ( $attachments as $attachment ) {
-				$class = "post-attachment mime-" . sanitize_title( $attachment->post_mime_type );
-				$title = wp_get_attachment_link( $attachment->ID, false );
-				$content .= '<li class="' . $class . '">' . $title . '</li>';
+				
+				if( !in_array($attachment->post_mime_type, array('image/jpeg','image/png','image/gif') ) ):
+					$class = "post-attachment mime-" . sanitize_title( $attachment->post_mime_type );
+					$title = wp_get_attachment_link( $attachment->ID, false );
+					$list .= '<li class="' . $class . '">' . $title . '</li>';
+				endif;
 			}
-			$content .= '</ul>';
+			
+			if($list != ""):
+				$content .= '<div class="attachments-shell"><h3>Attachments</h3>';
+				$content .= '<ul class="post-attachments">'.$list;
+				$content .= '</ul></div>';
+			endif;
 		}
 	}
 
