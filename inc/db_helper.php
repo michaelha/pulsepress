@@ -295,7 +295,7 @@ function pulse_press_get_sum_posts_meta($post_ids,$type) {
 /* this returns a list of summed up items */
 function pulse_press_get_total_posts_meta($post_ids,$type) {
 	global $wpdb;
-	return $wpdb->get_results($wpdb->prepare("SELECT post_id, SUM(counter) as count FROM ".PulsePress_DB_TABLE." WHERE post_id IN (".$post_ids.") AND type ='%s' GROUP BY post_id;", $type));
+	return $wpdb->get_results($wpdb->prepare("SELECT post_id, SUM(counter) as count, COUNT(*) as total FROM ".PulsePress_DB_TABLE." WHERE post_id IN (".$post_ids.") AND type ='%s' GROUP BY post_id;", $type));
 }
 function pulse_press_get_updates_since_post_meta($date,$type) {
 	global $wpdb;

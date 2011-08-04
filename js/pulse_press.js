@@ -217,15 +217,36 @@ jQuery(function($) {
 				var count_votes = 0;
 				$.each(newVotes.votes, function(i,vote) {
 					
-					vote_shell = $('#votes-'+vote.post_id)
-					if(vote_shell.html() != vote.count) {
+					vote_shell 	= $('#votes-'+vote.post_id)    // count
+					vote_up 	= $('#votes-up-'+vote.post_id) // positive votes
+					vote_down   = $('#votes-down-'+vote.post_id) // negative votes
+					
+					if(vote_shell.data('total') != vote.total || vote_shell.html() !=vote.count) {
 						count_votes++;
+						
+						if(vote.count > 0) {
+							negative_vote = ((vote.total-vote.count)/2);
+							positive_vote = vote.total - negative_vote;
+						} else if( vote.count	 == 0 ){
+							negative_vote = vote.total/2;
+							positive_vote = negative_vote;
+						} else{
+							negative_vote = ((vote.total - vote.count)/2);
+							positive_vote = vote.total - negative_vote;
+						}
+						
+						
+						
+						
 						vote_shell.html(vote.count);
-						vote_shell.parent().addClass('newupdates');
-						vote_shell.parent().animate({backgroundColor:'transparent'}, 2500, function(){
-								vote_shell.parent().removeClass('newupdates');
+						vote_up.html(positive_vote);
+						vote_down.html(negative_vote);
+						vote_shell.data('total',vote.total);
+						vote_shell.parent().addClass('newupdates').animate( { 'backgroundColor' : '#FFFFFF'}, 3500, function() {
+							$(this).removeClass('newupdates');
 						});
-					}		
+					}
+						
 				});
 				if (showNotification && count_votes >0 ) {
 				newNotification("Votes Have Been Updated");
@@ -392,8 +413,6 @@ jQuery(function($) {
 	function newVoteUp(trigger,id) {
 	
 		var queryString = ajaxUrl +'&'+id.attr('href').substring(1);
-		var p_id = id.attr('id').substring(7);
-		var votes = parseInt($("#votes-"+p_id).html());
 		
 		$.ajax({
 			type: "GET",
@@ -402,24 +421,37 @@ jQuery(function($) {
 			success: function(result) {
 								
 				if ("voted" == result) {
+					var p_id = id.attr('id').substring(7);
+					var votes = parseInt($("#votes-"+p_id).html());
+					var positive_votes = parseInt($("#votes-up-"+p_id).html());
+					var total = $("#votes-"+p_id).data('total');
 					
 					// update the UI 
-					if(id.hasClass('vote-up-set')){
+					if(id.hasClass('vote-up-set')){ // the user previously voted up - setting things back
 						id.html("<span>Vote Up</span>").removeClass("vote-up-set").attr('title',"Vote Up");
 						
 						// remove the vote
-						$("#votes-"+p_id).html(votes-1);
+						$("#votes-"+p_id).html(votes-1); 
+						$("#votes-up-"+p_id).html(positive_votes-1); 
+						$("#votes-"+p_id).data('total',total-1);
+						// negative vote count stays the same
+						
 					
-					}else{
+					}else{ // the user votes up 
 						id.html( "<span>Unvote</span>" ).addClass( "vote-up-set" ).attr( 'title',"Unvote" );
 						var count = 1;
 						
-						if($("#votedw-"+p_id).hasClass('vote-down-set')) {
+						if($("#votedw-"+p_id).hasClass('vote-down-set')) { // the user previously voted down
 							$("#votedw-"+p_id).html("<span>Vote Down</span>").removeClass("vote-down-set").attr('title',"Vote Down");
 							count = 2;
+							var negative_votes = parseInt($("#votes-down-"+p_id).html());
+							$("#votes-down-"+p_id).html(negative_votes-1);
 						}
 						$("#votes-"+p_id).html(votes+count);
-						
+						$("#votes-up-"+p_id).html(positive_votes+1);
+						if(count == 1){ // total only changes if the hasn't voted before
+							$("#votes-"+p_id).data('total',total+1); // total votes goes up by 1
+						}
 					}
 				}
 				
@@ -427,7 +459,7 @@ jQuery(function($) {
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				// if something goes wrong
 			},
-			timeout: 60000
+			timeout: 15000
 		});
 		
 		// toggleUpdates('unewposts');
@@ -437,8 +469,6 @@ jQuery(function($) {
 	function newVoteDown(trigger,id) {
 	
 		var queryString = ajaxUrl +'&'+id.attr('href').substring(1);
-		var p_id = id.attr('id').substring(7);
-		var votes = parseInt($("#votes-"+p_id).html());
 		
 		$.ajax({
 			type: "GET",
@@ -447,27 +477,37 @@ jQuery(function($) {
 			success: function(result) {
 				
 				if ("voted" == result) {
+					var p_id = id.attr('id').substring(7);
+					var votes = parseInt($("#votes-"+p_id).html());
+					var negative_votes = parseInt($("#votes-down-"+p_id).html());
+					var total = $("#votes-"+p_id).data('total');
 					
 					// update the UI 
-					if(id.hasClass('vote-down-set')){
+					if(id.hasClass('vote-down-set')){ // the user clicked and he/she just took back their vote 
 						
 						id.html("<span>Vote Down</span>").removeClass("vote-down-set").attr('title',"Vote Down");
 			
-						// remove the 
-						$("#votes-"+p_id).html(votes+1);
-					
-					}else{
+						$("#votes-"+p_id).html(votes+1); // sum goes up 
+						$("#votes-down-"+p_id).html(negative_votes-1); // negative count goes down
+						$("#votes-"+p_id).data('total',total-1); // total votes goes down 
+						// number of positive votes stays the same
+					}else{ // the user just clicked and they are voting down
 						id.html( "<span>Unvote</span>" );
 						id.addClass( "vote-down-set" );
 						id.attr( 'title',"Unvote" );
 						var count = 1;
-						if($("#voteup-"+p_id).hasClass('vote-up-set')) {
-							
+						
+						if($("#voteup-"+p_id).hasClass('vote-up-set')) { // the user has voted up before. 
+							var positive_votes = parseInt($("#votes-up-"+p_id).html());
 							$("#voteup-"+p_id).html("<span>Vote Up</span>").removeClass("vote-up-set").attr('title',"Vote Up");
+							$("#votes-up-"+p_id).html(positive_votes-1); // positive votes goes down 
 							count = 2;
 						}
-						$("#votes-"+p_id).html(votes-count);
-						
+						$("#votes-"+p_id).html(votes-count); // the sum could go up by one or 2 
+						$("#votes-down-"+p_id).html(negative_votes+1); // the negative votes goes up by 1
+						if(count == 1){ // total only changes if the hasn't voted before
+							$("#votes-"+p_id).data('total',total+1); // total votes goes up by 1
+						}
 					}
 				}
 				
@@ -475,7 +515,7 @@ jQuery(function($) {
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				// if something goes wrong
 			},
-			timeout: 60000
+			timeout: 15000
 		});
 		
 		// toggleUpdates('unewposts');
@@ -503,13 +543,11 @@ jQuery(function($) {
 						id.attr('title',"Unstar");
 						// remove the 
 						
-					
 					}else{
 						id.html("<span>Star</span>");
 						id.addClass( "star");
 						id.removeClass("unstar");
-						id.attr('title',"Star");
-						
+						id.attr('title',"Star");		
 					}
 				}
 			  },
@@ -1305,7 +1343,6 @@ jQuery(function($) {
 		}else{
 			h4.addClass("showup");
 		}
-		
 		
 	});
 	}

@@ -23,7 +23,7 @@ class PulsePressOptions {
 	
 		foreach( $options as $option ):
 		
-			register_setting( 'pulse_pressops', 'pulse_press_'.$option );
+			register_setting( 'pulse_pressops', 'pulse_press_'.$option);
 			$set_option[$option] = get_option( 'pulse_press_'.$option );
 			
 			if($update_options):
@@ -93,16 +93,7 @@ class PulsePressOptions {
 						<?php endif; ?></em></span>
 						</td>
 					</tr>
-					<tr valign="top">
-						<th scope="row"><?php _e( 'Display Attachments:', 'pulse_press' ); ?></th>
-						<td>
-
-						<input id="pulse_press_show_attachments" type="checkbox" name="pulse_press_show_attachments"  value="1" <?php  checked($set_option['show_attachments']); ?> />
-						<label for="pulse_press_show_attachments"><?php _e( 'Automatically create links to pdf, word, powerpoint documents.', 'pulse_press' ); ?></label>
-						<br />
-						
-						</td>
-					</tr>
+					
 					<tr>
 						<th><?php _e( 'Enable Anonymous Posting:', 'pulse_press' )?></th>
 						<td>
@@ -141,6 +132,10 @@ class PulsePressOptions {
 							<br />
 							<input id="pulse_press_show_most_voted_on" type="checkbox" name="pulse_press_show_most_voted_on" <?php  checked($set_option['show_most_voted_on']); ?> value="1" />
 							<label for="pulse_press_show_most_voted_on"><?php _e( 'Display Most voted-on Interface', 'pulse_press' ); ?></label>
+							<br />
+							<input id="pulse_press_show_vote_breakdown" type="checkbox" name="pulse_press_show_vote_breakdown" <?php  checked($set_option['show_vote_breakdown']); ?> value="1" />
+							<label for="pulse_press_show_vote_breakdown"><?php _e( 'Display votes breakdown', 'pulse_press' ); ?></label>
+							
 
 						</td>
 					</tr>
@@ -181,9 +176,9 @@ class PulsePressOptions {
 					<tr>
 						<th><?php _e( 'URL Shortener<br /> Bitly API:', 'pulse_press' )?></th>
 						<td>
-							<input id="pulse_press_bitly_user" type="text" class="regular-text" name="pulse_press_bitly_user" value="<?php echo esc_attr($set_option['bitly_user']); ?>" />
+							<input id="pulse_press_bitly_user" type="text" class="regular-text" name="pulse_press_bitly_user" value="<?php pulse_press_display_option($set_option['bitly_user'],''); ?>" />
 							<label for="pulse_press_bitly_user"><?php _e( 'bitly Username', 'pulse_press' ); ?></label><br />
-							<input id="pulse_press_bitly_api" type="text" class="regular-text" name="pulse_press_bitly_api" value="<?php echo esc_attr($set_option['bitly_api']); ?>" />
+							<input id="pulse_press_bitly_api" type="text" class="regular-text" name="pulse_press_bitly_api" value="<?php pulse_press_display_option($set_option['bitly_api'],''); ?>" />
 							<label for="pulse_press_bitly_api"><?php _e( 'bitly API Key', 'pulse_press' ); ?></label>
 							<br /><span><em>To get your <a target="_blank" href="http://bit.ly">bit.ly</a> API key - <a target="_blank" href="http://bit.ly/a/sign_up">sign up</a> and view your <a target="_blank" href="http://bit.ly/a/your_api_key/">API KEY</a>
 							 </<em></span>
@@ -214,7 +209,7 @@ class PulsePressOptions {
 					<tr valign="top">
 						<th scope="row"><?php _e( 'Post prompt:', 'pulse_press' ); ?></th>
 						<td>
-							<input id="pulse_press_prompt_text" type="text" name="pulse_press_prompt_text" class="regular-text"  value="<?php echo ($set_option['prompt_text'] == __("What&rsquo;s happening?") ) ? __("What&rsquo;s happening?") : esc_attr( $set_option['prompt_text'] ); ?>" />
+							<input id="pulse_press_prompt_text" type="text" name="pulse_press_prompt_text" class="regular-text"  value="<?php pulse_press_display_option($set_option['prompt_text'],"What&rsquo;s happening?"); ?>" />
 				 			(<?php _e( 'if empty, defaults to "What&rsquo;s happening?"', 'pulse_press' ); ?>)
 						</td>
 					</tr>
@@ -223,15 +218,33 @@ class PulsePressOptions {
 					<tr valign="top">
 						<th scope="row"><?php _e( 'Vote text:', 'pulse_press' ); ?></th>
 						<td>
-							<input id="pulse_press_vote_text" type="text" name="pulse_press_vote_text" class="regular-text"  value="<?php echo ($set_option['vote_text'] == __("votes") ) ? __("votes") : esc_attr( $set_option['vote_text'] ); ?>" />
+							<input id="pulse_press_vote_text" type="text" name="pulse_press_vote_text" class="regular-text"  value="<?php pulse_press_display_option($set_option['vote_text'],"votes"); ?>" />
 				 			(<?php _e( 'if empty, defaults to "votes"', 'pulse_press' ); ?>)
 						</td>
 					</tr>
 					
 					<tr valign="top">
+						<th scope="row"><?php _e( 'Vote Up text:', 'pulse_press' ); ?></th>
+						<td>
+							<input id="pulse_press_vote_up_text" type="text" name="pulse_press_vote_up_text" class="regular-text"  value="<?php pulse_press_display_option($set_option['vote_up_text'],"up"); ?>" />
+				 			(<?php _e( 'if empty, defaults to "up"', 'pulse_press' ); ?>)
+						</td>
+					</tr>
+					
+					<tr valign="top">
+						<th scope="row"><?php _e( 'Vote down text:', 'pulse_press' ); ?></th>
+						<td>
+							<input id="pulse_press_vote_down_text" type="text" name="pulse_press_vote_down_text" class="regular-text"  value="<?php pulse_press_display_option($set_option['vote_down_text'],"down"); ?>" />
+				 			(<?php _e( 'if empty, defaults to "down"', 'pulse_press' ); ?>)
+						</td>
+					</tr>
+					
+					
+					
+					<tr valign="top">
 						<th scope="row"><?php _e( 'Popular text:', 'pulse_press' ); ?></th>
 						<td>
-							<input id="pulse_press_popular_text" type="text" name="pulse_press_popular_text" class="regular-text"  value="<?php echo ($set_option['popular_text'] == __("Popular") ) ? __("Popular") : esc_attr( $set_option['popular_text'] ); ?>" />
+							<input id="pulse_press_popular_text" type="text" name="pulse_press_popular_text" class="regular-text"  value="<?php pulse_press_display_option($set_option['popular_text'],"Popular"); ?>" />
 				 			(<?php _e( 'if empty, defaults to "Popular"', 'pulse_press' ); ?>)
 						</td>
 					</tr>
@@ -239,7 +252,7 @@ class PulsePressOptions {
 					<tr valign="top">
 						<th scope="row"><?php _e( 'Unpopular text:', 'pulse_press' ); ?></th>
 						<td>
-							<input id="pulse_press_unpopular_text" type="text" name="pulse_press_unpopular_text" class="regular-text"  value="<?php echo ($set_option['unpopular_text'] == __("Unpopular") ) ? __("Unpopular") : esc_attr( $set_option['unpopular_text'] ); ?>" />
+							<input id="pulse_press_unpopular_text" type="text" name="pulse_press_unpopular_text" class="regular-text"  value="<?php pulse_press_display_option($set_option['unpopular_text'],"Unpopular"); ?>" />
 				 			(<?php _e( 'if empty, defaults to "Unpopular"', 'pulse_press' ); ?>)
 						</td>
 					</tr>
@@ -247,7 +260,7 @@ class PulsePressOptions {
 					<tr valign="top">
 						<th scope="row"><?php _e( 'Most voted-on text:', 'pulse_press' ); ?></th>
 						<td>
-							<input id="pulse_press_most_voted_on_text" type="text" name="pulse_press_most_voted_on_text" class="regular-text"  value="<?php echo ($set_option['most_voted_on_text'] == __("Most voted-on") ) ? __("Most voted-on") : esc_attr( $set_option['most_voted_on_text'] ); ?>" />
+							<input id="pulse_press_most_voted_on_text" type="text" name="pulse_press_most_voted_on_text" class="regular-text"  value="<?php pulse_press_display_option($set_option['most_voted_on_text'],"Most voted-on"); ?>" />
 				 			(<?php _e( 'if empty, defaults to "Most voted-on"', 'pulse_press' ); ?>)
 						</td>
 					</tr>
@@ -255,7 +268,7 @@ class PulsePressOptions {
 					<tr valign="top">
 						<th scope="row"><?php _e( 'Started text:', 'pulse_press' ); ?></th>
 						<td>
-							<input id="pulse_press_star_text" type="text" name="pulse_press_star_text" class="regular-text"  value="<?php echo ($set_option['star_text'] == __("My Starred") ) ? __("My Starred") : esc_attr( $set_option['star_text'] ); ?>" />
+							<input id="pulse_press_star_text" type="text" name="pulse_press_star_text" class="regular-text"  value="<?php pulse_press_display_option($set_option['star_text'],"My Starred"); ?>" />
 				 			(<?php _e( 'if empty, defaults to "My Starred"', 'pulse_press' ); ?>)
 						</td>
 					</tr>
@@ -274,6 +287,8 @@ class PulsePressOptions {
 		</div>
 <?php
 	}
+	
+	
 }
 
 function pulse_press_options_help($contextual_help, $screen_id, $screen) {
@@ -297,17 +312,19 @@ function pulse_press_options() {
 			'voting_type',
 			'show_unpopular',
 			'show_most_voted_on',
+			'show_vote_breakdown',
 			'show_anonymous',
 			'show_fav',
 			'show_tagging',
 			'allow_fileupload',
 			'show_twitter',
 			'bitly_user',
-			'show_attachments',
 			'bitly_api',
 			'hide_sidebar',
 			'prompt_text',
 			'vote_text',
+			'vote_up_text',
+			'vote_down_text',
 			'vote_style',
 			'popular_text',
 			'unpopular_text',
@@ -315,6 +332,7 @@ function pulse_press_options() {
 			'remove_frontend_post'
 		);
 }
+
 add_action( 'wp_before_admin_bar_render', 'pulse_press_admin_bar_render' );
 /**
  * pulse_press_admin_bar_render function.
@@ -334,4 +352,10 @@ function pulse_press_admin_bar_render() {
         	'title' => __('Theme Options'),
         	'href' => admin_url( 'themes.php?page=pulse_press-options-page')
     	) );
+}
+
+function pulse_press_display_option($option,$default='')
+{
+	echo ($option == "" ) ? __($default,'pulse_press') : esc_attr( stripslashes($option) );
+
 }

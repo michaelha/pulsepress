@@ -13,7 +13,7 @@ function pulse_press_vote_on_post()
 		default:
 		case "one": ?>
 		<div class="vote" >
-		<em title="total votes:<?php echo pulse_press_total_votes(); ?>"><strong id="votes-<?php the_ID();?>"><?php echo $votes; ?></strong> <?php echo (  get_option( 'pulse_press_vote_text' ) == ''  ? __("votes",'pulse_press') : esc_html( get_option( 'pulse_press_vote_text' )) ); ?></em>
+		<em title="total votes:<?php echo pulse_press_total_votes(get_the_ID()); ?>" ><strong id="votes-<?php the_ID();?>"><?php echo $votes; ?></strong> <?php  pulse_press_display_option(get_option( 'pulse_press_vote_text' ),'votes'); ?></em>
 		<?php if( pulse_press_user_can_post() ) : ?>
 			<?php if(!pulse_press_is_vote(get_the_ID())) : ?>
 			<a id="voteup-<?php the_ID();?>" href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up" title="<?php esc_attr_e('Vote Up','pulse_press'); ?>"> <span><?php _e('Vote Up','pulse_press'); ?></span></a> 
@@ -25,13 +25,35 @@ function pulse_press_vote_on_post()
 		
 		<?php 
 		break;
-		case "two": ?>
+		case "two": 
+		
+		$total = pulse_press_total_votes(get_the_ID());
+		?>
 		<div class="vote" >
-		<em title="total votes:<?php echo pulse_press_total_votes(get_the_ID()); ?>"><strong id="votes-<?php the_ID();?>"><?php echo $votes; ?></strong> <?php echo (  get_option( 'pulse_press_vote_text' ) == ''  ? __("votes",'pulse_press') : esc_html( get_option( 'pulse_press_vote_text' )) ); ?> </em>
-		<?php if( pulse_press_user_can_post() ) : ?>
+		<em title="total votes:<?php echo $total; ?>" ><strong id="votes-<?php the_ID();?>" data-total="<?php echo $total; ?>"><?php echo $votes; ?></strong> <?php pulse_press_display_option(  get_option( 'pulse_press_vote_text' ),"votes" ); 
+			if(get_option( 'pulse_press_show_vote_breakdown')):
+			
+			if($votes > 0) {
+					$negative_votes = (($total-$votes)/2);
+					$positive_votes = $total-$negative_votes;
+				} else if( $votes	 == 0 ){
+					$negative_votes = $total/2;
+					$positive_votes = $negative_votes;
+				} else{
+					$negative_votes = (($total-$votes)/2);
+					$positive_votes = $total-$negative_votes;
+				}
+				
+					
+	
+		
+		?> - <span><strong id="votes-up-<?php the_ID();?>"><?php echo $positive_votes; ?></strong> <?php pulse_press_display_option( get_option( 'pulse_press_vote_up_text' ),"up"); ?></span>, <span><strong id="votes-down-<?php the_ID();?>"><?php echo $negative_votes; ?></strong> <?php pulse_press_display_option( get_option( 'pulse_press_vote_down_text' ) ,"down" ); ?></span></em>
+		<?php
+			endif;
+		 if( pulse_press_user_can_post() ) : ?>
 			<?php if( pulse_press_is_vote(get_the_ID()) == null ) :  // still need to vote ?>
 			
-			<a id="voteup-<?php the_ID();?>" href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up" title="<?php esc_attr_e('Vote Up','pulse_press'); ?>',"> <span><?php _e('Vote Up','pulse_press'); ?></span></a> 
+			<a id="voteup-<?php the_ID();?>" href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up" title="<?php esc_attr_e('Vote Up','pulse_press'); ?>"> <span><?php _e('Vote Up','pulse_press'); ?></span></a> 
 			<a id="votedw-<?php the_ID();?>"href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=votedown" class="vote-down" title="<?php esc_attr_e('Vote Down','pulse_press'); ?>"> <span><?php _e('Vote Down','pulse_press'); ?></span></a>
 			
 			<?php elseif( pulse_press_is_vote(get_the_ID()) > 0 ): // voted up ?>
@@ -46,6 +68,7 @@ function pulse_press_vote_on_post()
 			
 			<?php endif; ?>
 		<?php endif; ?>
+			
 		</div>
 		
 		<?php

@@ -10,17 +10,17 @@
 			<li>
 				<ul>
 					<?php if(get_option( 'pulse_press_show_voting' )): ?>
-					<li><a href="?popular"><?php echo ( !get_option( 'pulse_press_popular_text' ) || get_option( 'pulse_press_popular_text' ) == __("Popular") ) ? __("Popular") : esc_html( get_option( 'pulse_press_popular_text' ) ); ?></a></li>
+					<li><a href="?popular"><?php pulse_press_display_option(get_option( 'pulse_press_popular_text'),"Popular"); ?></a></li>
 					<?php if(get_option( 'pulse_press_show_unpopular' )): ?>
-					<li><a href="?unpopular"><?php echo ( !get_option( 'pulse_press_unpopular_text' ) || get_option( 'pulse_press_unpopular_text' ) == __("Unpopular") ) ? __("Unpopular") : esc_html( get_option( 'pulse_press_unpopular_text' ) ); ?></a></li>
+					<li><a href="?unpopular"><?php pulse_press_display_option(get_option( 'pulse_press_unpopular_text' ),"Unpopular"); ?></a></li>
 					<?php endif; ?>
 					<?php if(get_option( 'pulse_press_show_most_voted_on' )): ?>
-					<li><a href="?most-voted"><?php echo ( !get_option( 'pulse_press_most_voted_on_text' ) || get_option( 'pulse_press_most_voted_on_text' ) == __("Most vote-on") ) ? __("Most voted-on") : esc_html( get_option( 'pulse_press_most_voted_on_text' ) ); ?></a></li>
+					<li><a href="?most-voted"><?php pulse_press_display_option(get_option( 'pulse_press_most_voted_on_text' ),"Most vote-on"); ?></a></li>
 					<?php endif; ?>
 					<?php 
 					endif;
 					if(current_user_can( 'read' ) && get_option( 'pulse_press_show_fav' )): ?>
-					<li><a href="<?php echo home_url();?>/?starred" id="starred"><?php echo (! get_option( 'pulse_press_star_text' ) || get_option( 'pulse_press_star_text' ) == __("My Starred") ) ? __("My Starred") : esc_html( get_option( 'pulse_press_star_text' ) ); ?></a></li>
+					<li><a href="<?php echo home_url();?>/?starred" id="starred"><?php pulse_press_display_option(get_option( 'pulse_press_star_text' ) ,"My Starred"); ?></a></li>
 					<?php endif; ?>
 				</ul>
 			</li>

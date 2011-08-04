@@ -684,9 +684,6 @@ function pulse_press_hidden_sidebar_css() {
 	?>
 	<style type="text/css">
 		.sleeve_main { <?php echo $sleeve_margin;?> }
-		#wrapper { background: transparent; }
-		#header, #footer, #wrapper { width: 760px; }
-		#shell{ width: 800px; }
 	</style>
 	<?php endif;
 	
@@ -836,38 +833,3 @@ function pulsepress_main_loop_test($query) {
   
 }
 
-if(get_option("pulse_press_show_attachments"))
-	add_filter( 'the_content', 'pulse_press_the_content_filter' );
-
-function pulse_press_the_content_filter( $content ) {
-	global $post;
-	
-	if ( (is_single() || is_page() ) && $post->post_status == 'publish' ) {
-		$attachments = get_posts( array(
-			'post_type' => 'attachment',
-			'posts_per_page' => 0,
-			'post_parent' => $post->ID
-		) );
-
-		if ( $attachments ) {
-			
-			$list = "";
-			foreach ( $attachments as $attachment ) {
-				
-				if( !in_array($attachment->post_mime_type, array('image/jpeg','image/png','image/gif') ) ):
-					$class = "post-attachment mime-" . sanitize_title( $attachment->post_mime_type );
-					$title = wp_get_attachment_link( $attachment->ID, false );
-					$list .= '<li class="' . $class . '">' . $title . '</li>';
-				endif;
-			}
-			
-			if($list != ""):
-				$content .= '<div class="attachments-shell"><h3>Attachments</h3>';
-				$content .= '<ul class="post-attachments">'.$list;
-				$content .= '</ul></div>';
-			endif;
-		}
-	}
-
-	return $content;
-}

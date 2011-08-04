@@ -391,9 +391,13 @@ class PulsePressAjax {
 			$zero_posts = array_diff($visible_posts, $changed_posts);
 			
 			foreach($zero_posts as $id):
-				$post_zero_data[] = array( "post_id"=>$id, "count"=>0 );
+				$post_zero_data[] = array( "post_id"=>$id, "count"=>0, 'total'=>0 );
 			endforeach;
-			$updated_data = array_merge($post_count_data, $post_zero_data);
+			
+			if( is_array($post_zero_data) )
+				$updated_data = array_merge($post_count_data, $post_zero_data);
+			else
+				$updated_data = $post_count_data;
 			
 			echo json_encode( array("lastVotesUpdate"=> $updated_date , "votes"=>$updated_data ) );
 		else : // No new comments

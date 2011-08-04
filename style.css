@@ -221,7 +221,7 @@ input[type="submit"]:active {
 	width: 52px;
 }
 #postbox #anonymous:hover{
-	background: #F9D423;
+	background: #FDEB85;
 }
 #postbox #anonymous:hover #shy-tooltip{
 	display: block;
@@ -336,8 +336,7 @@ input#comment-submit {
 }
 #main ul#postlist {
 	list-style: none;
-	margin-top: 16px;
-	margin-left: 0;
+	margin:16px 0 0;
 }
 
 #main .wp-smiley {
@@ -1237,9 +1236,11 @@ h3 {
 #newCommentsIndicator {
 	border-color: #f00;
 }
-li.newupdates, li.newcomment, em.newupdates {
-	background-color: #F9D423;
+li.newupdates, li.newcomment, .vote .newupdates {
+	background-color: #FDEB85;
 }
+.vote .newupdates strong{ color:#333; }
+
 .repyling .post .comment {
 	background: transparent;
 }
@@ -1500,7 +1501,7 @@ form.textedit textarea {
 	left: 0;
 }
 .mention-highlight {
-	background-color: #F9D423;
+	background-color: #FDEB85;
 }
 
 
@@ -1524,6 +1525,12 @@ form.textedit textarea {
 .no-sidebar #access{
 	width:758px;
 }
+
+.no-sidebar #wrapper { background: transparent; }
+.no-sidebar	#header, 
+.no-sidebar #footer, 
+.no-sidebar #wrapper { width: 760px; }
+.no-sidebar	#shell{ width: 800px; }
 
 #access .menu-header,
 div.menu {
@@ -1770,7 +1777,13 @@ div.menu li {
 	 float:none;
 	 clear:both;
 	}
-	#header, #footer, #shell, #sidebar, #sidebar, .sleeve_main, #wrapper, #access, .no-sidebar #access{ width: 100%; }
+	#header, #footer, #shell, #sidebar, #sidebar, .sleeve_main, #wrapper, #access, 
+	.no-sidebar #access,
+	.no-sidebar	#header, 
+	.no-sidebar #footer, 
+	.no-sidebar #wrapper,
+	.no-sidebar	#shell{ width: 100%; }
+	
 	#wrapper { border:none; }
 	#main .controls{ display: none;}
 	#main { clear: both; }
@@ -1980,50 +1993,3 @@ div.menu li {
 .ie7 #postbox #post-count{ right:110px; }
 .ie7 #shorten-url{ right: 160px; }
 .ie7 #main input[type='submit']{ line-height: 1; }
-
-
-/* attachemnts */
-.attachments-shell{
-	clear:both;
-}
-#main ul#postlist .postcontent ul.post-attachments li,
-#main ul.post-attachments {
-	list-style: none;
-	margin-left: 0;
-	padding-left: 0;
-}
-#main ul#postlist .postcontent ul.post-attachments li,
-li.post-attachment {
-	padding-left: 24px;
-	line-height: 20px;
-}
-li.post-attachment{
-	background: url(i/document.png) 0 4px no-repeat;
-}
-.post-attachment.mime-imagejpeg,
-.post-attachment.mime-imagegif,
-.post-attachment.mime-imagepng {
-	background-image: url(i/document-image.png);
-}
-
-.post-attachment.mime-applicationzip {
-	background-image: url(i/document-zipper.png);
-}
-
-.post-attachment.mime-applicationpdf {
-	background-image: url(i/document-pdf.png);
-}
-
-.post-attachment.mime-applicationx-shockwave-flash {
-	background-image: url(i/document-flash-movie.png);
-}
-
-.post-attachment.mime-applicationmsword {
-	background-image: url(i/document-word.png);
-}
-.post-attachment.mime-applicationvnd-ms-powerpoint{
-	background-image: url(i/document-powerpoint.png);
-}
-.post-attachment.mime-applicationvnd-ms-excel{
-	background-image: url(i/document-excel.png);
-}
