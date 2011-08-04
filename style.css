@@ -199,7 +199,7 @@ input[type="submit"]:active {
 -------------------------------------------------------------- */
 #postbox {
 	position: relative;
-	padding: 0 15px 16px 14px;
+	padding: 0 15px 16px 0;
 	margin:0;
 }
 #postbox .avatar {
@@ -331,8 +331,11 @@ input#comment-submit {
 /* 
  * =MAIN
 -------------------------------------------------------------- */
-#main {
+.page #main {
 	padding: 10px 14px;
+}
+.single-post #main{
+	padding: 10px 15px 10px 0;
 }
 #main ul#postlist {
 	list-style: none;
