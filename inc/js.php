@@ -13,7 +13,7 @@ class PulsePressJS {
 	}
 
 	function enqueue_styles() {
-		if (  is_user_logged_in() && current_user_can( 'upload_files' ) && get_option("pulse_press_allow_fileupload") ):
+		if ( pulse_press_user_can_post() && is_home() && is_user_logged_in() && current_user_can( 'upload_files' ) && get_option("pulse_press_allow_fileupload") ):
 		
 			wp_enqueue_style( 'thickbox' );
 			wp_enqueue_script( 'thickbox' );
@@ -42,10 +42,13 @@ class PulsePressJS {
 					));	
 				}
 			}
+			//bust the cache here
+			
+			
 		}
-
-		//bust the cache here	
+		if(is_home())
 		wp_enqueue_script( 'pulse_pressjs', PulsePress_JS_URL . '/pulse_press.js', array( 'jquery', 'utils' ), filemtime(PulsePress_JS_PATH . '/pulse_press.js' ) );
+		
 		// Archives uncommented
 		//wp_enqueue_script( 'jquery-ui-1.7.1.custom.min', PulsePress_JS_URL . '/jquery-ui-1.7.1.custom.min.js', array( 'jquery', 'utils' ), filemtime(PulsePress_JS_PATH . '/jquery-ui-1.7.1.custom.min.js' ) );
 		// wp_enqueue_script( 'selectToUISlider.jQuery', PulsePress_JS_URL . '/selectToUISlider.jQuery.js', array( 'jquery', 'utils' ), filemtime(PulsePress_JS_PATH . '/selectToUISlider.jQuery.js' ) );
@@ -166,6 +169,14 @@ class PulsePressJS {
 		var hidecomments = false;
 		var commentsLists = '';
 		var newUnseenUpdates = 0;
+		
+		// thickbox errors 
+		if ( typeof tb_pathToImage != 'string' ) {
+			var tb_pathToImage = "/wp-includes/js/thickbox/loadingAnimation.gif";
+		}
+		if ( typeof tb_closeImage != 'string' ) {
+		var tb_closeImage = "/wp-includes/js/thickbox/tb-close.png";
+		} 
 		 // ]]>
 		</script>
 <?php		
