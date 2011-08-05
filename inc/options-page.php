@@ -15,9 +15,9 @@ class PulsePressOptions {
 				
 		$options = pulse_press_options();
 		
-		
+
 		$update_options = false;
-		if ( isset( $_POST[ 'action' ] ) && esc_attr( $_POST[ 'action' ] ) == 'update' )
+		if ( isset( $_POST[ 'action' ] ) && esc_attr( $_POST[ 'action' ] ) == 'update' && wp_verify_nonce($_POST['_wpnonce'], 'pulse_pressops-options') )
 			$update_options = true;
 		
 	
@@ -33,7 +33,7 @@ class PulsePressOptions {
 			endif;
 			
 		endforeach;
-		var_dump($set_option);
+		
 		if($update_options):
 			?>
 			<div class="updated"><p><strong><?php _e( 'Options saved.', 'pulse_press' ); ?></strong></p></div>
