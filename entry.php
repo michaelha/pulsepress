@@ -115,7 +115,7 @@
 					$pulse_press_comment_args = array(
 						'title_reply' => __( 'Reply', 'pulse_press' ),
 						'comment_field' => '<div class="form"><textarea id="comment" class="expand50-100" name="comment" cols="45" rows="3"></textarea></div> <label class="post-error" for="comment" id="commenttext_error"></label>',
-						'comment_notes_before' => '<p class="comment-notes">' . ( get_option( 'require_name_email' ) ? sprintf( ' ' . __('Required fields are marked %s'), '<span class="required">*</span>' ) : '' ) . '</p>',
+						'comment_notes_before' => '<p class="comment-notes">' . ( get_option( 'require_name_email' ) ? sprintf( ' ' . __('Required fields are marked %s','pulse_press'), '<span class="required">*</span>' ) : '' ) . '</p>',
 						'comment_notes_after' => sprintf(
 							'<span class="progress"><img src="%1$s" alt="%2$s" title="%2$s" /></span>',
 							str_replace( WP_CONTENT_DIR, content_url(), locate_template( array( "i/indicator.gif" ) ) ),

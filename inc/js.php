@@ -115,7 +115,7 @@ class PulsePressJS {
 ?>
 	<script type="text/javascript" charset="<?php bloginfo( 'charset' ); ?>">
 		// <![CDATA[
-		// Prologue Configuration
+		// PulsePress Configuration
 		// TODO: add these int the localize block
 		<?php
 		function pulse_press_url($url) {
@@ -125,15 +125,15 @@ class PulsePressJS {
 				else
 					$url = site_url($url);
 				// this makes sure that https is being used when needed
-				$http = ( ( !empty($_SERVER['HTTPS'] ) && strtolower($_SERVER['HTTPS']) == 'on' ) ? 'https://' : 'http://' );
+				$http = ( isset( $_SERVER['HTTPS'] ) ? 'https://' : 'http://' );
 				$url = str_replace('http://',$http,$url);
-		
+				
 			
 			return $url;
 		}
 		
 		if(FORCE_SSL_ADMIN): ?>
-			var ajaxUrl = "<?php echo esc_js( site_url() . '/?pulse_pressajax' ); ?>";
+			var ajaxUrl = "<?php echo esc_js( site_url() . '/?pulse_pressajax=true' ); ?>";
 		<?php
 		else: ?>
 			var ajaxUrl = "<?php echo esc_js( pulse_press_url( '/wp-admin/admin-ajax.php?pulse_pressajax=true' ) ); ?>";

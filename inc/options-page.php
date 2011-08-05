@@ -33,7 +33,7 @@ class PulsePressOptions {
 			endif;
 			
 		endforeach;
-		
+		var_dump($set_option);
 		if($update_options):
 			?>
 			<div class="updated"><p><strong><?php _e( 'Options saved.', 'pulse_press' ); ?></strong></p></div>
@@ -328,6 +328,7 @@ function pulse_press_options() {
 			'vote_style',
 			'popular_text',
 			'unpopular_text',
+			'most_voted_on_text',
 			'star_text',
 			'remove_frontend_post'
 		);
@@ -349,13 +350,13 @@ function pulse_press_admin_bar_render() {
 		$wp_admin_bar->add_menu( array(
         	'parent' => 'appearance',
         	'id' => 'clf_theme',
-        	'title' => __('Theme Options'),
+        	'title' => __('Theme Options','pulse_press'),
         	'href' => admin_url( 'themes.php?page=pulse_press-options-page')
     	) );
 }
 
 function pulse_press_display_option($option,$default='')
 {
-	echo ($option == "" ) ? __($default,'pulse_press') : esc_attr( stripslashes($option) );
+	echo ( $option == "" ) ? __($default,'pulse_press') : esc_attr( stripslashes($option) );
 
 }
