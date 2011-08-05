@@ -4,11 +4,7 @@ Theme URI: http://blogs.ubc.ca/beta/pulsepress
 Author: Enej Bajgoric - CTLT - UBC
 Author URI: http://blogs.ubc.ca/beta/
 Description: Theme based on the popular P2 but with added functionality
-<<<<<<< HEAD
 Version: 1.3.2
-=======
-Version: 1.3.1
->>>>>>> db209c543b956fd932b7c9963ed4aa689682cf9d
 Tags: two-columns,one-column, fixed-width, rtl-language-support, right-sidebar, white, front-page-post-form, custom-background, sticky-post, theme-options, threaded-comments, translation-ready, custom-menu
 License: GNU General Public License v2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -203,7 +199,7 @@ input[type="submit"]:active {
 -------------------------------------------------------------- */
 #postbox {
 	position: relative;
-	padding: 0 15px 16px 0;
+	padding: 0 15px 16px 14px;
 	margin:0;
 }
 #postbox .avatar {
@@ -335,11 +331,8 @@ input#comment-submit {
 /* 
  * =MAIN
 -------------------------------------------------------------- */
-.page #main {
+#main {
 	padding: 10px 14px;
-}
-.single-post #main{
-	padding: 10px 15px 10px 0;
 }
 #main ul#postlist {
 	list-style: none;
