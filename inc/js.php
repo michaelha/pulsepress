@@ -37,8 +37,8 @@ class PulsePressJS {
 				if(get_option( 'pulse_press_bitly_user') && get_option( 'pulse_press_bitly_api')) {
 					wp_enqueue_script( 'pp_shortner',PulsePress_JS_URL . '/shortner.js', array( 'jquery','pulse_pressjs','counter' ) );
 					wp_localize_script( 'pp_shortner', 'pp_shortner', array(
-	  				'user' => pulse_press_display_option( get_option( 'pulse_press_bitly_user')),
-                	'api' => pulse_press_display_option( get_option( 'pulse_press_bitly_api'))
+	  				'user' => pulse_press_display_option( get_option( 'pulse_press_bitly_user'),'',false),
+                	'api' => pulse_press_display_option( get_option( 'pulse_press_bitly_api'),'',false)
 					));	
 				}
 			}

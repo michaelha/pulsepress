@@ -10,12 +10,10 @@ class PulsePressOptions {
 		
 	}
 	
-		
 	function page() {
 				
 		$options = pulse_press_options();
 		
-
 		$update_options = false;
 		if ( isset( $_POST[ 'action' ] ) && esc_attr( $_POST[ 'action' ] ) == 'update' && wp_verify_nonce($_POST['_wpnonce'], 'pulse_pressops-options') )
 			$update_options = true;
@@ -355,8 +353,10 @@ function pulse_press_admin_bar_render() {
     	) );
 }
 
-function pulse_press_display_option($option,$default='')
+function pulse_press_display_option($option,$default='',$echo=true)
 {
-	echo ( $option == "" ) ? __($default,'pulse_press') : esc_attr( stripslashes($option) );
-
+	if( $echo )
+		echo ( $option == "" ) ? __($default,'pulse_press') : esc_attr( stripslashes($option) );
+	else
+		return ( $option == "" ) ? __($default,'pulse_press') : esc_attr( stripslashes($option) );
 }
