@@ -3,10 +3,7 @@
  * @package WordPress
  * @subpackage PulsePress
  */
-?>
 
-
-<?php
 // set default post type
 $post_type = pulse_press_get_posting_type();
 ?>
