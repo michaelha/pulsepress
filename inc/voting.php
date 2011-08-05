@@ -33,23 +33,26 @@ function pulse_press_vote_on_post()
 		<em title="total votes:<?php echo $total; ?>" ><strong id="votes-<?php the_ID();?>" data-total="<?php echo $total; ?>"><?php echo $votes; ?></strong> <?php pulse_press_display_option(  get_option( 'pulse_press_vote_text' ),"votes" ); 
 			if(get_option( 'pulse_press_show_vote_breakdown')):
 			
-			if($votes > 0) {
-					$negative_votes = (($total-$votes)/2);
-					$positive_votes = $total-$negative_votes;
-				} else if( $votes	 == 0 ){
-					$negative_votes = $total/2;
-					$positive_votes = $negative_votes;
-				} else{
-					$negative_votes = (($total-$votes)/2);
-					$positive_votes = $total-$negative_votes;
-				}
+				if($votes > 0) {
+						$negative_votes = (($total-$votes)/2);
+						$positive_votes = $total-$negative_votes;
+					} else if( $votes	 == 0 ){
+						$negative_votes = $total/2;
+						$positive_votes = $negative_votes;
+					} else{
+						$negative_votes = (($total-$votes)/2);
+						$positive_votes = $total-$negative_votes;
+					}
 				
 					
-	
-		
-		?> - <span><strong id="votes-up-<?php the_ID();?>"><?php echo $positive_votes; ?></strong> <?php pulse_press_display_option( get_option( 'pulse_press_vote_up_text' ),"up"); ?></span>, <span><strong id="votes-down-<?php the_ID();?>"><?php echo $negative_votes; ?></strong> <?php pulse_press_display_option( get_option( 'pulse_press_vote_down_text' ) ,"down" ); ?></span></em>
-		<?php
-			endif;
+			?> - <span><strong id="votes-up-<?php the_ID();?>"><?php echo $positive_votes; ?></strong>
+				 <?php pulse_press_display_option( get_option( 'pulse_press_vote_up_text' ),"up"); ?></span>, 
+				 <span><strong id="votes-down-<?php the_ID();?>"><?php echo $negative_votes; ?></strong> 
+				 <?php pulse_press_display_option( get_option( 'pulse_press_vote_down_text' ) ,"down" ); ?></span>
+			<?php
+			endif; // end of breakdown
+			?></em>
+			<?php
 		 if( pulse_press_user_can_post() ) : ?>
 			<?php if( pulse_press_is_vote(get_the_ID()) == null ) :  // still need to vote ?>
 			
