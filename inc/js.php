@@ -121,19 +121,22 @@ class PulsePressJS {
 		function pulse_press_url($url) {
 				
 				if ( false !== strpos($url, 'wp-admin/' ) )
-					return admin_url( str_replace( '/wp-admin/', '', $url) );
+					$url = admin_url( str_replace( '/wp-admin/', '', $url) );
 				else
-					return site_url($url);
+					$url = site_url($url);
+				// this makes sure that https is being used when needed
+				$http = ( ( !empty($_SERVER['HTTPS'] ) && strtolower($_SERVER['HTTPS']) == 'on' ) ? 'https://' : 'http://' );
+				$url = str_replace('http://',$http,$url);
+		
 			
-			$url = ( ( !empty($_SERVER['HTTPS'] ) && strtolower($_SERVER['HTTPS']) == 'on' ) ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $url;
 			return $url;
 		}
 		
 		if(FORCE_SSL_ADMIN): ?>
-		var ajaxUrl = "<?php echo esc_js( get_bloginfo( 'siteurl' ) . '/?pulse_pressajax' ); ?>";
+			var ajaxUrl = "<?php echo esc_js( site_url() . '/?pulse_pressajax' ); ?>";
 		<?php
 		else: ?>
-		var ajaxUrl = "<?php echo esc_js( pulse_press_url( '/wp-admin/admin-ajax.php?pulse_pressajax=true' ) ); ?>";
+			var ajaxUrl = "<?php echo esc_js( pulse_press_url( '/wp-admin/admin-ajax.php?pulse_pressajax=true' ) ); ?>";
 		<?php
 		endif;?>
 		var updateRate = "15000"; // 30 seconds
