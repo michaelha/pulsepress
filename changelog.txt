@@ -10,6 +10,7 @@ PulsePress Theme - Changes
 - renamed functions without prefixes
 - removed reference to get_users_of_blog
 - front end: posting bug 
+
 1.3.2 
 - bug fix: the main js in only loaded on the home page not on every page
 - bug fix: ajax https request when appropriate
