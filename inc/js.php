@@ -125,8 +125,8 @@ class PulsePressJS {
 				else
 					$url = site_url($url);
 				// this makes sure that https is being used when needed
-				$http = ( isset( $_SERVER['HTTPS'] ) ? 'https://' : 'http://' );
-				$url = str_replace('http://',$http,$url);
+				$url = str_replace('http://',"//",$url);
+				$url = str_replace('https://',"//",$url);
 				
 			
 			return $url;
