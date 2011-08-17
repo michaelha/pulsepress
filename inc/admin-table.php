@@ -21,8 +21,9 @@ function pulse_press_modify_post_table_row( $column_name, $post_id ) {
  	
     switch ($column_name) {
     	case 'pulse_press_votes' :
-    		$sum = $custom_fields['updates_votes'][0];
-    		$total_num_votes = $custom_fields['total_votes'][0];
+    		
+    		$sum = ( isset($custom_fields['updates_votes']) ? $custom_fields['updates_votes'][0] : 0 );
+    		$total_num_votes = ( isset($custom_fields['total_votes'][0]) ? $custom_fields['total_votes'][0] : 0 );
     	
     		if($sum > 0) {
 					$negative_votes = (($total_num_votes-$sum)/2);

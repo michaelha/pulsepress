@@ -37,8 +37,8 @@ class PulsePressJS {
 				if(get_option( 'pulse_press_bitly_user') && get_option( 'pulse_press_bitly_api')) {
 					wp_enqueue_script( 'pp_shortner',PulsePress_JS_URL . '/shortner.js', array( 'jquery','pulse_pressjs','counter' ) );
 					wp_localize_script( 'pp_shortner', 'pp_shortner', array(
-	  				'user' => pulse_press_display_option( get_option( 'pulse_press_bitly_user')),
-                	'api' => pulse_press_display_option( get_option( 'pulse_press_bitly_api'))
+	  				'user' => pulse_press_display_option( get_option( 'pulse_press_bitly_user'),'',false),
+                	'api' => pulse_press_display_option( get_option( 'pulse_press_bitly_api'),'',false)
 					));	
 				}
 			}
@@ -115,25 +115,28 @@ class PulsePressJS {
 ?>
 	<script type="text/javascript" charset="<?php bloginfo( 'charset' ); ?>">
 		// <![CDATA[
-		// Prologue Configuration
+		// PulsePress Configuration
 		// TODO: add these int the localize block
 		<?php
 		function pulse_press_url($url) {
 				
 				if ( false !== strpos($url, 'wp-admin/' ) )
-					return admin_url( str_replace( '/wp-admin/', '', $url) );
+					$url = admin_url( str_replace( '/wp-admin/', '', $url) );
 				else
-					return site_url($url);
+					$url = site_url($url);
+				// this makes sure that https is being used when needed
+				$http = ( isset( $_SERVER['HTTPS'] ) ? 'https://' : 'http://' );
+				$url = str_replace('http://',$http,$url);
+				
 			
-			$url = ( ( !empty($_SERVER['HTTPS'] ) && strtolower($_SERVER['HTTPS']) == 'on' ) ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $url;
 			return $url;
 		}
 		
 		if(FORCE_SSL_ADMIN): ?>
-		var ajaxUrl = "<?php echo esc_js( get_bloginfo( 'siteurl' ) . '/?pulse_pressajax' ); ?>";
+			var ajaxUrl = "<?php echo esc_js( site_url() . '/?pulse_pressajax=true' ); ?>";
 		<?php
 		else: ?>
-		var ajaxUrl = "<?php echo esc_js( pulse_press_url( '/wp-admin/admin-ajax.php?pulse_pressajax=true' ) ); ?>";
+			var ajaxUrl = "<?php echo esc_js( pulse_press_url( '/wp-admin/admin-ajax.php?pulse_pressajax=true' ) ); ?>";
 		<?php
 		endif;?>
 		var updateRate = "15000"; // 30 seconds
@@ -157,7 +160,7 @@ class PulsePressJS {
 		var wpUrl = "<?php echo esc_js( site_url() ); ?>";
 		var rssUrl = "<?php esc_js( get_bloginfo( 'rss_url' ) ); ?>";
 		var pageLoadTime = "<?php echo gmdate( 'Y-m-d H:i:s' ); ?>";
-		var latestPermalink = "<?php echo esc_js( latest_post_permalink() ); ?>";
+		var latestPermalink = "<?php echo esc_js( pulse_press_latest_post_permalink() ); ?>";
 		var original_title = document.title;
 		var commentsOnPost = new Array;
 		var postsOnPage = new Array;
@@ -196,7 +199,7 @@ function pulse_press_toggle_threads() {
 				jQuery('.commentlist').show();
 				jQuery('.discussion').hide();
 			}
-			<?php if ( (int)$hide_threads ) : ?>
+			<?php if ( (int)$hide_threads && !is_single() && !is_page() ) : ?>
 				hideComments();
 			<?php endif; ?>
 			
@@ -205,6 +208,16 @@ function pulse_press_toggle_threads() {
 					showComments();
 				} else {
 					hideComments();
+				}
+				return false;
+			});
+			
+			jQuery(".show_comments").click(function(){
+				var commentList = jQuery(this).closest('.post').find('.commentlist');
+				if (commentList.css('display') == 'none') {
+					commentList.show();
+				} else {
+					commentList.hide();
 				}
 				return false;
 			});

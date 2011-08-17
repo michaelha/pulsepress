@@ -10,8 +10,7 @@
 	
 	<div id="main">
 		<div class="controls">
-					<a href="#" id="togglecomments"><?php _e( 'Toggle Comment Threads', 'pulse_press' ); ?></a>
-					&nbsp;|&nbsp;
+					
 					<a href="#directions" id="directions-keyboard"><?php  _e( 'Keyboard Shortcuts', 'pulse_press' ); ?></a>
 				</div>
 		<?php if ( have_posts() ) : ?>

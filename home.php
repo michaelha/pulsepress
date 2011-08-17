@@ -24,7 +24,14 @@
 		
 		if(isset($_GET['starred'])):
 			$paged = pulse_press_get_page_number();	
-			query_posts(array('post__in'=>pulse_press_get_user_starred_post_meta(), 'paged'=>$paged));
+			
+			$starred = pulse_press_get_user_starred_post_meta();
+			if( $starred ):
+				query_posts( array( 'post__in'=>$starred, 'paged'=>$paged, 'ignore_sticky_posts' => 1 ) );
+			else: ?>
+				<div class="started-alert"><?php _e( "Sorry, you don't have any starred posts.",'pulse_press'); ?></div>
+			<?php
+			endif;
 		endif; 
 		
 		
@@ -49,7 +56,11 @@
 			<p class="nav-older"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'pulse_press' ) ); ?></p>
 			<p class="nav-newer"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'pulse_press' ) ); ?></p>
 		</div>
-		<?php endif; ?>
+		<?php
+			endif;
+		?>
+
+		
 		
 	</div> <!-- main -->
 </div> <!-- sleeve -->

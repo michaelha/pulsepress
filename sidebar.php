@@ -15,7 +15,7 @@
 					<li><a href="?unpopular"><?php pulse_press_display_option(get_option( 'pulse_press_unpopular_text' ),"Unpopular"); ?></a></li>
 					<?php endif; ?>
 					<?php if(get_option( 'pulse_press_show_most_voted_on' )): ?>
-					<li><a href="?most-voted"><?php pulse_press_display_option(get_option( 'pulse_press_most_voted_on_text' ),"Most vote-on"); ?></a></li>
+					<li><a href="?most-voted"><?php pulse_press_display_option(get_option( 'pulse_press_most_voted_on_text' ),"Most voted-on"); ?></a></li>
 					<?php endif; ?>
 					<?php 
 					endif;

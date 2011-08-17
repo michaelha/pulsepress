@@ -1,12 +1,12 @@
 <?php
-if ( !function_exists( 'returner' ) ) {
-	function returner( $value ) {
+if ( !function_exists( 'pulse_press_returner' ) ) {
+	function pulse_press_returner( $value ) {
         return create_function( '', 'return '.var_export( $value, true ).';' );
 	}
 }
 
-if ( !function_exists( 'lambda' ) ) {
-function lambda( $args, $expression, $locals = array() ) {
+if ( !function_exists( 'pulse_press_lambda' ) ) {
+function pulse_press_lambda( $args, $expression, $locals = array() ) {
         $export_call = $locals? 'extract( '.var_export( $locals, true ).', EXTR_PREFIX_SAME, "ext");' : '';
         return create_function( $args, $export_call.' return '.$expression.';' );
 }

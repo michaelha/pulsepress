@@ -10,14 +10,12 @@ class PulsePressOptions {
 		
 	}
 	
-		
 	function page() {
 				
 		$options = pulse_press_options();
 		
-		
 		$update_options = false;
-		if ( isset( $_POST[ 'action' ] ) && esc_attr( $_POST[ 'action' ] ) == 'update' )
+		if ( isset( $_POST[ 'action' ] ) && esc_attr( $_POST[ 'action' ] ) == 'update' && wp_verify_nonce($_POST['_wpnonce'], 'pulse_pressops-options') )
 			$update_options = true;
 		
 	
@@ -67,6 +65,16 @@ class PulsePressOptions {
 						<input id="pulse_press_allow_users_publish" type="checkbox" name="pulse_press_allow_users_publish" <?php  checked($set_option['allow_users_publish']); ?> value="1" />
 
 						<label for="pulse_press_allow_users_publish"><?php _e( 'Allow any registered member to post', 'pulse_press' ); ?></label>
+
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row"><?php _e( 'Display Categories:', 'pulse_press' ); ?></th>
+						<td>
+
+						<input id="pulse_press_show_categories" type="checkbox" name="pulse_press_show_categories" <?php  checked($set_option['show_categories']); ?> value="1" />
+
+						<label for="pulse_press_show_categories"><?php _e( 'Display categories under each post', 'pulse_press' ); ?></label>
 
 						</td>
 					</tr>
@@ -306,6 +314,7 @@ add_filter('contextual_help', 'pulse_press_options_help', 10, 3);
 function pulse_press_options() {
 	return array(
 			'allow_users_publish',
+			'show_categories',
 			'hide_threads',
 			'show_reply',
 			'show_voting',
@@ -328,6 +337,7 @@ function pulse_press_options() {
 			'vote_style',
 			'popular_text',
 			'unpopular_text',
+			'most_voted_on_text',
 			'star_text',
 			'remove_frontend_post'
 		);
@@ -349,13 +359,15 @@ function pulse_press_admin_bar_render() {
 		$wp_admin_bar->add_menu( array(
         	'parent' => 'appearance',
         	'id' => 'clf_theme',
-        	'title' => __('Theme Options'),
+        	'title' => __('Theme Options','pulse_press'),
         	'href' => admin_url( 'themes.php?page=pulse_press-options-page')
     	) );
 }
 
-function pulse_press_display_option($option,$default='')
+function pulse_press_display_option($option,$default='',$echo=true)
 {
-	echo ($option == "" ) ? __($default,'pulse_press') : esc_attr( stripslashes($option) );
-
+	if( $echo )
+		echo ( $option == "" ) ? __($default,'pulse_press') : esc_attr( stripslashes($option) );
+	else
+		return ( $option == "" ) ? __($default,'pulse_press') : esc_attr( stripslashes($option) );
 }

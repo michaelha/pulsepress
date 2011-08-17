@@ -930,16 +930,6 @@ jQuery(function($) {
 		return false;
 	});
 
-	$(".show_comments").click(function(){
-		var commentList = $(this).closest('.post').find('.commentlist');
-		if (commentList.css('display') == 'none') {
-			commentList.show();
-		} else {
-			commentList.hide();
-		}
-		return false;
-	});
-
 	$("#help").click(function() {
 		$(this).toggle();
 	});

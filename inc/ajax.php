@@ -132,7 +132,7 @@ class PulsePressAjax {
 		echo json_encode( array(
 			"title" => $post->post_title,
 			"content" => $content,
-			"tags" => get_tags_with_count( $post, '', __( '<br />Tags:' , 'pulse_press' ) . ' ', ', ', ' &nbsp;' ),
+			"tags" => pulse_press_get_tags_with_count( $post, '', __( '<br />Tags:' , 'pulse_press' ) . ' ', ', ', ' &nbsp;' ),
 		) );
 		
 	}
