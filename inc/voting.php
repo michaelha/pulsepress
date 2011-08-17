@@ -254,7 +254,7 @@ add_action('posts_selection','pulse_press_orderby');
 
 
 function pulse_press_update_custom_field_from_table(){
-	$all_posts = get_posts('posts_per_page=-1&post_type=post&post_status=');
+	$all_posts = get_posts('posts_per_page=-1&post_type=post&post_status=any');
 		foreach( $all_posts as $postinfo) {
 			$sum = pulse_press_sum_votes( $postinfo->ID );
 			$total = pulse_press_total_votes( $postinfo->ID );

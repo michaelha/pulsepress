@@ -160,7 +160,7 @@ class PulsePressJS {
 		var wpUrl = "<?php echo esc_js( site_url() ); ?>";
 		var rssUrl = "<?php esc_js( get_bloginfo( 'rss_url' ) ); ?>";
 		var pageLoadTime = "<?php echo gmdate( 'Y-m-d H:i:s' ); ?>";
-		var latestPermalink = "<?php echo esc_js( latest_post_permalink() ); ?>";
+		var latestPermalink = "<?php echo esc_js( pulse_press_latest_post_permalink() ); ?>";
 		var original_title = document.title;
 		var commentsOnPost = new Array;
 		var postsOnPage = new Array;
@@ -199,7 +199,7 @@ function pulse_press_toggle_threads() {
 				jQuery('.commentlist').show();
 				jQuery('.discussion').hide();
 			}
-			<?php if ( (int)$hide_threads ) : ?>
+			<?php if ( (int)$hide_threads && !is_single() && !is_page() ) : ?>
 				hideComments();
 			<?php endif; ?>
 			
@@ -208,6 +208,16 @@ function pulse_press_toggle_threads() {
 					showComments();
 				} else {
 					hideComments();
+				}
+				return false;
+			});
+			
+			jQuery(".show_comments").click(function(){
+				var commentList = jQuery(this).closest('.post').find('.commentlist');
+				if (commentList.css('display') == 'none') {
+					commentList.show();
+				} else {
+					commentList.hide();
 				}
 				return false;
 			});

@@ -69,6 +69,16 @@ class PulsePressOptions {
 						</td>
 					</tr>
 					<tr valign="top">
+						<th scope="row"><?php _e( 'Display Categories:', 'pulse_press' ); ?></th>
+						<td>
+
+						<input id="pulse_press_show_categories" type="checkbox" name="pulse_press_show_categories" <?php  checked($set_option['show_categories']); ?> value="1" />
+
+						<label for="pulse_press_show_categories"><?php _e( 'Display categories under each post', 'pulse_press' ); ?></label>
+
+						</td>
+					</tr>
+					<tr valign="top">
 						<th scope="row"><?php _e( 'Hide Threads:', 'pulse_press' ); ?></th>
 						<td>
 
@@ -304,6 +314,7 @@ add_filter('contextual_help', 'pulse_press_options_help', 10, 3);
 function pulse_press_options() {
 	return array(
 			'allow_users_publish',
+			'show_categories',
 			'hide_threads',
 			'show_reply',
 			'show_voting',

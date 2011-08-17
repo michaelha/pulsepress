@@ -58,7 +58,7 @@ function pulse_press_delete_tables_and_options()
    	$wpdb->query("DROP TABLE IF EXISTS $pulse_press_db_table");
 	// delete the different option
 	
-	$all_posts = get_posts('posts_per_page=-1&post_type=post&post_status=');
+	$all_posts = get_posts('posts_per_page=-1&post_type=post&post_status=any');
 	foreach( $all_posts as $postinfo) {
 		delete_post_meta($postinfo->ID, 'updates_votes');
 		delete_post_meta($postinfo->ID, 'total_votes');
@@ -327,7 +327,7 @@ function get_earliest_post_date()
 	
 }
 // get the last post 
-function get_last_post_date()
+function pulse_press_get_last_post_date()
 {
 	global $wpdb;
 	return $wpdb->get_var("SELECT post_date FROM $wpdb->posts WHERE post_type = 'post' AND post_status ='publish' ORDER BY post_date DESC LIMIT 0 , 1");

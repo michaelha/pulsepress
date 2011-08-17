@@ -3,8 +3,10 @@
  * @package WordPress
  * @subpackage PulsePress
  */
+ 
+ global $post;
 ?>
-<li id="prologue-<?php the_ID(); ?>" <?php post_class( get_the_author_meta( 'ID' ) ); ?>>
+<li id="prologue-<?php the_ID(); ?>" <?php post_class( get_the_author_meta( 'ID' ) ); ?> >
 		<?php if ( !is_page() ) : ?>
 			<?php
 			
@@ -17,7 +19,6 @@
 					sprintf( __( 'Posts by %s', 'pulse_press' ), esc_attr( pulse_press_get_author_name() ) ),
 					pulse_press_get_user_avatar( array( 'user_id' => pulse_press_get_author_id(), 'email' => '', 'size' => 48 ) )
 				);
-				
 				endif;
 			?>
 		<?php endif; ?>
@@ -70,28 +71,35 @@
 				
 			<?php if ( !is_page() ) : ?>
 				<span class="tags">
-					<?php tags_with_count( '', __( '<br />Tags:' , 'pulse_press' ) .' ', ', ', ' &nbsp;' ); ?>&nbsp;
+					<?php pulse_press_tags_with_count( '', __( '<br />Tags:' , 'pulse_press' ) .' ', ', ', ' &nbsp;' ); ?>&nbsp;
 				</span>
 			<?php endif; ?>
 			</span>
 		</h4>
 
-
 	<div class="postcontent<?php if ( current_user_can( 'edit_post', get_the_id() ) ) : ?> editarea<?php endif ?>" id="content-<?php the_ID(); ?>">
 		
 			<?php pulse_press_title(); ?>
 			<?php 
-				
 				if(in_category('post',$post) || is_single()): 
-					the_content( __( '(More ...)' , 'pulse_press' ) );
+					the_content( __( "Continue reading ", 'pulse_press' ) . the_title('', '', false)  );
 				else:
-				
-					the_excerpt(); ?>
-					<span class="read-more"><a href="<?php the_permalink(); ?>"><?php _e("Read More", 'pulse_press'); ?> <?php the_title(); ?> </a></span>
+					the_excerpt(); 
+					if(get_the_excerpt() != get_the_content()):
+					?>
+					<span class="read-more"><a href="<?php the_permalink(); ?>"><?php _e("Continue reading ", 'pulse_press'); ?> <?php the_title(); ?> </a></span>
 				<?php
+					endif;
 				endif;
+				
+				if(get_option( 'pulse_press_show_categories') && !in_category('post') ): ?>
+						
+						<span class="categories-list"> Posted in: <?php the_category(', '); ?> </span>
+				<?php 
+				endif;
+				
 				?>
-
+				
 	</div>
 
 	<?php if ( get_comments_number() > 0 && ! post_password_required() ) : ?>

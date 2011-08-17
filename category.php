@@ -23,8 +23,28 @@ get_header(); ?>
 			</span>
 		</h2>
 		<ul id="postlist">
-		<?php if ( have_posts() ) : ?>
-
+		<?php 
+		$category = get_the_category();
+		if(!empty($category)):
+			// get the sticky post in the category, order by title - ascending
+			$sticky_posts = get_option('sticky_posts');
+			if( !empty($sticky_posts) ):
+				query_posts(array( 'post__in' => $sticky_posts, 'orderby' => 'title', 'post_date' => 'DESC' , 'cat' => ''.$category[0]->cat_ID.'' ));
+			endif;
+		endif;
+		if ( have_posts() ) : 
+		?>
+				
+			<?php while ( have_posts() ) : the_post(); ?>
+	    		<?php pulse_press_load_entry() // loads entry.php ?>
+			<?php endwhile; 
+		endif;
+		 wp_reset_query();
+		if ( have_posts() ) : 
+			
+		
+		?>
+				
 			<?php while ( have_posts() ) : the_post(); ?>
 	    		<?php pulse_press_load_entry() // loads entry.php ?>
 			<?php endwhile; ?>

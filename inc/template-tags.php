@@ -275,7 +275,7 @@ function pulse_press_date_time_with_microformat( $type = 'post' ) {
 
 function pulse_press_curPageURL() {
  $pageURL = 'http';
- if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+ if (isset($_SERVER["HTTPS"])) {$pageURL .= "s";}
  $pageURL .= "://";
  if ($_SERVER["SERVER_PORT"] != "80") {
   $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].parse_url($_SERVER["REQUEST_URI"],PHP_URL_PATH);
@@ -429,4 +429,14 @@ function pulse_press_media_buttons() {
 	// Replace any relative paths to media-upload.php
 	echo preg_replace( '/([\'"])media-upload.php/', '${1}' . admin_url( 'media-upload.php' ), ob_get_clean() );
 }
+
+
+function pulse_press_sticky_class($classes) {
+	global $post;
+	if(is_sticky($post->ID))
+		$classes[] = "sticky";
+		
+	
+	return $classes;}
+add_filter('post_class', 'pulse_press_sticky_class');
 

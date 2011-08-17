@@ -1,5 +1,15 @@
 PulsePress Theme - Changes
 ---------------------------
+1.3.3
+- bug fix: toggling of comments works everywhere now
+- comments always display on single pages and posts
+- sticky posts will display in categories
+- ability to display categories
+- notice for when you click on started that displays when you don't have anything starred
+- styling for sub, sup, and table elements
+- renamed functions without prefixes
+- removed reference to get_users_of_blog
+
 1.3.2 
 - bug fix: the main js in only loaded on the home page not on every page
 - bug fix: ajax https request when appropriate

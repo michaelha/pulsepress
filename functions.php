@@ -41,8 +41,6 @@ function pulse_press_get_at_name_map() {
  		return $name_map;
  		if( function_exists('get_users') ): // since WP 3.1 
 			$users = get_users();
-		elseif(function_exists('get_users_of_blog')):
-			$users = get_users_of_blog();
 		else:
 			return array(); // empty array
 		endif;
@@ -333,7 +331,7 @@ HTML;
 		return $html;
 }
 
-function get_tags_with_count( $post, $format = 'list', $before = '', $sep = '', $after = '' ) {
+function pulse_press_get_tags_with_count( $post, $format = 'list', $before = '', $sep = '', $after = '' ) {
 	$posttags = get_the_tags($post->ID, 'post_tag' );
 
 	if ( !$posttags )
@@ -355,13 +353,13 @@ function get_tags_with_count( $post, $format = 'list', $before = '', $sep = '', 
 	return apply_filters( 'tags_with_count', $before . join( $sep, $tag_links ) . $after, $post );
 }
 
-function tags_with_count( $format = 'list', $before = '', $sep = '', $after = '' ) {
+function pulse_press_tags_with_count( $format = 'list', $before = '', $sep = '', $after = '' ) {
 	global $post;
-	echo get_tags_with_count( $post, $format, $before, $sep, $after );
+	echo pulse_press_get_tags_with_count( $post, $format, $before, $sep, $after );
 }
 
 
-function latest_post_permalink() {
+function pulse_press_latest_post_permalink() {
 	global $wpdb;
 	$sql = "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'post' AND post_status = 'publish' ORDER BY post_date DESC LIMIT 1";
 	$last_post_id = $wpdb->get_var($sql);
@@ -395,7 +393,7 @@ if ( is_admin() && ( false === get_option( 'pulse_press_show_titles' ) ) ) {
 
 function pulse_press_fix_empty_titles( $post_ID, $post ) {
 	
-	if ( is_object($post) && $post->post_title == '' && $post->type == "post" ) {
+	if ( is_object($post) && $post->post_title == '' && $post->post_type == "post" ) {
 		$post->post_title = pulse_press_title_from_content( $post->post_content );
 		$post->post_modified = current_time( 'mysql' );
 		$post->post_modified_gmt = current_time( 'mysql', 1);
@@ -459,14 +457,14 @@ add_filter( 'template_redirect', 'pulse_press_new_post_noajax' );
 
 //Search related Functions
 
-function search_comments_distinct( $distinct ) {
+function pulse_press_search_comments_distinct( $distinct ) {
 	global $wp_query;
 	if (!empty($wp_query->query_vars['s']))
 		return 'DISTINCT';
 }
-add_filter( 'posts_distinct', 'search_comments_distinct' );
+add_filter( 'posts_distinct', 'pulse_press_search_comments_distinct' );
 
-function search_comments_where( $where ) {
+function pulse_press_search_comments_where( $where ) {
 	global $wp_query, $wpdb;
 	if (!empty($wp_query->query_vars['s'])) {
 			$or = " OR ( comment_post_ID = ".$wpdb->posts . ".ID  AND comment_approved =  '1' AND comment_content LIKE '%" . like_escape( $wpdb->escape($wp_query->query_vars['s'] ) ) . "%' ) ";
@@ -474,17 +472,17 @@ function search_comments_where( $where ) {
 	}
 	return $where;
 }
-add_filter( 'posts_where', 'search_comments_where' );
+add_filter( 'posts_where', 'pulse_press_search_comments_where' );
 
-function search_comments_join( $join ) {
+function pulse_press_search_comments_join( $join ) {
 	global $wp_query, $wpdb, $request;
 	if (!empty($wp_query->query_vars['s']))
 		$join .= " LEFT JOIN $wpdb->comments ON ( comment_post_ID = ID  AND comment_approved =  '1' )";
 	return $join;
 }
-add_filter( 'posts_join', 'search_comments_join' );
+add_filter( 'posts_join', 'pulse_press_search_comments_join' );
 
-function get_search_query_terms() {
+function pulse_press_get_search_query_terms() {
 	$search = get_query_var( 's' );
 	$search_terms = get_query_var( 'search_terms' );
 	if ( !empty($search_terms) ) {
@@ -495,8 +493,8 @@ function get_search_query_terms() {
 	return array();
 }
 
-function hilite( $text ) {
-	$query_terms = array_filter( array_map( 'trim', get_search_query_terms() ) );
+function pulse_press_hilite( $text ) {
+	$query_terms = array_filter( array_map( 'trim', pulse_press_get_search_query_terms() ) );
 	foreach ( $query_terms as $term ) {
 	    $term = preg_quote( $term, '/' );
 		if ( !preg_match( '/<.+>/', $text ) ) {
@@ -508,8 +506,8 @@ function hilite( $text ) {
 	return $text;
 }
 
-function hilite_tags( $tags ) {
-	$query_terms = array_filter( array_map( 'trim', get_search_query_terms() ) );
+function pulse_press_hilite_tags( $tags ) {
+	$query_terms = array_filter( array_map( 'trim', pulse_press_get_search_query_terms() ) );
 	// tags are kept escaped in the db
 	$query_terms = array_map( 'esc_html', $query_terms );
 	foreach( array_filter((array)$tags) as $tag )
@@ -519,22 +517,11 @@ function hilite_tags( $tags ) {
 }
 
 // Highlight text and comments:
-add_filter( 'the_content', 'hilite' );
-add_filter( 'get_the_tags', 'hilite_tags' );
-add_filter( 'the_excerpt', 'hilite' );
-add_filter( 'comment_text', 'hilite' );
+add_filter( 'the_content', 'pulse_press_hilite' );
+add_filter( 'get_the_tags', 'pulse_press_hilite_tags' );
+add_filter( 'the_excerpt', 'pulse_press_hilite' );
+add_filter( 'comment_text', 'pulse_press_hilite' );
 
-function iphone_css() {
-if ( strstr( $_SERVER['HTTP_USER_AGENT'], 'iPhone' ) or isset($_GET['iphone']) && $_GET['iphone'] ) { ?>
-<meta name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
-<style type="text/css">
-/* <![CDATA[ */
-/* iPhone CSS */
-<?php $iphonecss = dirname( __FILE__ ) . '/style-iphone.css'; if ( is_file( $iphonecss ) ) require $iphonecss; ?>
-/* ]]> */
-</style>
-<?php } }
-add_action( 'wp_head', 'iphone_css' );
 
 /*
 	Modified to replace query string with blog url in output string
@@ -593,7 +580,7 @@ function pulse_press_poweredby_link() {
 }
 
 if ( defined( 'IS_WPCOM' ) && IS_WPCOM ) {
-	add_filter( 'pulse_press_poweredby_link', returner( '<a href="http://wordpress.com/" rel="generator">Get a free blog at WordPress.com</a>' ) );
+	add_filter( 'pulse_press_poweredby_link', pulse_press_returner( '<a href="http://wordpress.com/" rel="generator">Get a free blog at WordPress.com</a>' ) );
 }
 
 
@@ -636,26 +623,26 @@ body { <?php echo trim( $style ); ?> }
     box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);}
     
     a, a:visited, h1 a:visited, a:active, #main .selected .actions a, #main .selected .actions a:link, #main .selected .actions a:visited, #help dt {
-	color: <?php echo ColorDarken($color, 60); ?>;
+	color: <?php echo pulse_press_color_darken($color, 60); ?>;
 }
 
 a:hover, h1 a:hover, #main .selected .actions a:hover, #main .selected .actions a:active {
-	color: <?php echo ColorDarken($color, 100); ?>;
+	color: <?php echo pulse_press_color_darken($color, 100); ?>;
 }
-#wp-calendar tbody td a{ background-color: <?php echo ColorDarken($color, 20); ?>; text-decoration: none;}
-#wp-calendar tbody td a:hover{background-color: <?php echo ColorDarken($color, 60); ?>; }
+#wp-calendar tbody td a{ background-color: <?php echo pulse_press_color_darken($color, 20); ?>; text-decoration: none;}
+#wp-calendar tbody td a:hover{background-color: <?php echo pulse_press_color_darken($color, 60); ?>; }
 
 #main .vote .vote-up:hover,
-#main .vote .vote-up-set { background-color: <?php echo ColorDarken($color,60); ?>;  }
+#main .vote .vote-up-set { background-color: <?php echo pulse_press_color_darken($color,60); ?>;  }
 
 #main .vote .vote-down:hover,
-#main .vote .vote-down-set{ background-color: <?php echo ColorDarken($color,60); ?>;   }
+#main .vote .vote-down-set{ background-color: <?php echo pulse_press_color_darken($color,60); ?>;   }
 #wrapper{ border-color:#FFF;}
 </style>
 <?php
 }
 
-function ColorDarken($color, $dif=20){
+function pulse_press_color_darken($color, $dif=20){
  
     $color = str_replace('#', '', $color);
     if (strlen($color) != 6){ return '000000'; }
@@ -833,3 +820,13 @@ function pulsepress_main_loop_test($query) {
   
 }
 
+
+// add the ability to display sticky post on the archive pages. 
+function pulse_press_include_sticky_category( $query ) {
+	
+   	 if( is_category() ){  		
+   	 	 $sticky_posts = get_option('sticky_posts');	
+   		 $query->set('post__not_in', $sticky_posts );	
+   	 }
+}
+add_action( 'pre_get_posts', 'pulse_press_include_sticky_category' );

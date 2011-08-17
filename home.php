@@ -24,7 +24,14 @@
 		
 		if(isset($_GET['starred'])):
 			$paged = pulse_press_get_page_number();	
-			query_posts(array('post__in'=>pulse_press_get_user_starred_post_meta(), 'paged'=>$paged));
+			
+			$starred = pulse_press_get_user_starred_post_meta();
+			if( $starred ):
+				query_posts( array( 'post__in'=>$starred, 'paged'=>$paged, 'ignore_sticky_posts' => 1 ) );
+			else: ?>
+				<div class="started-alert"><?php _e( "Sorry, you don't have any starred posts.",'pulse_press'); ?></div>
+			<?php
+			endif;
 		endif; 
 		
 		
