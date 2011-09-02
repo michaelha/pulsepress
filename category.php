@@ -32,7 +32,7 @@ get_header(); ?>
 				query_posts(array( 'post__in' => $sticky_posts, 'orderby' => 'title', 'post_date' => 'DESC' , 'cat' => ''.$category[0]->cat_ID.'' ));
 			endif;
 		endif;
-		if ( have_posts() ) : 
+		if ( have_posts() && !empty($sticky_posts) ) : 
 		?>
 				
 			<?php while ( have_posts() ) : the_post(); ?>

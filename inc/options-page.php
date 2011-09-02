@@ -59,12 +59,12 @@ class PulsePressOptions {
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><?php _e( 'Posting Access:', 'pulse_press' ); ?></th>
+						<th scope="row"><?php _e( 'Posting and Voting Access:', 'pulse_press' ); ?></th>
 						<td>
 
 						<input id="pulse_press_allow_users_publish" type="checkbox" name="pulse_press_allow_users_publish" <?php  checked($set_option['allow_users_publish']); ?> value="1" />
 
-						<label for="pulse_press_allow_users_publish"><?php _e( 'Allow any registered member to post', 'pulse_press' ); ?></label>
+						<label for="pulse_press_allow_users_publish"><?php _e( 'Allow any registered member to post and/or vote', 'pulse_press' ); ?></label>
 
 						</td>
 					</tr>

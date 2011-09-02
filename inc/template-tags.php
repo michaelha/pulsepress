@@ -25,6 +25,14 @@ function pulse_press_user_can_post() {
 
 	return false;
 }
+function pulse_press_user_can_vote() {
+	global $user_ID;
+		
+	if ( current_user_can( 'publish_posts' ) || ( get_option( 'pulse_press_allow_users_publish' ) && current_user_can('read') )  )
+		return true;
+
+	return false;
+}
 
 function pulse_press_show_comment_form() {
 	global $post, $form_visible;

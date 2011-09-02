@@ -1,5 +1,9 @@
 PulsePress Theme - Changes
 ---------------------------
+1.3.4 
+- bug fix: Allow user to vote even though you are not allowing them to post from the front end.
+- bug fix: Duplication of posts on category pages. 
+
 1.3.3
 - bug fix: toggling of comments works everywhere now
 - comments always display on single pages and posts

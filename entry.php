@@ -42,22 +42,17 @@
 				<?php endif; ?>
 				
 				<span class="actions">
-					<?php if ( ! is_single() ) : 
-						 pulse_press_vote_on_post();
-						 pulse_press_star_a_post(); 
-						 
+					<?php 
+						pulse_press_vote_on_post();
+						pulse_press_star_a_post(); 
+					if ( ! is_single() ) : 
+												 
 						 if ( ! post_password_required() && get_option( 'pulse_press_show_reply' )) : ?>
 							<?php echo post_reply_link( array( 'before' => '', 'after' => ' | ',  'reply_text' => __( 'Reply', 'pulse_press' ), 'add_below' => 'prologue' ), get_the_id() ); ?>
 						<?php endif; ?>
 						<a href="<?php the_permalink(); ?>" class="permalink" title="go to: <?php echo the_title_attribute(); ?>"><?php _e( 'Permalink', 'pulse_press' ); ?></a> 
 					<?php else : 
-						
-						pulse_press_vote_on_post();
-						pulse_press_star_a_post();  
-						
-					?>
-						
-						<?php if ( comments_open() && ! post_password_required() && get_option( 'pulse_press_show_reply' ) ) :
+						 if ( comments_open() && ! post_password_required() && get_option( 'pulse_press_show_reply' ) ) :
 							echo post_reply_link( array( 'before' => '', 'after' => '',  'reply_text' => __( 'Reply', 'pulse_press' ), 'add_below' => 'pusle_press' ), get_the_id() ); ?>
 						<?php endif; ?>
 					<?php endif;?>

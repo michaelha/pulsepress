@@ -14,7 +14,7 @@ function pulse_press_vote_on_post()
 		case "one": ?>
 		<div class="vote" >
 		<em title="total votes:<?php echo pulse_press_total_votes(get_the_ID()); ?>" ><strong id="votes-<?php the_ID();?>"><?php echo $votes; ?></strong> <?php  pulse_press_display_option(get_option( 'pulse_press_vote_text' ),'votes'); ?></em>
-		<?php if( pulse_press_user_can_post() ) : ?>
+		<?php if( pulse_press_user_can_vote() ) : ?>
 			<?php if(!pulse_press_is_vote(get_the_ID())) : ?>
 			<a id="voteup-<?php the_ID();?>" href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up" title="<?php esc_attr_e('Vote Up','pulse_press'); ?>"> <span><?php _e('Vote Up','pulse_press'); ?></span></a> 
 			<?php else: ?>
