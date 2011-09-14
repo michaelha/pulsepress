@@ -3,10 +3,8 @@
 function pulse_press_install() {
 	
 	global $wpdb;
-
 	if(PULSEPRESS_DB_VERSION > pulse_press_get_option( 'db_version') ):
 		
-		delete_option( 'pulse_press_db_version' );
 		$pulse_press_db_table = PULSEPRESS_DB_TABLE;
 				
 		$sql = "CREATE TABLE " . $pulse_press_db_table . " (
@@ -23,7 +21,7 @@ function pulse_press_install() {
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
 		
-		add_option( 'pulse_press_db_version', PULSEPRESS_DB_VERSION);
+		pulse_press_update_option( 'db_version', PULSEPRESS_DB_VERSION);
 		
 		$date = pulse_press_get_gmt_time();
 		
@@ -389,7 +387,7 @@ function pulse_press_update_settings_to_new_settings() {
 		delete_option("pulse_press_".$option); // delete the options as well... next step
 	endforeach;
 	
-	
+	var_dump($pulse_press_options);
 	update_option('pulse_press_options',$pulse_press_options);
 	endif;
 	
