@@ -24,8 +24,7 @@ function pulse_press_install() {
 		pulse_press_update_option( 'db_version', PULSEPRESS_DB_VERSION);
 		
 		$date = pulse_press_get_gmt_time();
-		
-		add_option( 'pulse_press_votes_updated', $date,'','no');
+		pulse_press_update_option( 'pulse_press_votes_updated', $date);
 		
 		pulse_press_update_custom_field_from_table();
 		
