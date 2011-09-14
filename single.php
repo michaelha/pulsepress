@@ -9,10 +9,7 @@
 <div class="sleeve_main">
 	
 	<div id="main">
-		<div class="controls">
-					
-					<a href="#directions" id="directions-keyboard"><?php  _e( 'Keyboard Shortcuts', 'pulse_press' ); ?></a>
-				</div>
+		
 		<?php if ( have_posts() ) : ?>
 			
 			<?php while ( have_posts() ) : the_post(); ?>

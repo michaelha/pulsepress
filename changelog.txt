@@ -1,5 +1,19 @@
 PulsePress Theme - Changes
 ---------------------------
+1.3.5 September 2011
+- bug fix: keyboard shortcuts work on the any page except for single pages
+- bug fix: votes are counted properly, as integers not string.
+- bug fix: options are now stores in a single array
+- bug fix: better styling for the table
+- bug fix: improved translation of stings
+- bug fix: removed any instance of prologue, wordpress and twentyten
+- bug fix: added theme options validation registration validation 
+- bug fix: credit link fixed 
+- bug fix: more information about the theme on blogs.ubc.ca/beta/pulsepress
+- bug fix: the single post page always display the categories
+- feature: added the ability for limiting comments to 140 characters
+- enhance: minified javascript files that are loaded for speed improvement 
+
 1.3.4 
 - bug fix: Allow user to vote even though you are not allowing them to post from the front end.
 - bug fix: Duplication of posts on category pages. 
@@ -21,6 +35,7 @@ PulsePress Theme - Changes
 - bug fix: Most voted-on was hard coded. 
 - implemented nonce on the options page
 - big fix: bity api is returned not rendered
+
 1.3.1 - August 2011
 - added short-codes: leaderboard + latest-post
 - removed: displaying attachments should be part of a plugin not theme

@@ -4,10 +4,10 @@ function pulse_press_install() {
 	
 	global $wpdb;
 
-	if(PulsePress_DB_VERSION > get_option("pulse_press_db_version") ):
+	if(PULSEPRESS_DB_VERSION > pulse_press_get_option( 'db_version') ):
 		
 		delete_option( 'pulse_press_db_version' );
-		$pulse_press_db_table = PulsePress_DB_TABLE;
+		$pulse_press_db_table = PULSEPRESS_DB_TABLE;
 				
 		$sql = "CREATE TABLE " . $pulse_press_db_table . " (
 				id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -23,15 +23,21 @@ function pulse_press_install() {
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
 		
-		add_option("pulse_press_db_version", PulsePress_DB_VERSION);
+		add_option( 'pulse_press_db_version', PULSEPRESS_DB_VERSION);
+		
 		$date = pulse_press_get_gmt_time();
-		add_option("pulse_press_votes_updated", $date,'','no');
+		
+		add_option( 'pulse_press_votes_updated', $date,'','no');
 		
 		pulse_press_update_custom_field_from_table();
 		
+		pulse_press_update_settings_to_new_settings();
+		
 	endif;
+	// this is just for testing shoule be take out later
+	
 }
-if(is_admin())  // this runs when you active the theme 
+if( is_admin() )  // this runs when you active the theme 
 	pulse_press_install();
 
 if(isset($_GET['update_custom_field_table']))
@@ -54,7 +60,7 @@ function pulse_press_delete_tables_and_options()
 	delete_option( 'pulse_press_prompt_text' );
 	delete_option( 'pulse_press_votes_updated' );
 
-	$pulse_press_db_table = PulsePress_DB_TABLE;
+	$pulse_press_db_table = PULSEPRESS_DB_TABLE;
    	$wpdb->query("DROP TABLE IF EXISTS $pulse_press_db_table");
 	// delete the different option
 	
@@ -84,7 +90,7 @@ function pulse_press_vote($post_id) {
 	add_post_meta($post_id, 'total_votes', $total, true) or update_post_meta($post_id, 'total_votes', $total);
 	// for knowing when to update this 
 	$date = pulse_press_get_gmt_time();
-	update_option('pulse_press_votes_updated',$date);
+	pulse_press_update_option( 'votes_updated',$date);
 	return pulse_press_add_user_post_meta($post_id,'vote',1);
 	
 }
@@ -99,7 +105,7 @@ function pulse_press_vote_down($post_id) {
 	add_post_meta($post_id, 'total_votes', $total, true) or update_post_meta($post_id, 'total_votes', $total);
 	// for knowing when to update this 
 	$date = pulse_press_get_gmt_time();
-	update_option('pulse_press_votes_updated',$date);
+	pulse_press_update_option( 'votes_updated',$date);
 	return pulse_press_add_user_post_meta($post_id,'vote',-1);
 	
 }
@@ -115,7 +121,7 @@ function pulse_press_delete_vote($post_id) {
 	
 	// for knowing when to update this 
 	$date = pulse_press_get_gmt_time();
-	update_option('pulse_press_votes_updated',$date);
+	pulse_press_update_option( 'votes_updated',$date);
 	
 	return pulse_press_delete_user_post_meta($post_id,'vote');
 }
@@ -191,7 +197,7 @@ function pulse_press_get_user_post_meta($post_id,$type) {
 	global $wpdb,$current_user;
 	wp_get_current_user();
 	
-	return $wpdb->get_var($wpdb->prepare("SELECT id FROM ".PulsePress_DB_TABLE." WHERE post_id = %d AND user_id = %d AND type ='%s';", $post_id,$current_user->ID,$type ));
+	return $wpdb->get_var($wpdb->prepare("SELECT id FROM ".PULSEPRESS_DB_TABLE." WHERE post_id = %d AND user_id = %d AND type ='%s';", $post_id,$current_user->ID,$type ));
 }
 
 
@@ -200,26 +206,26 @@ function pulse_press_get_user_post_meta_counter($post_id,$type) {
 	global $wpdb,$current_user;
 	wp_get_current_user();
 	
-	return $wpdb->get_var($wpdb->prepare("SELECT counter FROM ".PulsePress_DB_TABLE." WHERE post_id = %d AND user_id = %d AND type ='%s';", $post_id,$current_user->ID,$type ));
+	return $wpdb->get_var($wpdb->prepare("SELECT counter FROM ".PULSEPRESS_DB_TABLE." WHERE post_id = %d AND user_id = %d AND type ='%s';", $post_id,$current_user->ID,$type ));
 }
 
 function pulse_press_get_user_from_meta_post_id($type,$post_id) {
 	global $wpdb;
 	
-	return $wpdb->get_col($wpdb->prepare("SELECT user_id FROM ".PulsePress_DB_TABLE." WHERE post_id = %d AND type ='%s';",$post_id,$type ));
+	return $wpdb->get_col($wpdb->prepare("SELECT user_id FROM ".PULSEPRESS_DB_TABLE." WHERE post_id = %d AND type ='%s';",$post_id,$type ));
 }
 
 /* return the sum of the counter for */
 function pulse_press_get_total_meta_by_post($type,$post_id) {
 	global $wpdb;
 	
-	return $wpdb->get_var($wpdb->prepare("SELECT COUNT(*)  FROM ".PulsePress_DB_TABLE." WHERE post_id = %d AND type ='%s';",$post_id,$type ));
+	return $wpdb->get_var($wpdb->prepare("SELECT COUNT(*)  FROM ".PULSEPRESS_DB_TABLE." WHERE post_id = %d AND type ='%s';",$post_id,$type ));
 }
 
 function pulse_press_get_sum_meta_by_post($type,$post_id) {
 	global $wpdb;
 	
-	return $wpdb->get_var($wpdb->prepare("SELECT SUM(counter)  FROM ".PulsePress_DB_TABLE." WHERE post_id = %d AND type ='%s';",$post_id,$type ));
+	return $wpdb->get_var($wpdb->prepare("SELECT SUM(counter)  FROM ".PULSEPRESS_DB_TABLE." WHERE post_id = %d AND type ='%s';",$post_id,$type ));
 }
 
 
@@ -231,7 +237,7 @@ function pulse_press_get_all_user_post_meta($type) {
 	global $wpdb,$current_user;
 	wp_get_current_user();
 	
-	return $wpdb->get_col($wpdb->prepare("SELECT post_id FROM ".PulsePress_DB_TABLE." WHERE user_id = %d AND type ='%s';",$current_user->ID,$type ));
+	return $wpdb->get_col($wpdb->prepare("SELECT post_id FROM ".PULSEPRESS_DB_TABLE." WHERE user_id = %d AND type ='%s';",$current_user->ID,$type ));
 }
 
 /* returns back the SUM of the votes a user made */ 
@@ -239,14 +245,14 @@ function pulse_press_get_sum_meta_by_user($type,$user_id) {
 	
 	global $wpdb;
 
-	return $wpdb->get_var($wpdb->prepare("SELECT SUM(counter) FROM ".PulsePress_DB_TABLE." WHERE user_id = %s AND  type ='%s';", $user_id,$type ));
+	return $wpdb->get_var($wpdb->prepare("SELECT SUM(counter) FROM ".PULSEPRESS_DB_TABLE." WHERE user_id = %s AND  type ='%s';", $user_id,$type ));
 
 }
 /* returns back the total number of votes a user made */
 function pulse_press_get_total_meta_by_user($type,$user_id) {
 	global $wpdb;
 	
-	return $wpdb->get_var($wpdb->prepare("SELECT COUNT(*)  FROM ".PulsePress_DB_TABLE." WHERE user_id = %d AND type ='%s';",$user_id,$type ));
+	return $wpdb->get_var($wpdb->prepare("SELECT COUNT(*)  FROM ".PULSEPRESS_DB_TABLE." WHERE user_id = %d AND type ='%s';",$user_id,$type ));
 }
 
 
@@ -264,7 +270,7 @@ function pulse_press_add_user_post_meta($post_id,$type,$count=1) {
 			'date_gmt'  => $date,
 			 );
 	$GLOBALS[ 'wp_log' ][ 'pulsepress' ][] = 'added user post meta';
-	$result = $wpdb->insert( PulsePress_DB_TABLE,$data , array( '%d', '%s', '%d', '%s') );
+	$result = $wpdb->insert( PULSEPRESS_DB_TABLE,$data , array( '%d', '%s', '%d', '%s') );
 	
 	return $result;
 	
@@ -276,7 +282,7 @@ function pulse_press_delete_user_post_meta($post_id,$type){
 	global $wpdb,$current_user;
 	wp_get_current_user();
 	
-	return $wpdb->query( $wpdb->prepare( "DELETE FROM ".PulsePress_DB_TABLE." WHERE post_id = %d AND user_id = %d AND type ='%s'", $post_id,$current_user->ID,$type) );
+	return $wpdb->query( $wpdb->prepare( "DELETE FROM ".PULSEPRESS_DB_TABLE." WHERE post_id = %d AND user_id = %d AND type ='%s'", $post_id,$current_user->ID,$type) );
 	
 }
 function pulse_press_get_popular_posts_meta($type) {
@@ -284,22 +290,22 @@ function pulse_press_get_popular_posts_meta($type) {
 	global $wpdb,$current_user;
 	wp_get_current_user();
 	
-	return $wpdb->get_results($wpdb->prepare("SELECT post_id, COUNT(post_id) as count FROM ".PulsePress_DB_TABLE." WHERE type ='%s' GROUP BY post_id ORDER BY count DESC;", $type ));
+	return $wpdb->get_results($wpdb->prepare("SELECT post_id, COUNT(post_id) as count FROM ".PULSEPRESS_DB_TABLE." WHERE type ='%s' GROUP BY post_id ORDER BY count DESC;", $type ));
 }
 /* This gives you back all the items in the table together */
 function pulse_press_get_sum_posts_meta($post_ids,$type) {
 	global $wpdb;
-	return $wpdb->get_results($wpdb->prepare("SELECT post_id, COUNT(*) as count FROM ".PulsePress_DB_TABLE." WHERE post_id IN (".$post_ids.") AND type ='%s' GROUP BY post_id;", $type));
+	return $wpdb->get_results($wpdb->prepare("SELECT post_id, COUNT(*) as count FROM ".PULSEPRESS_DB_TABLE." WHERE post_id IN (".$post_ids.") AND type ='%s' GROUP BY post_id;", $type));
 	
 }
 /* this returns a list of summed up items */
 function pulse_press_get_total_posts_meta($post_ids,$type) {
 	global $wpdb;
-	return $wpdb->get_results($wpdb->prepare("SELECT post_id, SUM(counter) as count, COUNT(*) as total FROM ".PulsePress_DB_TABLE." WHERE post_id IN (".$post_ids.") AND type ='%s' GROUP BY post_id;", $type));
+	return $wpdb->get_results($wpdb->prepare("SELECT post_id, SUM(counter) as count, COUNT(*) as total FROM ".PULSEPRESS_DB_TABLE." WHERE post_id IN (".$post_ids.") AND type ='%s' GROUP BY post_id;", $type));
 }
 function pulse_press_get_updates_since_post_meta($date,$type) {
 	global $wpdb;
-	return $wpdb->get_var($wpdb->prepare("SELECT date_gmt FROM ".PulsePress_DB_TABLE." WHERE date_gmt > %s  AND type ='%s' ORDER BY date_gmt;",$date, $type));
+	return $wpdb->get_var($wpdb->prepare("SELECT date_gmt FROM ".PULSEPRESS_DB_TABLE." WHERE date_gmt > %s  AND type ='%s' ORDER BY date_gmt;",$date, $type));
 
 }
 
@@ -333,4 +339,82 @@ function pulse_press_get_last_post_date()
 	return $wpdb->get_var("SELECT post_date FROM $wpdb->posts WHERE post_type = 'post' AND post_status ='publish' ORDER BY post_date DESC LIMIT 0 , 1");
 	
 }
+
+/* Options */
+/**
+ * update_settings_to_new_settings function.
+ *  useful for backwards compatibility
+ * @access public
+ * @return void
+ */
+function pulse_press_update_settings_to_new_settings() {
+	global $pulse_press_options;
+	
+	$options_name = array(
+			'allow_users_publish',
+			'show_categories',
+			'hide_threads',
+			'show_reply',
+			'show_voting',
+			'voting_type',
+			'show_unpopular',
+			'show_most_voted_on',
+			'show_vote_breakdown',
+			'show_anonymous',
+			'show_fav',
+			'show_tagging',
+			'allow_fileupload',
+			'show_twitter',
+			'bitly_user',
+			'bitly_api',
+			'hide_sidebar',
+			'prompt_text',
+			'vote_text',
+			'vote_up_text',
+			'vote_down_text',
+			'popular_text',
+			'unpopular_text',
+			'most_voted_on_text',
+			'star_text',
+			'remove_frontend_post',
+			'rewrites_flushed',
+			'db_version',
+			'show_titles',
+			'prompt_text',
+			'votes_updated', 
+		);
+	if( !is_array( $pulse_press_options) ):
+	foreach($options_name as $option):
+		$pulse_press_options[$option] = get_option("pulse_press_".$option);
+		delete_option("pulse_press_".$option); // delete the options as well... next step
+	endforeach;
+	
+	
+	update_option('pulse_press_options',$pulse_press_options);
+	endif;
+	
+
+}
+
+function pulse_press_update_option( $name, $value )
+{
+	global $pulse_press_options;
+	
+	$pulse_press_options[$name] = $value;
+	
+	return update_option( 'pulse_press_options' , $pulse_press_options );
+	
+}
+
+function pulse_press_get_option( $name )
+{
+	global $pulse_press_options;
+	if( is_array($pulse_press_options) )
+		return $pulse_press_options[$name];
+	else{
+		$pulse_press_options = get_option( 'pulse_press_options' );
+		return $pulse_press_options[$name];
+	}
+}
+
 

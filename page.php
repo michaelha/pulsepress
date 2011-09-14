@@ -29,6 +29,8 @@
 						<?php $pc++; ?>
 						<div class="respond-wrap"<?php if ( ! is_singular() ): ?> style="display: none; "<?php endif; ?>>
 							<?php
+							
+								
 								$pulse_press_comment_args = array(
 									'title_reply' => __( 'Reply', 'pulse_press' ),
 									'comment_field' => '<div class="form"><textarea id="comment" class="expand50-100" name="comment" cols="45" rows="3"></textarea></div> <label class="post-error" for="comment" id="commenttext_error"></label>',
@@ -41,6 +43,8 @@
 									'label_submit' => __( 'Reply', 'pulse_press' ),
 									'id_submit' => 'comment-submit',
 								);
+								if( pulse_press_get_option( 'limit_comments' ) )
+								$pulse_press_comment_args['comment_field'] = '<div class="form"><textarea id="comment" class="expand50-100" name="comment" maxlength="140" cols="45" rows="3"></textarea></div> <label class="post-error" for="comment" id="commenttext_error"></label>';
 								comment_form( $pulse_press_comment_args );
 							?>
 						</div>

@@ -11,7 +11,7 @@
 <div id="footer">
 	<p>
 		
-	    <?php printf( __( '<a href="http://blogs.ubc.ca/beta/pulsepress" >PulsePress</a> derived from <a href="http://p2theme.com/" title="Go to P2">P2</a> is proudly powered by <a href="http://wordpress.org" title="Learn about WordPress">WordPress</a>.', 'pulse_press' ) ); ?>  
+	    <?php printf( __( '<a href="http://blogs.ubc.ca/beta/pulsepress" >PULSEPRESS</a> is proudly powered by <a href="http://wordpress.org" title="Learn about WordPress">WordPress</a>.', 'pulse_press' ) ); ?>  
 	</p>
 </div>
 

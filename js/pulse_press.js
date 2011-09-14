@@ -7,6 +7,30 @@ jQuery(function($) {
 		if (loggedin == true)
 			window.onbeforeunload = null;
 	});
+	
+	// counter.js 
+	if(pulse_presstxt.show_twitter == 1){
+		pulse_press_disable_submit();
+		$("#posttext").keypress(pulse_press_disable_submit).focusout(pulse_press_disable_submit);
+	}
+	if(pulse_presstxt.limit_comments == 1) {
+		
+		$("#comment").live('keypress',function(e){
+			var el = $(this);
+			var span =  $(this).siblings('.limit_comments');
+			
+			setTimeout( function() {
+				var remainder = 140 - el.val().length;
+				span.text(remainder +" characters left");
+			
+			},50);
+		}).after("<span class='limit_comments'></span>")
+	
+		$("#cancel-comment-reply-link").click(function(e){
+			$(".limit_comments").text("");
+		})
+	
+	} //
 	// if FORCE_SSL_ADMIN is defined true that will not work! 
 	if (isUserLoggedIn) {
 		// Checks if you are logged in and try to input data (To fix for ONLY private posts.)
@@ -184,7 +208,7 @@ jQuery(function($) {
 						insertCommentWidget(comment.widgetHtml);
 					}
 					if (comment.html != '') {
-						var thisParentId = 'prologue-'+comment.postID;
+						var thisParentId = 'pulse_press-'+comment.postID;
 						insertCommentInline(thisParentId, comment.commentParent, comment.html, showNotification);
 					}
 				});
@@ -421,6 +445,7 @@ jQuery(function($) {
 			success: function(result) {
 								
 				if ("voted" == result) {
+					
 					var p_id = id.attr('id').substring(7);
 					var votes = parseInt($("#votes-"+p_id).html());
 					var positive_votes = parseInt($("#votes-up-"+p_id).html());
@@ -526,8 +551,7 @@ jQuery(function($) {
 	 */
 	function newStar(trigger,id) {
 		var queryString = ajaxUrl +'&'+id.attr('href').substring(1);
-		var p_id = id.attr('id').substring(7);
-		
+		var p_id = id.attr('id').substring(5);
 		
 		$.ajax({
 			type: "GET",
@@ -868,7 +892,7 @@ jQuery(function($) {
 						submit  : pulse_presstxt.save, tooltip   : '', width: '90%', onblur: 'ignore',
 						submitdata: {action:'save_comment',_inline_edit: nonce}});
 				}
-				$(".single #postlist li > div.postcontent, .single #postlist li > h4, li[id^='prologue'] > div.postcontent, li[id^='comment'] > div.commentcontent, li[id^='prologue'] > h4, li[id^='comment'] > h4").hover(function() {
+				$(".single #postlist li > div.postcontent, .single #postlist li > h4, li[id^='pulse_press'] > div.postcontent, li[id^='comment'] > div.commentcontent, li[id^='pulse_press'] > h4, li[id^='comment'] > h4").hover(function() {
 					$(this).parents("li").eq(0).addClass('selected');
 				}, function() {
 					$(this).parents("li").eq(0).removeClass('selected');
@@ -886,7 +910,7 @@ jQuery(function($) {
 							return false;
 						});
 				}
-				$(".single #postlist li > div.postcontent, .single #postlist li > h4, li[id^='prologue'] > div.postcontent, li[id^='comment'] > div.commentcontent, li[id^='prologue'] > h4, li[id^='comment'] > h4").hover(function() {
+				$(".single #postlist li > div.postcontent, .single #postlist li > h4, li[id^='pulse_press'] > div.postcontent, li[id^='comment'] > div.commentcontent, li[id^='pulse_press'] > h4, li[id^='comment'] > h4").hover(function() {
 					$(this).parents("li").eq(0).addClass('selected');
 				}, function() {
 					$(this).parents("li").eq(0).removeClass('selected');
@@ -914,7 +938,7 @@ jQuery(function($) {
 	if(!window.location.href.match('#'))
 		$('#posttext').focus();
 
-	$(".single #postlist li > div.postcontent, .single #postlist li > h4, li[id^='prologue'] > div.postcontent, li[id^='comment'] > div.commentcontent, li[id^='prologue'] > h4, li[id^='comment'] > h4").hover(function() {
+	$(".single #postlist li > div.postcontent, .single #postlist li > h4, li[id^='pulse_press'] > div.postcontent, li[id^='comment'] > div.commentcontent, li[id^='pulse_press'] > h4, li[id^='comment'] > h4").hover(function() {
 		$(this).parents("li").eq(0).addClass('selected');
 	}, function() {
 		$(this).parents("li").eq(0).removeClass('selected');
@@ -976,13 +1000,13 @@ jQuery(function($) {
      });
 
 	// Turn on automattic updating
-	if (prologuePostsUpdates) {
+	if (pulse_pressPostsUpdates) {
 		toggleUpdates('unewposts');
 	}
-	if (prologueCommentsUpdates) {
+	if (pulse_pressCommentsUpdates) {
 			toggleUpdates('unewcomments');
 	}
-	if(prologueVotesUpdates){
+	if(pulse_pressVotesUpdates){
 			toggleUpdates('unewvotes');
 	}
 
@@ -1264,7 +1288,7 @@ jQuery(function($) {
 	}
 
 	// Activate Tag Suggestions for logged users on front page
-	if (isFrontPage && prologueTagsuggest && isUserLoggedIn)
+	if (isFrontPage && pulse_pressTagsuggest && isUserLoggedIn)
 		$('input[name="tags"]').suggest(ajaxUrl + '&action=tag_search', { delay: 350, minchars: 2, multiple: true, multipleSep: ", " } );
 
 	// Actvate autgrow on textareas
@@ -1347,12 +1371,27 @@ function send_to_editor( media ) {
 }
 
 function newNotification(message) {
-		jQuery("#notify").stop(true).prepend(message + '<br/>')
-			.fadeIn()
-			.animate({opacity: 0.7}, 3000)
-			.fadeOut('5000', function() {
-				jQuery("#notify").html('');
-			}).click(function() {
-				jQuery(this).stop(true).fadeOut('fast').html('');
-			});
-	}
+	jQuery("#notify").stop(true).prepend(message + '<br/>')
+		.fadeIn()
+		.animate({opacity: 0.7}, 3000)
+		.fadeOut('5000', function() {
+			jQuery("#notify").html('');
+		}).click(function() {
+			jQuery(this).stop(true).fadeOut('fast').html('');
+		});
+}
+function pulse_press_disable_submit(){
+	// we need sometime out to have a better reading of what is really there. 
+	setTimeout(function() {
+		
+		var remainder = 140 - jQuery("#posttext").val().length
+		if(remainder < 0) {
+			 jQuery('#submit').attr('disabled','disabled').addClass('disabled');
+			
+		} else{
+			  jQuery('#submit').removeAttr('disabled').removeClass('disabled');
+		}
+		// update the counter
+		jQuery('#post-count').html(remainder);
+	},50);
+}

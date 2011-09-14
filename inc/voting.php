@@ -3,17 +3,17 @@
 
 function pulse_press_vote_on_post()
 {	
-	if(get_option('pulse_press_show_voting')):
+	if(pulse_press_get_option( 'show_voting')):
 	$votes = pulse_press_sum_votes(get_the_ID());
 	
 		if(empty($votes))
 			$votes = 0;
 	
-	switch(get_option('pulse_press_voting_type')){
+	switch(pulse_press_get_option( 'voting_type')){
 		default:
 		case "one": ?>
 		<div class="vote" >
-		<em title="total votes:<?php echo pulse_press_total_votes(get_the_ID()); ?>" ><strong id="votes-<?php the_ID();?>"><?php echo $votes; ?></strong> <?php  pulse_press_display_option(get_option( 'pulse_press_vote_text' ),'votes'); ?></em>
+		<em title="total votes:<?php echo pulse_press_total_votes(get_the_ID()); ?>" ><strong id="votes-<?php the_ID();?>"><?php echo $votes; ?></strong> <?php  pulse_press_display_option(pulse_press_get_option( 'vote_text' ),'votes'); ?></em>
 		<?php if( pulse_press_user_can_vote() ) : ?>
 			<?php if(!pulse_press_is_vote(get_the_ID())) : ?>
 			<a id="voteup-<?php the_ID();?>" href="?pid=<?php the_ID();?>&nononc=<?php echo wp_create_nonce('vote');?>&action=vote" class="vote-up" title="<?php esc_attr_e('Vote Up','pulse_press'); ?>"> <span><?php _e('Vote Up','pulse_press'); ?></span></a> 
@@ -30,8 +30,8 @@ function pulse_press_vote_on_post()
 		$total = pulse_press_total_votes(get_the_ID());
 		?>
 		<div class="vote" >
-		<em title="total votes:<?php echo $total; ?>" ><strong id="votes-<?php the_ID();?>" data-total="<?php echo $total; ?>"><?php echo $votes; ?></strong> <?php pulse_press_display_option(  get_option( 'pulse_press_vote_text' ),"votes" ); 
-			if(get_option( 'pulse_press_show_vote_breakdown')):
+		<em title="total votes:<?php echo $total; ?>" ><strong id="votes-<?php the_ID();?>" data-total="<?php echo $total; ?>"><?php echo $votes; ?></strong> <?php pulse_press_display_option(  pulse_press_get_option( 'vote_text' ),"votes" ); 
+			if(pulse_press_get_option( 'show_vote_breakdown')):
 			
 				if($votes > 0) {
 						$negative_votes = (($total-$votes)/2);
@@ -46,9 +46,9 @@ function pulse_press_vote_on_post()
 				
 					
 			?> - <span><strong id="votes-up-<?php the_ID();?>"><?php echo $positive_votes; ?></strong>
-				 <?php pulse_press_display_option( get_option( 'pulse_press_vote_up_text' ),"up"); ?></span>, 
+				 <?php pulse_press_display_option( pulse_press_get_option( 'vote_up_text' ),"up"); ?></span>, 
 				 <span><strong id="votes-down-<?php the_ID();?>"><?php echo $negative_votes; ?></strong> 
-				 <?php pulse_press_display_option( get_option( 'pulse_press_vote_down_text' ) ,"down" ); ?></span>
+				 <?php pulse_press_display_option( pulse_press_get_option( 'vote_down_text' ) ,"down" ); ?></span>
 			<?php
 			endif; // end of breakdown
 			?></em>
@@ -88,7 +88,7 @@ function pulse_press_voting_init($redirect=true)
 	if( isset($_GET['nononc']) &&  wp_verify_nonce( $_GET['nononc'], 'vote') && in_array( $_GET['action'], array("vote","votedown") ) ):
 		$post_id = (int)$_GET['pid'];
 		
-		switch( get_option('pulse_press_voting_type') ) {
+		switch( pulse_press_get_option( 'voting_type') ) {
 			default:
 			case "one":
 				if( pulse_press_is_vote($post_id) == null ):
@@ -178,14 +178,14 @@ function pulse_press_popular_where_paged( $where ) {
 	global $wpdb, $pulse_press_main_loop;
 	
   	if($pulse_press_main_loop)
-    		$where = $where." AND ".$wpdb->postmeta.".meta_key = 'updates_votes'";
+    		$where = $where." AND ".$wpdb->postmeta.".meta_key = 'updates_votes' ";
 	
 	return $where;
 }
 function pulse_press_most_voted_where_paged( $where ) {
 	global $wpdb, $pulse_press_main_loop;
 	if($pulse_press_main_loop)
-    	$where = $where." AND ".$wpdb->postmeta.".meta_key = 'total_votes'";
+    	$where = $where." AND ".$wpdb->postmeta.".meta_key = 'total_votes' ";
 	
 	return $where;
 
@@ -194,7 +194,7 @@ function pulse_press_popular_groupby( $group ) {
 	global $wpdb, $pulse_press_main_loop;
 	
   	if($pulse_press_main_loop)
-  		$group = $wpdb->posts.".ID";
+  		$group = $wpdb->posts.".ID ";
 	
 	return $group;
 }
@@ -210,7 +210,7 @@ function pusle_press_popular_orderby( $orderby ) {
 	global $wpdb, $pulse_press_main_loop;
 	
   	if($pulse_press_main_loop)
-  		$orderby = $wpdb->postmeta.".meta_value DESC, ".$wpdb->posts.".post_date DESC";
+  		$orderby = " CAST($wpdb->postmeta.".meta_value." AS SIGNED) DESC, ".$wpdb->posts.".post_date DESC";
 	
 	return $orderby;
 
@@ -220,7 +220,7 @@ function pusle_press_unpopular_orderby( $orderby ) {
 	global $wpdb, $pulse_press_main_loop;
 	
   	if($pulse_press_main_loop)
-  		$orderby = $wpdb->postmeta.".meta_value ASC, ".$wpdb->posts.".post_date DESC";
+  		$orderby = " CAST($wpdb->postmeta.".meta_value." AS SIGNED) ASC, ".$wpdb->posts.".post_date DESC";
 	
 	return $orderby;
 
@@ -244,14 +244,18 @@ function pulse_press_save_post($post_id)
 }
 /* used for testing 
 function pulse_press_orderby($order){
+	global $wpdb, $pulse_press_main_loop;
 	
-	echo $order."<br />";
+	//var_dump ( $pulse_press_main_loop );
+	if($pulse_press_main_loop );
+	// echo $order."<br />";
+
+	
 	return $order;
 }
 
-add_action('posts_selection','pulse_press_orderby');
+add_action('posts_selection','pulse_press_orderby',100);
 */
-
 
 function pulse_press_update_custom_field_from_table(){
 	$all_posts = get_posts('posts_per_page=-1&post_type=post&post_status=any');
@@ -266,9 +270,5 @@ function pulse_press_update_custom_field_from_table(){
 			
 			update_post_meta($postinfo->ID, 'updates_votes', $sum);
 			update_post_meta($postinfo->ID, 'total_votes', $total );
-			
 		}
-
-
-
 }

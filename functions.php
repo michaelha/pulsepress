@@ -4,26 +4,28 @@
  * @subpackage PulsePress
  */
 
-define( 'PulsePress_INC_PATH',  get_template_directory() . '/inc' );
-define( 'PulsePress_INC_URL', get_template_directory_uri().'/inc' );
-define( 'PulsePress_JS_PATH',  get_template_directory() . '/js' );
-define( 'PulsePress_JS_URL', get_template_directory_uri().'/js' );
-define( 'PulsePress_DB_VERSION',5);
-define( 'PulsePress_DB_TABLE', $wpdb->prefix . "pulse_press_user_post_meta");
+define( 'PULSEPRESS_INC_PATH',  get_template_directory() . '/inc' );
+define( 'PULSEPRESS_INC_URL', get_template_directory_uri().'/inc' );
+define( 'PULSEPRESS_JS_PATH',  get_template_directory() . '/js' );
+define( 'PULSEPRESS_JS_URL', get_template_directory_uri().'/js' );
+define( 'PULSEPRESS_DB_VERSION',6);
+define( 'PULSEPRESS_DB_TABLE', $wpdb->prefix . "pulse_press_user_post_meta");
 
-if ( !class_exists( 'Services_JSON' ) ) require_once( PulsePress_INC_PATH . '/JSON.php' );
-require_once( PulsePress_INC_PATH . '/compat.php' );
-require_once( PulsePress_INC_PATH . '/pulse_press.php' );
-require_once( PulsePress_INC_PATH . '/js.php' );
-require_once( PulsePress_INC_PATH . '/options-page.php' );
-require_once( PulsePress_INC_PATH . '/template-tags.php' );
-require_once( PulsePress_INC_PATH . '/widgets/recent-tags.php' );
-require_once( PulsePress_INC_PATH . '/widgets/recent-comments.php' );
-require_once( PulsePress_INC_PATH . '/voting.php' );
-require_once( PulsePress_INC_PATH . '/star.php' );
-require_once( PulsePress_INC_PATH . '/db_helper.php' );
-require_once( PulsePress_INC_PATH . '/shortcodes.php' );
-require_once( PulsePress_INC_PATH . '/admin-table.php' );
+
+if ( !class_exists( 'Services_JSON' ) ) require_once( PULSEPRESS_INC_PATH . '/JSON.php' );
+
+require_once( PULSEPRESS_INC_PATH . '/compat.php' );
+require_once( PULSEPRESS_INC_PATH . '/pulse_press.php' );
+require_once( PULSEPRESS_INC_PATH . '/js.php' );
+require_once( PULSEPRESS_INC_PATH . '/options-page.php' );
+require_once( PULSEPRESS_INC_PATH . '/template-tags.php' );
+require_once( PULSEPRESS_INC_PATH . '/widgets/recent-tags.php' );
+require_once( PULSEPRESS_INC_PATH . '/widgets/recent-comments.php' );
+require_once( PULSEPRESS_INC_PATH . '/voting.php' );
+require_once( PULSEPRESS_INC_PATH . '/star.php' );
+require_once( PULSEPRESS_INC_PATH . '/db_helper.php' );
+require_once( PULSEPRESS_INC_PATH . '/shortcodes.php' );
+require_once( PULSEPRESS_INC_PATH . '/admin-table.php' );
 
 $content_width = '632';
 
@@ -33,6 +35,7 @@ if ( function_exists( 'register_sidebar' ) ) {
 	) );
 }
 
+$pulse_press_options = get_option( 'pulse_press_options' );
 // Content Filters
 function pulse_press_get_at_name_map() {
 	global $wpdb;
@@ -75,8 +78,8 @@ function pusle_press_mention_taxonomy() {
 }
 
 function pulse_press_flush_rewrites() {
-	if ( false == get_option( 'pulse_press_rewrites_flushed' ) ) {
-		update_option( 'pulse_press_rewrites_flushed', true );
+	if ( false == pulse_press_get_option( 'rewrites_flushed' ) ) {
+		pulse_press_update_option( 'rewrites_flushed', true );
 		global $wp_rewrite;
 		$wp_rewrite->flush_rules();
 	}
@@ -85,7 +88,7 @@ function pulse_press_flush_rewrites() {
 add_action( 'template_redirect', 'pulse_press_anonymous_feed', 0 ); // makethe feed info appear anonomous
 function pulse_press_anonymous_feed(){
 	
-	if( get_option( 'pulse_press_show_anonymous' ) && is_feed() ):	
+	if( pulse_press_get_option( 'show_anonymous' ) && is_feed() ):	
 		add_filter('get_the_author_login',"pulse_press_anonymous_author");
 		add_filter("the_author","pulse_press_anonymous_author");
 	endif;
@@ -387,9 +390,6 @@ function pulse_press_title_from_content( $content ) {
 	}
 		return $title;
 }
-if ( is_admin() && ( false === get_option( 'pulse_press_show_titles' ) ) ) {
-	add_option( 'pulse_press_show_titles', 1);
-}
 
 function pulse_press_fix_empty_titles( $post_ID, $post ) {
 	
@@ -629,6 +629,7 @@ body { <?php echo trim( $style ); ?> }
 a:hover, h1 a:hover, #main .selected .actions a:hover, #main .selected .actions a:active {
 	color: <?php echo pulse_press_color_darken($color, 100); ?>;
 }
+.ac_over,
 #wp-calendar tbody td a{ background-color: <?php echo pulse_press_color_darken($color, 20); ?>; text-decoration: none;}
 #wp-calendar tbody td a:hover{background-color: <?php echo pulse_press_color_darken($color, 60); ?>; }
 
@@ -664,7 +665,7 @@ function pulse_press_color_darken($color, $dif=20){
 add_action( 'wp_head', 'pulse_press_show_twitter');
 
 function pulse_press_hidden_sidebar_css() {
-	$hide_sidebar = get_option( 'pulse_press_hide_sidebar' );
+	$hide_sidebar = pulse_press_get_option( 'hide_sidebar' );
 	
 	$sleeve_margin = ( is_rtl() ) ? 'margin-left: 0;' : 'margin-right: 0;';
 	if ( $hide_sidebar ) :
@@ -785,7 +786,7 @@ function pulse_press_breadcrumbs() {
 
 function pulse_press_show_twitter()
 {
-	$show_twitter = get_option( 'pulse_press_show_twitter' );
+	$show_twitter = pulse_press_get_option( 'show_twitter' );
 }
 
 // Network signup form
@@ -805,7 +806,6 @@ add_custom_background("pulse_press_background_color");
 
 // Feed me
 add_theme_support( 'automatic-feed-links' );
-
 
 // only set this on the main loop
 $pulse_press_main_loop = false;
@@ -830,3 +830,15 @@ function pulse_press_include_sticky_category( $query ) {
    	 }
 }
 add_action( 'pre_get_posts', 'pulse_press_include_sticky_category' );
+
+
+// limit coments to 140 characters
+if( pulse_press_get_option( 'limit_comments' ) )
+	add_filter('comment_form_defaults', 'pulse_press_limit_comments');
+
+function pulse_press_limit_comments( $defaults  ) {
+	// <p class="comment-form-comment"><label for="comment">Comment</label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>
+	$defaults["comment_field"] = str_replace( 'name="comment"', 'name="comment" maxlength="140"', $defaults["comment_field"] );
+	
+	return $defaults;
+}

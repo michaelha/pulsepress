@@ -13,7 +13,7 @@ class PulsePressJS {
 	}
 
 	function enqueue_styles() {
-		if ( pulse_press_user_can_post() && is_home() && is_user_logged_in() && current_user_can( 'upload_files' ) && get_option("pulse_press_allow_fileupload") ):
+		if ( pulse_press_user_can_post() && is_home() && is_user_logged_in() && current_user_can( 'upload_files' ) && pulse_press_get_option( 'allow_fileupload') ):
 		
 			wp_enqueue_style( 'thickbox' );
 			wp_enqueue_script( 'thickbox' );
@@ -29,16 +29,16 @@ class PulsePressJS {
 
 		if ( is_user_logged_in() ) {
 			wp_enqueue_script( 'suggest' );
-			wp_enqueue_script( 'jeditable', PulsePress_JS_URL . '/jquery.jeditable.js', array( 'jquery' )  );
+			wp_enqueue_script( 'jeditable', PULSEPRESS_JS_URL . '/jquery.jeditable.js', array( 'jquery' )  );
 			
-			if(get_option( 'pulse_press_show_twitter' ) && is_home() && is_user_logged_in() ) {
-				wp_enqueue_script( 'counter', PulsePress_JS_URL . '/counter.js', array( 'jquery' ) );
+			if(pulse_press_get_option( 'show_twitter' ) && is_page() && is_user_logged_in() ) {
 				
-				if(get_option( 'pulse_press_bitly_user') && get_option( 'pulse_press_bitly_api')) {
-					wp_enqueue_script( 'pp_shortner',PulsePress_JS_URL . '/shortner.js', array( 'jquery','pulse_pressjs','counter' ) );
+				
+				if(pulse_press_get_option( 'bitly_user') && pulse_press_get_option( 'bitly_api')) {
+					wp_enqueue_script( 'pp_shortner',PULSEPRESS_JS_URL . '/shortner.js', array( 'jquery','pulse_pressjs','counter' ) );
 					wp_localize_script( 'pp_shortner', 'pp_shortner', array(
-	  				'user' => pulse_press_display_option( get_option( 'pulse_press_bitly_user'),'',false),
-                	'api' => pulse_press_display_option( get_option( 'pulse_press_bitly_api'),'',false)
+	  				'user' => pulse_press_display_option( pulse_press_get_option( 'bitly_user'),'',false),
+                	'api' => pulse_press_display_option( pulse_press_get_option( 'bitly_api'),'',false)
 					));	
 				}
 			}
@@ -46,12 +46,14 @@ class PulsePressJS {
 			
 			
 		}
-		if(is_home())
-		wp_enqueue_script( 'pulse_pressjs', PulsePress_JS_URL . '/pulse_press.js', array( 'jquery', 'utils' ), filemtime(PulsePress_JS_PATH . '/pulse_press.js' ) );
+		if(!is_page()){
+			wp_enqueue_script( 'pulse_pressjs', PULSEPRESS_JS_URL . '/pulse_press.min.js', array( 'jquery', 'utils' ), filemtime(PULSEPRESS_JS_PATH . '/pulse_press.min.js' ) );
+		}
+		
 		
 		// Archives uncommented
-		//wp_enqueue_script( 'jquery-ui-1.7.1.custom.min', PulsePress_JS_URL . '/jquery-ui-1.7.1.custom.min.js', array( 'jquery', 'utils' ), filemtime(PulsePress_JS_PATH . '/jquery-ui-1.7.1.custom.min.js' ) );
-		// wp_enqueue_script( 'selectToUISlider.jQuery', PulsePress_JS_URL . '/selectToUISlider.jQuery.js', array( 'jquery', 'utils' ), filemtime(PulsePress_JS_PATH . '/selectToUISlider.jQuery.js' ) );
+		//wp_enqueue_script( 'jquery-ui-1.7.1.custom.min', PULSEPRESS_JS_URL . '/jquery-ui-1.7.1.custom.min.js', array( 'jquery', 'utils' ), filemtime(PULSEPRESS_JS_PATH . '/jquery-ui-1.7.1.custom.min.js' ) );
+		// wp_enqueue_script( 'selectToUISlider.jQuery', PULSEPRESS_JS_URL . '/selectToUISlider.jQuery.js', array( 'jquery', 'utils' ), filemtime(PULSEPRESS_JS_PATH . '/selectToUISlider.jQuery.js' ) );
 		
 		wp_localize_script( 'pulse_pressjs', 'pulse_presstxt', array(
 			'tags' => __( '<br />Tags:' , 'pulse_press' ),
@@ -78,11 +80,13 @@ class PulsePressJS {
 			'l10n_print_after' => 'try{convertEntities(pulse_presstxt);}catch(e){};',
 			'author_avatar' => null,
 			'anonymous_avatar' => get_template_directory_uri().'/i/anonymous.png',
+			'limit_comments' => pulse_press_get_option('limit_comments'),
+			'show_twitter' => pulse_press_get_option('show_twitter')
 		));
 			
-		wp_enqueue_script( 'scrollit', PulsePress_JS_URL .'/jquery.scrollTo-min.js', array( 'jquery' )  );
+		wp_enqueue_script( 'scrollit', PULSEPRESS_JS_URL .'/jquery.scrollTo-min.js', array( 'jquery' )  );
 
-		wp_enqueue_script( 'wp-locale', PulsePress_JS_URL . '/wp-locale.js', array(), 12 );
+		wp_enqueue_script( 'wp-locale', PULSEPRESS_JS_URL . '/wp-locale.js', array(), 12 );
 
 		// the localization functinality can't handle objects, that's why
 		// we are using poor man's hash maps here -- using prefixes of the variable names
@@ -148,10 +152,10 @@ class PulsePressJS {
 		var isSingle = <?php echo $page_options['is_single'] ?>;
 		var isPage = <?php echo $page_options['is_page'] ?>;
 		var isUserLoggedIn = <?php echo $page_options['is_user_logged_in'] ?>;
-		var prologueTagsuggest = <?php echo $page_options['pulse_press_tagsuggest'] ?>;
-		var prologuePostsUpdates = <?php echo $page_options['pulse_press_updates'] ?>;
-		var prologueCommentsUpdates = <?php echo $page_options['pulse_press_comments_updates']; ?>;
-		var prologueVotesUpdates = <?php echo $page_options['pulse_press_votes_updates']; ?>;
+		var pulse_pressTagsuggest = <?php echo $page_options['pulse_press_tagsuggest'] ?>;
+		var pulse_pressPostsUpdates = <?php echo $page_options['pulse_press_updates'] ?>;
+		var pulse_pressCommentsUpdates = <?php echo $page_options['pulse_press_comments_updates']; ?>;
+		var pulse_pressVotesUpdates = <?php echo $page_options['pulse_press_votes_updates']; ?>;
 		var getPostsUpdate = 0;
 		var getCommentsUpdate = 0;
 		var getVotesUpdate = 0;
@@ -187,7 +191,7 @@ class PulsePressJS {
 }
 
 function pulse_press_toggle_threads() {
-	$hide_threads = get_option( 'pulse_press_hide_threads' ); ?>
+	$hide_threads = pulse_press_get_option( 'hide_threads' ); ?>
 
 	<script type="text/javascript">
 		jQuery(document).ready( function() {

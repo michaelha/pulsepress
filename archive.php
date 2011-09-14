@@ -18,11 +18,11 @@ get_header(); ?>
 	<div id="main">
 		<h2 class="archive-title date-archive">
 			<?php if(is_day()): ?>
-			<?php printf( _x( 'Updates from <strong>%s</strong>', 'Month name', 'wordpress' ), get_the_time( 'l jS F, Y' ) ); ?>
+			<?php printf( _x( 'Updates from <strong>%s</strong>', 'Month name', 'pulse_press' ), get_the_time( 'l jS F, Y' ) ); ?>
 			<?php elseif(is_month()): ?>
 			<?php printf( _x( 'Updates from <strong>%s</strong>', 'Month name', 'pulse_press' ), get_the_time( 'F, Y' ) ); ?>
 			<?php elseif(is_year()): ?>
-			<?php printf( 'Updates from <strong>%s</strong>', get_the_time( 'Y' ) ); ?>
+			<?php printf( __('Updates from <strong>%s</strong>','pulse_press'), get_the_time( 'Y' ) ); ?>
 			<?php endif; ?>
 			<span class="controls">
 				<a href="#" id="togglecomments"> <?php _e( 'Toggle Comment Threads', 'pulse_press' ); ?></a> | <a href="#directions" id="directions-keyboard"><?php _e( 'Keyboard Shortcuts', 'pulse_press' ); ?></a>

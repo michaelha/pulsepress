@@ -8,7 +8,7 @@ function pulse_press_body_class( $classes ) {
 }
 add_filter( 'body_class', 'pulse_press_body_class' );
 function pulse_press_no_sidebar($classes) {
-	if(get_option('pulse_press_hide_sidebar'))
+	if(pulse_press_get_option( 'hide_sidebar'))
 		$classes[] = 'no-sidebar';
 	
 	return $classes;
@@ -17,10 +17,10 @@ add_filter( 'body_class', 'pulse_press_no_sidebar' );
 
 function pulse_press_user_can_post() {
 	global $user_ID;
-	if(get_option('pulse_press_remove_frontend_post'))
+	if(pulse_press_get_option( 'remove_frontend_post'))
 		return false;
 		
-	if ( current_user_can( 'publish_posts' ) || ( get_option( 'pulse_press_allow_users_publish' ) && current_user_can('read') )  )
+	if ( current_user_can( 'publish_posts' ) || ( pulse_press_get_option( 'allow_users_publish' ) && current_user_can('read') )  )
 		return true;
 
 	return false;
@@ -28,7 +28,7 @@ function pulse_press_user_can_post() {
 function pulse_press_user_can_vote() {
 	global $user_ID;
 		
-	if ( current_user_can( 'publish_posts' ) || ( get_option( 'pulse_press_allow_users_publish' ) && current_user_can('read') )  )
+	if ( current_user_can( 'publish_posts' ) || ( pulse_press_get_option( 'allow_users_publish' ) && current_user_can('read') )  )
 		return true;
 
 	return false;
@@ -181,7 +181,7 @@ function pulse_press_user_prompt() {
 	echo pulse_press_get_user_prompt();
 }
 	function pulse_press_get_user_prompt() {
-		$prompt = get_option( 'pulse_press_prompt_text' );
+		$prompt = pulse_press_get_option( 'prompt_text' );
 
 		return apply_filters( 'pulse_press_get_user_prompt', sprintf ( __( 'Hi, %s. %s', 'pulse_press' ), esc_html( pulse_press_get_user_display_name() ), ( $prompt != '' ) ? stripslashes( $prompt ) : __( 'What&rsquo;s happening?', 'pulse_press' ) ) );
 	}
@@ -197,7 +197,7 @@ function pulse_press_get_page_number() {
 
 
 function pulse_press_get_hide_sidebar() {
-	return ( get_option( 'pulse_press_hide_sidebar' ) ) ? true : false;
+	return ( pulse_press_get_option( 'hide_sidebar' ) ) ? true : false;
 }
 
 function pulse_press_author_id() {

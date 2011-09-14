@@ -21,7 +21,7 @@ class PulsePress {
 		add_filter( 'the_content', 'make_clickable' );
 
 		if ( isset( $_REQUEST['pulse_pressajax'] ) ) {
-			require_once( PulsePress_INC_PATH . '/ajax.php' );
+			require_once( PULSEPRESS_INC_PATH . '/ajax.php' );
 			PulsePressAjax::dispatch();
 			die();
 		}

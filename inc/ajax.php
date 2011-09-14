@@ -172,7 +172,7 @@ class PulsePressAjax {
 			die( '<p>'.__( 'Error: not logged in.', 'pulse_press' ).'</p>' );
 		}
 		if ( ! ( current_user_can( 'publish_posts' ) || 
-		        (get_option( 'pulse_press_allow_users_publish' ) && $user_ID )) ) {
+		        (pulse_press_get_option( 'allow_users_publish' ) && $user_ID )) ) {
 		        	
 			die( '<p>'.__( 'Error: not allowed to post.', 'pulse_press' ).'</p>' );
 		}
@@ -219,7 +219,7 @@ class PulsePressAjax {
 			'post_status'	=> 'publish'
 		) );
 		
-		if( get_option( 'pulse_press_show_anonymous' ) && $_POST['anonymous'] == 1): // anonymous posting 
+		if( pulse_press_get_option( 'show_anonymous' ) && $_POST['anonymous'] == 1): // anonymous posting 
 			add_post_meta($post_id, 'anonymous', 1, true);
 		endif;
 		
@@ -377,7 +377,7 @@ class PulsePressAjax {
 		$visible_posts =  isset($_GET['vp'])? (array)$_GET['vp'] : array();
 		
 		$loaded = strtotime( $_GET['load_time'] ); 
-		$updated_date = get_option( 'pulse_press_votes_updated' );
+		$updated_date = pulse_press_get_option( 'votes_updated' );
 		$updated = strtotime( $updated_date );
 		
 		/* todo: only run the update if there is any new votes */

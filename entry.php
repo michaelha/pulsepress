@@ -4,13 +4,13 @@
  * @subpackage PulsePress
  */
  
- global $post;
+ global $post,$pulse_press_options;
 ?>
-<li id="prologue-<?php the_ID(); ?>" <?php post_class( get_the_author_meta( 'ID' ) ); ?> >
+<li id="pulse_press-<?php the_ID(); ?>" <?php post_class( get_the_author_meta( 'ID' ) ); ?> >
 		<?php if ( !is_page() ) : ?>
 			<?php
 			
-				if( get_option( 'pulse_press_show_anonymous' ) && get_post_custom_values('anonymous') ):
+				if( pulse_press_get_option( 'show_anonymous' ) && get_post_custom_values('anonymous') ):
 					echo '<img class="avatar avatar-48 photo" src="'.get_template_directory_uri().'/i/anonymous.png"  alt="anonymous" />';
 				else:
 				printf(
@@ -24,7 +24,7 @@
 		<?php endif; ?>
 			<h4 class="post-title">
 			<?php if ( !is_page() ) : 
-				if( get_option( 'pulse_press_show_anonymous' ) && get_post_custom_values('anonymous') ):
+				if( pulse_press_get_option( 'show_anonymous' ) && get_post_custom_values('anonymous') ):
 					echo __( 'Anonymous', 'pulse_press' );
 				else:
 					printf(
@@ -47,12 +47,12 @@
 						pulse_press_star_a_post(); 
 					if ( ! is_single() ) : 
 												 
-						 if ( ! post_password_required() && get_option( 'pulse_press_show_reply' )) : ?>
-							<?php echo post_reply_link( array( 'before' => '', 'after' => ' | ',  'reply_text' => __( 'Reply', 'pulse_press' ), 'add_below' => 'prologue' ), get_the_id() ); ?>
+						 if ( ! post_password_required() && pulse_press_get_option( 'show_reply' )) : ?>
+							<?php echo post_reply_link( array( 'before' => '', 'after' => ' | ',  'reply_text' => __( 'Reply', 'pulse_press' ), 'add_below' => 'pulse_press' ), get_the_id() ); ?>
 						<?php endif; ?>
 						<a href="<?php the_permalink(); ?>" class="permalink" title="go to: <?php echo the_title_attribute(); ?>"><?php _e( 'Permalink', 'pulse_press' ); ?></a> 
 					<?php else : 
-						 if ( comments_open() && ! post_password_required() && get_option( 'pulse_press_show_reply' ) ) :
+						 if ( comments_open() && ! post_password_required() && pulse_press_get_option( 'show_reply' ) ) :
 							echo post_reply_link( array( 'before' => '', 'after' => '',  'reply_text' => __( 'Reply', 'pulse_press' ), 'add_below' => 'pusle_press' ), get_the_id() ); ?>
 						<?php endif; ?>
 					<?php endif;?>
@@ -87,9 +87,8 @@
 					endif;
 				endif;
 				
-				if(get_option( 'pulse_press_show_categories') && !in_category('post') ): ?>
-						
-						<span class="categories-list"> Posted in: <?php the_category(', '); ?> </span>
+				if( (pulse_press_get_option( 'show_categories') || is_single()) && !in_category('post') ): ?>
+						<span class="categories-list"> <?php _e("Posted in", 'pulse_press'); ?>: <?php the_category(', '); ?> </span>
 				<?php 
 				endif;
 				
@@ -101,7 +100,7 @@
 		<div class="discussion" style="display: none">
 			<p>
 				<?php pulse_press_discussion_links(); ?>
-				<a href="#" class="show_comments" id="prologue-<?php the_ID(); ?>"><?php _e( 'Toggle Comments', 'pulse_press' ); ?></a>
+				<a href="#" class="show_comments" id="pulse_press-<?php the_ID(); ?>"><?php _e( 'Toggle Comments', 'pulse_press' ); ?></a>
 			</p>
 		</div>
 	<?php endif; ?>
@@ -127,6 +126,9 @@
 						'label_submit' => __( 'Reply', 'pulse_press' ),
 						'id_submit' => 'comment-submit',
 					);
+					if( pulse_press_get_option( 'limit_comments' ) )
+						$pulse_press_comment_args['comment_field'] = '<div class="form"><textarea id="comment" class="expand50-100" name="comment" maxlength="140" cols="45" rows="3"></textarea></div> <label class="post-error" for="comment" id="commenttext_error"></label>';
+						
 					comment_form( $pulse_press_comment_args );
 				?>
 			</div>

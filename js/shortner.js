@@ -58,7 +58,6 @@ jQuery(function($) {
 
 	// lets try to shorten the urls 
 	$("#shorten-url").click(function(){
-		
 		$.pp_words = jQuery("#posttext").val().split(" ");
 		
 		var num_of_words =  $.pp_words.length;

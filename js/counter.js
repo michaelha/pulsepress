@@ -1,16 +1,11 @@
 jQuery(function($) {
 	
-	disable_submit();
-	$("#posttext").keypress(disable_submit).focusout(disable_submit);
-	
 });
-
-function disable_submit(){
+function pulse_press_disable_submit(){
 	// we need sometime out to have a better reading of what is really there. 
 	setTimeout(function() {
 		
-		var remainder = 140 - jQuery("#posttext").val().length;
-		
+		var remainder = 140 - jQuery("#posttext").val().length
 		if(remainder < 0) {
 			 jQuery('#submit').attr('disabled','disabled').addClass('disabled');
 			

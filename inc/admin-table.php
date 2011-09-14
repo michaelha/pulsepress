@@ -1,6 +1,6 @@
 <?php
 
-if(get_option('pulse_press_show_voting') ):
+if(pulse_press_get_option( 'show_voting') ):
 	add_filter( 'manage_posts_columns', 'pulse_press_modify_post_table' );
 	add_filter( 'manage_posts_custom_column', 'pulse_press_modify_post_table_row', 10, 2 );
 	
@@ -10,7 +10,7 @@ endif;
 
 function pulse_press_modify_post_table( $columns ) {
 			
-  		$column_pulse_press_votes = array( 'pulse_press_votes' => ( get_option( 'pulse_press_vote_text' ) == ''  ? __("Votes",'pulse_press') : esc_html( get_option( 'pulse_press_vote_text' ) ) ) );
+  		$column_pulse_press_votes = array( 'pulse_press_votes' => ( pulse_press_get_option( 'vote_text' ) == ''  ? __("Votes",'pulse_press') : esc_html( pulse_press_get_option( 'vote_text' ) ) ) );
 	    $columns = array_slice( $columns, 0, 5, true ) + $column_pulse_press_votes + array_slice( $columns, 5, NULL, true );
     	return $columns;
 	}
@@ -41,7 +41,7 @@ function pulse_press_modify_post_table_row( $column_name, $post_id ) {
     
     
         	echo "sum: ".$sum;
-        	if( get_option('pulse_press_voting_type') == 'two' )
+        	if( pulse_press_get_option( 'voting_type') == 'two' )
         	echo " (+): ".$positive_votes." (-): ".$negative_votes;
        	
         break;
@@ -73,7 +73,7 @@ function pulse_press_modify_user_table_row( $test, $column_name,$user_id ) {
  	}
  	
  	$back = "voted:".$total_num_votes;
- 	if( get_option('pulse_press_voting_type') == 'two' )
+ 	if( pulse_press_get_option( 'voting_type') == 'two' )
         	$back .=" (+): ".$positive_votes." (-): ".$negative_votes;
  	return  $back;
     
