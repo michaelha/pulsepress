@@ -2,7 +2,7 @@
 
 function pulse_press_install() {
 	
-	global $wpdb;
+	global $wpdb, $pulse_press_options;
 	if(PULSEPRESS_DB_VERSION > pulse_press_get_option( 'db_version') ):
 		
 		$pulse_press_db_table = PULSEPRESS_DB_TABLE;
@@ -31,6 +31,11 @@ function pulse_press_install() {
 		pulse_press_update_settings_to_new_settings();
 		
 	endif;
+	if(empty($pulse_press_options))
+	{
+		echo "hey";
+	
+	}
 	// this is just for testing shoule be take out later
 	
 }
@@ -380,15 +385,15 @@ function pulse_press_update_settings_to_new_settings() {
 			'prompt_text',
 			'votes_updated', 
 		);
-	if( !is_array( $pulse_press_options) ):
+	// if( !is_array( $pulse_press_options) ):
 	foreach($options_name as $option):
 		$pulse_press_options[$option] = get_option("pulse_press_".$option);
-		delete_option("pulse_press_".$option); // delete the options as well... next step
+		// delete_option("pulse_press_".$option); // delete the options as well... next step
 	endforeach;
 	
 	var_dump($pulse_press_options);
 	update_option('pulse_press_options',$pulse_press_options);
-	endif;
+	// endif;
 	
 
 }
