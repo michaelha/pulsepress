@@ -672,7 +672,7 @@ h2 a.rss:hover {
 	width: 192px;
 	position: relative;
 	top: 32px;
-	padding: 6px 0 18px 12px;
+	padding: 6px 12px 18px 0;
 }
 #sidebar h2 {
 	margin-top: 5px;
@@ -947,7 +947,7 @@ a.hidemessage {
 .ac_over {
 	cursor: pointer;
 	color: #fff;
-	background: #EF4832;
+	background: #E04A16;
 }
 .post-error {
 	width: 608px;
@@ -1130,10 +1130,10 @@ li.newcomment {
  ----------------------------------- */
  
 a, a:visited, h1 a:visited, a:active, #main .selected .actions a, #main .selected .actions a:link, #main .selected .actions a:visited, #help dt {
-	color: #EF4832;
+	color: #E04A16;
 }
 a:hover, h1 a:hover, #main .selected .actions a:hover, #main .selected .actions a:active {
-	color: #9DAE24;
+	color: #221F1D;
 }
 a:hover {
 	border-bottom-color: #bbb;
@@ -1390,7 +1390,6 @@ h4, h5, h6 {
 	font-size: 1.6em;
 }
 #main button, #main input[type="submit"], #postbox input[type="submit"], #postbox button {
-	line-height: 27px;
 	font-size: 13px;
 	font-weight: bold;
 }
@@ -1721,9 +1720,9 @@ div.menu li {
 }
 #main .vote-down{ background-position: 0 -34px;}
 #main .vote .vote-up:hover,
-#main .vote .vote-up-set { background: #EF4832 url('i/arrows.gif') no-repeat 0 0px; }
+#main .vote .vote-up-set { background: #E04A16 url('i/arrows.gif') no-repeat 0 0px; }
 #main .vote .vote-down:hover,
-#main .vote .vote-down-set{ background: #EF4832 url('i/arrows.gif') no-repeat 0 -34px; }
+#main .vote .vote-down-set{ background: #E04A16 url('i/arrows.gif') no-repeat 0 -34px; }
 
 /* 
  * =Favorite
@@ -1786,14 +1785,14 @@ div.menu li {
 #wp-calendar tbody td a {
 	display: block;
 	color:#FFF;
-	background: #EF4832;
+	background: #E04A16;
 	padding: 1px 0 1px;
 	-moz-border-radius: 2px; /* FF1+ */
   -webkit-border-radius: 2px; /* Saf3-4 */
           border-radius: 2px; /* Opera 10.5, IE 9, Saf5, Chrome */
 }
 #wp-calendar tbody td a:hover{
-	background: #9DAE24;
+	background: #221F1D;
 }
 #wp-calendar tbody .pad {
 	background: none;

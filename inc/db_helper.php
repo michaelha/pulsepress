@@ -376,7 +376,8 @@ function pulse_press_update_settings_to_new_settings() {
 			'db_version',
 			'show_titles',
 			'prompt_text',
-			'votes_updated', 
+			'votes_updated',
+			'limit_comments',
 		);
 	// if( !is_array( $pulse_press_options) ):
 	foreach($options_name as $option):

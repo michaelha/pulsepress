@@ -21,43 +21,43 @@
 		</h2>
 		<ul id="postlist">
 		<?php 
-		
+		$display_regular_posts = true;
 		if(isset($_GET['starred'])):
 			$paged = pulse_press_get_page_number();	
 			
 			$starred = pulse_press_get_user_starred_post_meta();
 			if( $starred ):
 				query_posts( array( 'post__in'=>$starred, 'paged'=>$paged, 'ignore_sticky_posts' => 1 ) );
-			else: ?>
+			else: 
+				$display_regular_posts = false;
+			?>
 				<div class="started-alert"><?php _e( "Sorry, you don't have any starred posts.",'pulse_press'); ?></div>
 			<?php
 			endif;
 		endif; 
 		
 		
-		?>
-		
-		<?php if ( have_posts() ) : ?>
-		
-			<?php while ( have_posts() ) : the_post(); ?>
-	    		<?php pulse_press_load_entry() // loads entry.php ?>
-			<?php endwhile; ?>
-
-		<?php else : ?>
-			<li class="no-posts">
-		    	<h3><?php _e( 'No posts yet!', 'pulse_press' ); ?></h3>
-			</li>
+		if($display_regular_posts):
+			if ( have_posts() ) : 
+				while ( have_posts() ) : the_post(); 
+		    		pulse_press_load_entry(); // loads entry.php 
+				endwhile;
+				
+			 else : ?>
+				<li class="no-posts">
+			    	<h3><?php _e( 'No posts yet!', 'pulse_press' ); ?></h3>
+				</li>
+			<?php endif; ?>
+			</ul>
 			
-		<?php endif; ?>
-		</ul>
-		
-		<?php if ( $wp_query->max_num_pages > 1 ) : ?>
-		<div class="navigation">
-			<p class="nav-older"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'pulse_press' ) ); ?></p>
-			<p class="nav-newer"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'pulse_press' ) ); ?></p>
-		</div>
-		<?php
+			<?php if ( $wp_query->max_num_pages > 1 ) : ?>
+			<div class="navigation">
+				<p class="nav-older"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'pulse_press' ) ); ?></p>
+				<p class="nav-newer"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'pulse_press' ) ); ?></p>
+			</div>
+			<?php
 			endif;
+		endif;
 		?>
 
 		

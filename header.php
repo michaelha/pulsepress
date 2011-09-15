@@ -11,8 +11,8 @@
 <!--[if IE 9 ]>    <html <?php language_attributes(); ?> class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html <?php language_attributes(); ?> class="no-js"> <!--<![endif]-->
 <head>
-	<meta charset="<?php bloginfo( 'charset' ); ?>"> 
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" > 
+	<meta charset="<?php bloginfo( 'charset' ); ?>" /> 
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" /> 
 	<title>
 	<?php
 		/*
@@ -39,9 +39,9 @@
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 	<link rel="stylesheet" href="<?php bloginfo( 'stylesheet_url' ); ?>" type="text/css" media="screen" />
 	
-	<meta name="HandheldFriendly" content="True">
+	<meta name="HandheldFriendly" content="True" />
 	<meta name="MobileOptimized" content="320"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<?php wp_head(); ?>
 

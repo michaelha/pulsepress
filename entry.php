@@ -58,7 +58,7 @@
 					<?php endif;?>
 					
 					<?php if ( current_user_can( 'edit_post', get_the_id() ) ) : ?>
-						| <a href="<?php echo ( get_edit_post_link( get_the_id() ) ); ?>" class="edit-post-link" title="edit post" rel="<?php the_ID(); ?>"><?php _e( 'Edit', 'pulse_press' ); ?></a>
+						| <a href="<?php echo ( get_edit_post_link( get_the_id() ) ); ?>" class="edit-post-link" title="edit post" data-postid="<?php the_ID(); ?>"><?php _e( 'Edit', 'pulse_press' ); ?></a>
 					<?php endif; ?> 
 					
 					
@@ -100,7 +100,7 @@
 		<div class="discussion" style="display: none">
 			<p>
 				<?php pulse_press_discussion_links(); ?>
-				<a href="#" class="show_comments" id="pulse_press-<?php the_ID(); ?>"><?php _e( 'Toggle Comments', 'pulse_press' ); ?></a>
+				<a href="#" class="show_comments" id="pulse_press-toggle-<?php the_ID(); ?>"><?php _e( 'Toggle Comments', 'pulse_press' ); ?></a>
 			</p>
 		</div>
 	<?php endif; ?>

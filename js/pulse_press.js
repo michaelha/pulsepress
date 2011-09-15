@@ -208,7 +208,7 @@ jQuery(function($) {
 						insertCommentWidget(comment.widgetHtml);
 					}
 					if (comment.html != '') {
-						var thisParentId = 'pulse_press-'+comment.postID;
+						var thisParentId = 'pulse_press-toggle-'+comment.postID;
 						insertCommentInline(thisParentId, comment.commentParent, comment.html, showNotification);
 					}
 				});
@@ -905,7 +905,7 @@ jQuery(function($) {
 					thisPostEditArea = $(element).children('div.editarea').eq(0);
 					jQuery(element).find('a.edit-post-link:first').click(
 						function(e) {
-							var postId = this.rel;
+							var postId = $(this).data('postid');
 							inlineEditPost(postId, element);
 							return false;
 						});

@@ -117,7 +117,7 @@ class PulsePressJS {
 		$page_options['is_user_logged_in'] = (int)is_user_logged_in();
 		$page_options['login_url'] = wp_login_url( ( ( !empty($_SERVER['HTTPS'] ) && strtolower($_SERVER['HTTPS']) == 'on' ) ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
 ?>
-	<script type="text/javascript" charset="<?php bloginfo( 'charset' ); ?>">
+	<script type="text/javascript">
 		// <![CDATA[
 		// PulsePress Configuration
 		// TODO: add these int the localize block

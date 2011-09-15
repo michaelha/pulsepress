@@ -6,6 +6,7 @@
 ?>
 <?php if ( !pulse_press_get_hide_sidebar() ) : ?>
 	<div id="sidebar">
+		<?php if(pulse_press_get_option( 'show_voting' ) || pulse_press_get_option( 'show_unpopular' ) || pulse_press_get_option( 'show_most_voted_on' ) ): ?>
 		<ul>
 			<li>
 				<ul>
@@ -25,7 +26,7 @@
 				</ul>
 			</li>
 		</ul>
-	
+		<?php endif; ?>
 		<ul>
 			<?php 
 			if ( !function_exists( 'dynamic_sidebar' ) || !dynamic_sidebar() ) {
