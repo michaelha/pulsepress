@@ -34,8 +34,13 @@ if ( function_exists( 'register_sidebar' ) ) {
 		'name' => __( 'Sidebar', 'pulse_press' ),
 	) );
 }
-delete_option( 'pulse_press_options' );
+// delete_option( 'pulse_press_options' );
+
 $pulse_press_options = get_option( 'pulse_press_options' );
+
+if(empty($pulse_press_options))
+	$pulse_press_options =	pulse_press_update_settings_to_new_settings();
+
 // Content Filters
 function pulse_press_get_at_name_map() {
 	global $wpdb;
