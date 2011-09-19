@@ -2,9 +2,9 @@
 
 function pulse_press_install() {
 	
-	global $wpdb;
+	global $wpdb, $pulse_press_options;
 	if(PULSEPRESS_DB_VERSION > pulse_press_get_option( 'db_version') ):
-		
+		$pulse_press_options = pulse_press_update_settings_to_new_settings();
 		$pulse_press_db_table = PULSEPRESS_DB_TABLE;
 				
 		$sql = "CREATE TABLE " . $pulse_press_db_table . " (
