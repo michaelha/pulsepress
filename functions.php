@@ -14,6 +14,11 @@ define( 'PULSEPRESS_DB_TABLE', $wpdb->prefix . "pulse_press_user_post_meta");
 
 if ( !class_exists( 'Services_JSON' ) ) require_once( PULSEPRESS_INC_PATH . '/JSON.php' );
 
+$pulse_press_options = get_option( 'pulse_press_options' );
+
+if(empty($pulse_press_options))
+	$pulse_press_options =	pulse_press_update_settings_to_new_settings();
+
 require_once( PULSEPRESS_INC_PATH . '/compat.php' );
 require_once( PULSEPRESS_INC_PATH . '/pulse_press.php' );
 require_once( PULSEPRESS_INC_PATH . '/js.php' );
@@ -36,10 +41,7 @@ if ( function_exists( 'register_sidebar' ) ) {
 }
 // delete_option( 'pulse_press_options' );
 
-$pulse_press_options = get_option( 'pulse_press_options' );
 
-if(empty($pulse_press_options))
-	$pulse_press_options =	pulse_press_update_settings_to_new_settings();
 
 // Content Filters
 function pulse_press_get_at_name_map() {
