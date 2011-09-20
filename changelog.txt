@@ -1,5 +1,9 @@
 PulsePress Theme - Changes
 ---------------------------
+1.3.6 September 2011
+* bug fix: clicking popular on pages return back the page not 404 error
+* bug fix: count still maintained with chrome when using backspace
+
 1.3.5 September 2011
 - bug fix: keyboard shortcuts work on the any page except for single pages
 - bug fix: votes are counted properly, as integers not string.

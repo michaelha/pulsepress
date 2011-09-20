@@ -813,7 +813,7 @@ $pulse_press_main_loop = false;
 function pulsepress_main_loop_test($query) {
   global $wp_the_query, $pulse_press_main_loop;
   
-  if ($query === $wp_the_query) {
+  if ($query === $wp_the_query && !is_page()) {
   	$pulse_press_main_loop = true;
   }else{
   	$pulse_press_main_loop = false;

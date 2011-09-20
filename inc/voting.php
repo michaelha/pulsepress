@@ -143,7 +143,6 @@ if(!isset($_GET['do_ajax']))
 	
 
 
-
 if(isset($_GET['popular']) || isset($_GET['unpopular']) || isset($_GET['most-voted'])):
 
 	

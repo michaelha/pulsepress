@@ -11,11 +11,11 @@ jQuery(function($) {
 	// counter.js 
 	if(pulse_presstxt.show_twitter == 1){
 		pulse_press_disable_submit();
-		$("#posttext").keypress(pulse_press_disable_submit).focusout(pulse_press_disable_submit);
+		$("#posttext").keydown(pulse_press_disable_submit).focusout(pulse_press_disable_submit);
 	}
 	if(pulse_presstxt.limit_comments == 1) {
 		
-		$("#comment").live('keypress',function(e){
+		$("#comment").live('keydown',function(e){
 			var el = $(this);
 			var span =  $(this).siblings('.limit_comments');
 			
