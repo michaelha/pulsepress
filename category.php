@@ -24,20 +24,17 @@ get_header(); ?>
 		</h2>
 		<ul id="postlist">
 		<?php 
-		$category = get_the_category();
-		if(!empty($category)):
-			// get the sticky post in the category, order by title - ascending
-			$sticky_posts = get_option('sticky_posts');
-			if( !empty($sticky_posts) ):
-				query_posts(array( 'post__in' => $sticky_posts, 'orderby' => 'title', 'post_date' => 'DESC' , 'cat' => ''.$category[0]->cat_ID.'' ));
-			endif;
+		
+		$sticky_posts = get_option('sticky_posts');
+		if( !empty($sticky_posts) ):
+			query_posts(array( 'post__in' => $sticky_posts, 'category_name'=> $wp_query->query_vars['category_name']));
 		endif;
+		//endif;
 		if ( have_posts() && !empty($sticky_posts) ) : 
-		?>
-				
-			<?php while ( have_posts() ) : the_post(); ?>
-	    		<?php pulse_press_load_entry() // loads entry.php ?>
-			<?php endwhile; 
+			 while ( have_posts() ) : the_post();
+				if( in_category( $wp_query->query_vars['category_name'] ) )
+	    		 pulse_press_load_entry(); // loads entry.php
+			endwhile; 
 		endif;
 		 wp_reset_query();
 		if ( have_posts() ) : 

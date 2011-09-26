@@ -36,7 +36,8 @@ function pulse_press_user_can_vote() {
 
 function pulse_press_show_comment_form() {
 	global $post, $form_visible;
-
+	if(!is_object($post))
+		return false;
 	$show = ( !isset( $form_visible ) || !$form_visible ) && 'open' == $post->comment_status;
 
 	if ( $show )
