@@ -88,7 +88,7 @@ function pulse_press_voting_init($redirect=true)
 	if( isset($_GET['nononc']) &&  wp_verify_nonce( $_GET['nononc'], 'vote') && in_array( $_GET['action'], array("vote","votedown") ) ):
 		$post_id = (int)$_GET['pid'];
 		
-		switch( pulse_press_get_option( 'voting_type') ) {
+		switch( pulse_press_get_option( 'voting_type' ) ) {
 			default:
 			case "one":
 				if( pulse_press_is_vote($post_id) == null ):
@@ -145,26 +145,25 @@ if(!isset($_GET['do_ajax']))
 
 if(isset($_GET['popular']) || isset($_GET['unpopular']) || isset($_GET['most-voted'])):
 
-	
 	add_filter('posts_groupby', 	'pulse_press_popular_groupby');
 	add_filter('posts_join_paged', 	'pulse_press_popular_join_paged');
-	add_action('pre_get_posts',		'pulsepress_main_loop_test');
+	add_action('pre_get_posts',		'pulse_press_main_loop_test');
 	
 endif;
 
 if(isset($_GET['popular'])):
 	add_filter('posts_where_paged', 'pulse_press_popular_where_paged');
-	add_filter('posts_orderby', 	'pusle_press_popular_orderby');
+	add_filter('posts_orderby', 	'pulse_press_popular_orderby');
 endif;
 
 if(isset($_GET['unpopular'])):
 	add_filter('posts_where_paged', 'pulse_press_popular_where_paged');
-	add_filter('posts_orderby', 	'pusle_press_unpopular_orderby');
+	add_filter('posts_orderby', 	'pulse_press_unpopular_orderby');
 endif;
 
 if(isset($_GET['most-voted'])):
 	add_filter('posts_where_paged', 'pulse_press_most_voted_where_paged');
-	add_filter('posts_orderby', 	'pusle_press_popular_orderby');	
+	add_filter('posts_orderby', 	'pulse_press_popular_orderby');	
 endif;
 
 /** 
@@ -205,7 +204,7 @@ function pulse_press_popular_join_paged( $join ) {
 	
 	return $join;
 }
-function pusle_press_popular_orderby( $orderby ) {
+function pulse_press_popular_orderby( $orderby ) {
 	global $wpdb, $pulse_press_main_loop;
 	
   	if($pulse_press_main_loop)
@@ -215,7 +214,7 @@ function pusle_press_popular_orderby( $orderby ) {
 
 }
 
-function pusle_press_unpopular_orderby( $orderby ) {
+function pulse_press_unpopular_orderby( $orderby ) {
 	global $wpdb, $pulse_press_main_loop;
 	
   	if($pulse_press_main_loop)

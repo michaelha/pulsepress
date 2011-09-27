@@ -53,7 +53,7 @@
 						<a href="<?php the_permalink(); ?>" class="permalink" title="go to: <?php echo the_title_attribute(); ?>"><?php _e( 'Permalink', 'pulse_press' ); ?></a> 
 					<?php else : 
 						 if ( comments_open() && ! post_password_required() && pulse_press_get_option( 'show_reply' ) ) :
-							echo post_reply_link( array( 'before' => '', 'after' => '',  'reply_text' => __( 'Reply', 'pulse_press' ), 'add_below' => 'pusle_press' ), get_the_id() ); ?>
+							echo post_reply_link( array( 'before' => '', 'after' => '',  'reply_text' => __( 'Reply', 'pulse_press' ), 'add_below' => 'pulse_press' ), get_the_id() ); ?>
 						<?php endif; ?>
 					<?php endif;?>
 					

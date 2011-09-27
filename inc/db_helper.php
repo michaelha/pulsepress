@@ -54,6 +54,8 @@ function pulse_press_delete_tables_and_options()
 	delete_option( 'pulse_press_show_titles' );
 	delete_option( 'pulse_press_prompt_text' );
 	delete_option( 'pulse_press_votes_updated' );
+	
+	delete_option( 'pulse_press_options'); // important to drop this
 
 	$pulse_press_db_table = PULSEPRESS_DB_TABLE;
    	$wpdb->query("DROP TABLE IF EXISTS $pulse_press_db_table");

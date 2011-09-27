@@ -71,9 +71,9 @@ function pulse_press_get_at_name_map() {
 	return $name_map;
 }
 
-add_action( 'init', 'pusle_press_mention_taxonomy', 0 ); // initialize the taxonomy
+add_action( 'init', 'pulse_press_mention_taxonomy', 0 ); // initialize the taxonomy
 
-function pusle_press_mention_taxonomy() {
+function pulse_press_mention_taxonomy() {
 	register_taxonomy( 'mentions', 'post', array( 'show_ui' => false ) );
 	pulse_press_flush_rewrites();
 }
@@ -810,7 +810,7 @@ add_theme_support( 'automatic-feed-links' );
 
 // only set this on the main loop
 $pulse_press_main_loop = false;
-function pulsepress_main_loop_test($query) {
+function pulse_press_main_loop_test($query) {
   global $wp_the_query, $pulse_press_main_loop;
   
   if ($query === $wp_the_query && !is_page()) {
