@@ -24,27 +24,19 @@ class PulsePressJS {
 		global $wp_locale;
 
 		wp_enqueue_script( 'utils' );
-		
 		wp_enqueue_script( 'comment-reply' );
 
 		if ( is_user_logged_in() ) {
 			wp_enqueue_script( 'suggest' );
 			wp_enqueue_script( 'jeditable', PULSEPRESS_JS_URL . '/jquery.jeditable.js', array( 'jquery' )  );
 			
-			if(pulse_press_get_option( 'show_twitter' ) && is_page() && is_user_logged_in() ) {
-				
-				
-				if(pulse_press_get_option( 'bitly_user') && pulse_press_get_option( 'bitly_api')) {
-					wp_enqueue_script( 'pp_shortner',PULSEPRESS_JS_URL . '/shortner.js', array( 'jquery','pulse_pressjs','counter' ) );
-					wp_localize_script( 'pp_shortner', 'pp_shortner', array(
-	  				'user' => pulse_press_display_option( pulse_press_get_option( 'bitly_user'),'',false),
-                	'api' => pulse_press_display_option( pulse_press_get_option( 'bitly_api'),'',false)
-					));	
-				}
-			}
-			//bust the cache here
-			
-			
+			if(pulse_press_get_option( 'show_twitter' ) && pulse_press_get_option( 'bitly_user') && pulse_press_get_option( 'bitly_api')) {
+				wp_enqueue_script( 'pp_shortner',PULSEPRESS_JS_URL . '/shortner.js', array( 'jquery','pulse_pressjs' ) );
+				wp_localize_script( 'pp_shortner', 'pp_shortner', array(
+  				'user' => pulse_press_display_option( pulse_press_get_option( 'bitly_user'),'',false),
+            	'api' => pulse_press_display_option( pulse_press_get_option( 'bitly_api'),'',false)
+				));	
+			} //bust the cache here
 		}
 		if(!is_page()){
 			wp_enqueue_script( 'pulse_pressjs', PULSEPRESS_JS_URL . '/pulse_press.min.js', array( 'jquery', 'utils' ), filemtime(PULSEPRESS_JS_PATH . '/pulse_press.min.js' ) );

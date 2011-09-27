@@ -1,5 +1,8 @@
 PulsePress Theme - Changes
 ---------------------------
+1.3.8 
+* Bug fix: url shortener stopped working.
+ 
 1.3.7 September 2011
 * Updates to category archive page so that is displays the sticky items properly
 
