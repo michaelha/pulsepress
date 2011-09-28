@@ -173,18 +173,17 @@ class PulsePressOptions {
 						<td>
 							<input id="pulse_press_show_twitter" type="checkbox" name="pulse_press_show_twitter" <?php  checked($pulse_press_options['show_twitter']); ?> value="1" />
 							<label for="pulse_press_show_twitter"><?php _e( 'Twitter Style Interface', 'pulse_press' ); ?></label><br />
-							<span><em><?php _e( 'Post will be limited to 140 characters', 'pulse_press' ); ?></em></span><br />
+							<span><em><?php _e( 'Post will be limited to 140 characters.', 'pulse_press' ); ?></em></span><br />
 								<?php if(get_option('embed_autourls')): ?>
-								<span><em><?php _e( 'Currently some url will be converted into embeddable content, disable Auto-embeds under <a href="'.admin_url('options-media.php').'">Media Settings</a> to disable that feature. ', 'pulse_press' ); ?></em></span><br />
+								<span><em><?php _e( 'Currently some urls will be converted into embeddable content, disable Auto-embeds under <a href="'.admin_url('options-media.php').'">Media Settings</a> to disable that feature. ', 'pulse_press' ); ?></em></span><br />
 								<?php else: ?>
 								<span><em> <?php _e( 'Currently Auto-embeds are disabled. To enable them visit <a href="'.admin_url('options-media.php').'">Media Settings</a>. ', 'pulse_press' ); ?></em></span>
 								<?php endif; ?>
 								
 							</ul>
 							<br />
-							<br />
 							<input id="pulse_press_limit_comments" type="checkbox" name="pulse_press_limit_comments" <?php  checked($pulse_press_options['limit_comments']); ?> value="1" />
-							<label for="pulse_press_limit_comments"><?php _e( 'Limit comments to 140 characters', 'pulse_press' ); ?></label><br />
+							<label for="pulse_press_limit_comments"><?php _e( 'Limit comments to 140 characters.', 'pulse_press' ); ?></label><br />
 							
 						</td>
 					</tr>

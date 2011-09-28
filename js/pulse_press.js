@@ -208,7 +208,7 @@ jQuery(function($) {
 						insertCommentWidget(comment.widgetHtml);
 					}
 					if (comment.html != '') {
-						var thisParentId = 'pulse_press-toggle-'+comment.postID;
+						var thisParentId = 'pulse_press-'+comment.postID;
 						insertCommentInline(thisParentId, comment.commentParent, comment.html, showNotification);
 					}
 				});
