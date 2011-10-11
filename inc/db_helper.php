@@ -24,7 +24,7 @@ function pulse_press_install() {
 		pulse_press_update_option( 'db_version', PULSEPRESS_DB_VERSION);
 		
 		$date = pulse_press_get_gmt_time();
-		pulse_press_update_option( 'pulse_press_votes_updated', $date);
+		pulse_press_update_option( 'votes_updated', $date);
 		
 		pulse_press_update_custom_field_from_table();
 		
@@ -339,7 +339,7 @@ function pulse_press_get_last_post_date()
 
 /* Options */
 /**
- * update_settings_to_new_settings function.
+ * pulse_press_update_settings_to_new_settings function.
  *  useful for backwards compatibility
  * @access public
  * @return void
@@ -347,6 +347,8 @@ function pulse_press_get_last_post_date()
 function pulse_press_update_settings_to_new_settings() {
 	global $pulse_press_options;
 	
+	
+	if(pulse_press_get_option( 'db_version')): // for backwards compatibility
 	$options_name = array(
 			'allow_users_publish',
 			'show_categories',
@@ -386,8 +388,44 @@ function pulse_press_update_settings_to_new_settings() {
 		$pulse_press_options[$option] = get_option("pulse_press_".$option);
 		delete_option("pulse_press_".$option); // delete the options as well... next step
 	endforeach;
-	
+	else:
+		$pulse_press_options = array(
+			'allow_users_publish'  	=> 0,
+			'show_categories'  		=> 0,
+			'hide_threads'  		=> 0,
+			'show_reply' 			=> 0,
+			'show_voting' 			=> 0,
+			'voting_type'  			=> 'one',
+			'show_unpopular'  		=> 0,
+			'show_most_voted_on'  	=> 0,
+			'show_vote_breakdown'  	=> 0,
+			'show_anonymous'  		=> 0,
+			'show_fav'  			=> 0,
+			'show_tagging'  		=> 0,
+			'allow_fileupload'  	=> 0,
+			'show_twitter' 			=> 0,
+			'bitly_user' 			=> '',
+			'bitly_api' 			=> '',
+			'hide_sidebar' 			=> 0,
+			'prompt_text' 			=> '',
+			'vote_text'	 			=> '',
+			'vote_up_text' 			=> '',
+			'vote_down_text' 		=> '',
+			'popular_text'  		=> '',
+			'unpopular_text' 		=> '',
+			'limit_comments' 		=> 0,
+			'most_voted_on_text'	=> '',
+			'star_text' 			=> '',
+			'remove_frontend_post' 	=> '',
+			'rewrites_flushed'		=> false,
+			'db_version'			=> 6,
+			'prompt_text' 			=> '',
+			'votes_updated' 		=> ''
+		);
+
+	endif;
 	update_option('pulse_press_options', $pulse_press_options );
+	
 	// endif;
 	return $pulse_press_options;
 
