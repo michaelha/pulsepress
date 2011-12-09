@@ -1382,7 +1382,10 @@ function newNotification(message) {
 }
 function pulse_press_disable_submit(){
 	// we need sometime out to have a better reading of what is really there. 
+	if(jQuery("#posttext").val()){
 	setTimeout(function() {
+		
+		
 		
 		var remainder = 140 - jQuery("#posttext").val().length
 		if(remainder < 0) {
@@ -1393,5 +1396,7 @@ function pulse_press_disable_submit(){
 		}
 		// update the counter
 		jQuery('#post-count').html(remainder);
+		
 	},50);
+	}
 }

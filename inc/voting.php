@@ -140,7 +140,6 @@ function pulse_press_voting_init($redirect=true)
 }
 if(!isset($_GET['do_ajax']))
 	add_action('init','pulse_press_voting_init');
-	
 
 
 if(isset($_GET['popular']) || isset($_GET['unpopular']) || isset($_GET['most-voted'])):
@@ -208,8 +207,8 @@ function pulse_press_popular_orderby( $orderby ) {
 	global $wpdb, $pulse_press_main_loop;
 	
   	if($pulse_press_main_loop)
-  		$orderby = " CAST($wpdb->postmeta.".meta_value." AS SIGNED) DESC, ".$wpdb->posts.".post_date DESC";
-	
+  		$orderby = " CAST(".$wpdb->postmeta.".meta_value AS SIGNED) DESC, ".$wpdb->posts.".post_date DESC";
+
 	return $orderby;
 
 }
@@ -218,8 +217,7 @@ function pulse_press_unpopular_orderby( $orderby ) {
 	global $wpdb, $pulse_press_main_loop;
 	
   	if($pulse_press_main_loop)
-  		$orderby = " CAST($wpdb->postmeta.".meta_value." AS SIGNED) ASC, ".$wpdb->posts.".post_date DESC";
-	
+  		$orderby = " CAST(".$wpdb->postmeta.".meta_value AS SIGNED) ASC, ".$wpdb->posts.".post_date DESC";
 	return $orderby;
 
 }

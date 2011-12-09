@@ -808,6 +808,7 @@ add_custom_background("pulse_press_background_color");
 // Feed me
 add_theme_support( 'automatic-feed-links' );
 
+// will need to be changed for 3.3 and is is_main_query
 // only set this on the main loop
 $pulse_press_main_loop = false;
 function pulse_press_main_loop_test($query) {
@@ -818,6 +819,10 @@ function pulse_press_main_loop_test($query) {
   }else{
   	$pulse_press_main_loop = false;
   }
+  if($pulse_press_main_loop):
+  	 $query->set( 'ignore_sticky_posts', true );
+  endif;
+ 
   
 }
 

@@ -76,9 +76,9 @@ class PulsePressJS {
 			'show_twitter' => pulse_press_get_option('show_twitter')
 		));
 			
-		wp_enqueue_script( 'scrollit', PULSEPRESS_JS_URL .'/jquery.scrollTo-min.js', array( 'jquery' )  );
+		wp_enqueue_script( 'pulsepress_scrollit', PULSEPRESS_JS_URL .'/jquery.scrollTo-min.js', array( 'jquery' )  );
 
-		wp_enqueue_script( 'wp-locale', PULSEPRESS_JS_URL . '/wp-locale.js', array(), 12 );
+		wp_enqueue_script( 'pulsepress_wp-locale', PULSEPRESS_JS_URL . '/wp-locale.js', array(), 12 );
 
 		// the localization functinality can't handle objects, that's why
 		// we are using poor man's hash maps here -- using prefixes of the variable names
@@ -90,7 +90,7 @@ class PulsePressJS {
 		foreach( $wp_locale->weekday as $key => $day ) $wp_locale_txt["weekday_$key"] = $day;
 		$i = 1;
 		foreach( $wp_locale->weekday_abbrev as $key => $day ) $wp_locale_txt["weekdayabbrev_".sprintf( '%02d', $i++)] = $day;
-		wp_localize_script( 'wp-locale', 'wp_locale_txt', $wp_locale_txt);
+		wp_localize_script( 'pulsepress_wp-locale', 'wp_locale_txt', $wp_locale_txt);
 	}
 	
 	function print_options() {
