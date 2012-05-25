@@ -27,8 +27,19 @@ class PulsePressJS {
 		wp_enqueue_script( 'comment-reply' );
 
 		if ( is_user_logged_in() ) {
+			$users = get_users();
+			
+				
+			foreach($users as $person):
+				$people[] = "@".$person->user_login;
+			endforeach;
+			
+			
 			wp_enqueue_script( 'suggest' );
-			wp_enqueue_script( 'jeditable', PULSEPRESS_JS_URL . '/jquery.jeditable.js', array( 'jquery' )  );
+			wp_enqueue_script( 'jeditable', PULSEPRESS_JS_URL . '/jquery.jeditable.min.js', array( 'jquery' )  );
+			wp_enqueue_script( 'inner-autocomplete', PULSEPRESS_JS_URL . '/inner-autocomplete.js', array( 'jquery' )  );
+			wp_enqueue_script( 'mention', PULSEPRESS_JS_URL . '/mention.js', array( 'jquery', 'inner-autocomplete' )  );
+			wp_localize_script( 'mention', 'PP_users', $people);
 			
 			if(pulse_press_get_option( 'show_twitter' ) && pulse_press_get_option( 'bitly_user') && pulse_press_get_option( 'bitly_api')) {
 				wp_enqueue_script( 'pp_shortner',PULSEPRESS_JS_URL . '/shortner.js', array( 'jquery','pulse_pressjs' ) );

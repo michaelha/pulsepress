@@ -1,5 +1,8 @@
 PulsePress Theme - Changes
 ---------------------------
+1.3.13
+- better mention auto complete. 
+
 1.3.12
 - fixed getting rid of the constant meta_value found in inc\voting.php 
 - js error where some js stops working when you have Twitter Style enabled but don't have remove the frontend posting form.
