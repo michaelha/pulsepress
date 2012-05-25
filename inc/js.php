@@ -31,7 +31,8 @@ class PulsePressJS {
 			
 				
 			foreach($users as $person):
-				$people[] = "@".$person->user_login;
+				// var_dump($person);
+				$people[] = array( "@".$person->user_login, $person->display_name, get_avatar( $person->ID, 16 ) );
 			endforeach;
 			
 			

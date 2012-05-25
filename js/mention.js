@@ -13,13 +13,21 @@ var PP_mention ={
                 var words = [];
                 PP_user_lenght = PP_users.length
                 for( var i=0; i<PP_user_lenght; i++ ){
-                    if( PP_users[i].toLowerCase().indexOf(text.toLowerCase()) == 0 ) words.push(PP_users[i]);
+                	console.log(PP_users[i]);
+                    if( PP_users[i][0].toLowerCase().indexOf(text.toLowerCase()) == 0 ) {
+                    
+                    words.push( PP_users[i][0] +" <em class='better-id'>"+PP_users[i][2]+ " "+PP_users[i][1]+"</em>" );
+                    }
                 }
+                console.log(words);
                 cb(words);                              
             },
             selected: function(text, data)
             {
-                return text;
+            	
+            	mention = text.split(" ");
+            	console.log(mention);
+                return mention[0];
             }
         }
     });
